@@ -227,6 +227,13 @@
         return result;
     }
 
+    function noEnter(e) {
+        let keycode = e.which || e.keyCode; // Modern browsers support e.which
+        if (keycode === 13) { // 13 is the Enter key
+            e.preventDefault(); // Prevent form submission
+        }
+    }
+
     jQuery(document).ready(function($) {
         let captchaSolved = false;
 
@@ -234,17 +241,7 @@
         const $send = $("#Send");
         const $hcSend = $(".captcha-send");
 
-        function noEnter(e) {
-            let keycode = e.which || e.keyCode; // Modern browsers support e.which
-            if (keycode === 13) { // 13 is the Enter key
-                e.preventDefault(); // Prevent form submission
-            }
-        }
-
-        // Apply the noEnter function to all input elements
-        $('input').on('keypress', noEnter);
-
-            // Function to handle showing/hiding captcha and submit button based on consent
+        // Function to handle showing/hiding captcha and submit button based on consent
         function toggleCaptchaAndButton() {
             if ($("#Consent").is(":checked")) {
                 $(".captcha-send").show(); // Show captcha
@@ -278,28 +275,43 @@
             return false;
         });
 
-        $send.click(function() {
+        $send.click(function(event) {
+            event.preventDefault(); // Prevent the form from submitting via the browser
+
             if (!captchaSolved) {
                 alert("Please complete the captcha challenge.");
-                return; // Do not proceed with form submission
+                return;
             }
-            let id = $("#MCY").val(); // Get MemberTypeID|Cost|Years
-            let arrTmp = id.split("|"); // use "|" to separate
-            let mtid = arrTmp[0]; // Get the 1st parm - membertypeid
-            $("#MemberTypeID").val(mtid); // set the membertypeid in the form
 
-            $hcSend.hide();
-            let f = $("#form").serialize();
-            if ($("#form").valid()) {
-                $("#Step1").hide();
-                $("#wait").show();
-                $hcSend.hide();
-                document.form.submit();
-            } else {
-                alert("Some required fields were not entered")
-                $hcSend.show();
-            }
-        }); 
+            // Extract MemberTypeID from the selected option and update the hidden field
+            let id = $("#MCY").val(); // Get MemberTypeID|Cost|Years
+            let arrTmp = id.split("|"); // Use "|" to separate
+            let mtid = arrTmp[0]; // Get the 1st part - membertypeid
+            $("#MemberTypeID").val(mtid); // Set the membertypeid in the form
+
+            // Serialize form data after updating the hidden field
+            let formData = $("#form").serialize(); // Note the change to serialize()
+
+            // Add action for WP AJAX
+            formData += '&action=verify_hcaptcha_and_submit'; // Append the action to the serialized data string
+
+            $.ajax({
+                url: '/wp-admin/admin-ajax.php', // Direct path to admin-ajax.php
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    if(response.success) {
+                        alert(response.data.message);
+                        // Optionally, redirect the user or display a success message
+                    } else {
+                        alert(response.data.message); // Captcha verification failed or other error
+                    }
+                },
+                error: function() {
+                    alert("There was an error processing the form. Please try again.");
+                }
+            });
+        });
 
         $("#Email").change(function() {
             console.log("Handler for email .change() called.");
