@@ -1,26 +1,3 @@
-<?php 
-
-/** NOTE: This form is used to sign up new members for RAGAS.online.
-* It is a modified version of the ESRAG form located at
-* https://esrag.org/subscriptions/?mtid=501
-*
-* Production Link: https://ragas.online/join-us/
-* 
-* Source control is managed by the RAGAS.online GitHub repository
-* https://github.com/memberminderpro/ragas.online
-* 
-* @name NewMember-Signup
-* @version 04/18/2023 - Adapted from ESRAG
-* @version 04/21/2023 - MCY stores membertype,cost,years CSS fmting
-* @version 02/20/2024 - Refactored to use hCaptcha for spam protection
-*/
-
-/** IMPORTANT: Do not include these PHP comment block when copying this code to the
-* WordPress page editor. It is for development documentation purposes only.
-* Retain the HTML comment below for documentation to include in the WordPress page editor.
- */
-?>
-
 <!-- NOTE: This form is used to sign up new members for RAGAS.online 
     using the iMembersDB membership management system. For version 
     history, development notes,and additional documentation, visit 
@@ -32,66 +9,7 @@
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/fontawesome.min.css" rel="stylesheet" crossorigin="anonymous" />
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" crossorigin="anonymous"  />
-<style>
-    .entry {
-        height: 30px;
-    }
-
-    .error {
-        color: red
-    }
-
-    .TDData {
-        font-size: 13px;
-        margin: 0px;
-        padding: 0px;
-    }
-
-    .thc {
-        text-align: center;
-    }
-
-    .tdc {
-        text-align: center;
-    }
-
-    input,
-    select {
-        border: 1px solid #444;
-        border-radius: 4px;
-        height: 22px;
-    }
-
-    input.error {
-        border: 2px solid red;
-    }
-
-    .error {
-        padding-left: 10px;
-        color: red;
-        font-size: 11px;
-        font-family: Tahoma, Geneva, sans-serif;
-        font-weight: bold;
-    }
-
-    .membercategorywrap {
-        min-width: 200px;
-        float: left;
-        padding-bottom: 3px;
-        white-space: nowrap;
-        margin-right: 10px;
-    }
-
-    .star {
-        color: red;
-        font-weight: bold;
-    }
-</style>
-<script type="text/javascript">
-    $(document).ready(function() {
-        alert("Top of document script is ready");
-    });
-</script>
+<style>.entry{ height: 30px;} .error{ color: red} .TDData{ font-size: 13px; margin: 0px; padding: 0px;} .thc{ text-align: center;} .tdc{ text-align: center;} input, select{ border: 1px solid #444; border-radius: 4px; height: 22px;} input.error{ border: 2px solid red;} .error{ padding-left: 10px; color: red; font-size: 11px; font-family: Tahoma, Geneva, sans-serif; font-weight: bold;} .membercategorywrap{ min-width: 200px; float: left; padding-bottom: 3px; white-space: nowrap; margin-right: 10px;} .star{ color: red; font-weight: bold;}</style>
 <div id="Step1">
     <h3>Join Us!</h3>
     <form id="form" name="form" Action="https://www.emembersdb.com/nm/custom.cfm" method="Post">
@@ -255,19 +173,24 @@
                         <td class="TDData" width="170"><span class="star">*</span>Postal Code: </td>
                         <td class="TDData"><input class="entry" id="PostalZip" type="text" maxlength="12" name="PostalZip" value="" style="height: 25px;" onkeypress="return noEnter(event)" size="12" required placeholder="Zip / Postal Code" /></td>
                     </tr>
-
+                    <tr class="spam-handler">
+                        <td class="TDData" colspan="2">
+                            
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
 
         <div>
             <P> RAGAS and our membership management system vendor, Member Minder Pro, LLC, dba iMembersDB, is collecting your personal information in order to process your online application for RAGAS membership. The Registrant authorizes RAGAS to collect and use personal information about the Registrant for the purpose of receiving communications and the purposes described in the RAGAS policies relating to data privacy - RAGAS.online/privacy. Permission may be withdrawn at any time by contacting RAGAS’s Privacy Officer at privacy@ragas.online. Please check the "I Consent" checkbox below to allow us to collect, use, and disclose your personal information as described above.</P>
-            <BR><BR>
-            <input id="Consent" type="checkbox" name="consent" value="1"> <strong>I Consent</strong><br />
+            <p><input id="Consent" type="checkbox" name="consent" value="1"> <strong>I Consent</strong></p>
         </div>
-        <P class="noprint"><a href="" id="prtapp">Click here</a> to print.<br>
-            <br>
-            <input id="Send" type="button" name="Send" value="Submit Application" class="btn btn-warning noprint" style="display: none;">
+        <P class="noprint"><a href="" id="prtapp">Click here</a> to print.<p>
+        <div class="captcha-send" style="display: none;">
+            <div class="h-captcha" data-sitekey="1d208c51-6553-481d-bc8b-e021285bd77e" data-callback="onCaptchaSuccess"></div>
+            <p><input id="Send" type="button" name="Send" value="Submit Application" class="btn btn-warning noprint" style="display: none;" disabled></p>
+        </div>
     </form>
 </div>
 
@@ -295,28 +218,59 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js" defer></script>
 <script>
-    function noEnter(e) { // Do not allow Enter Key to cause submission
-        var keycode;
-        if (window.event)
-            keycode = window.event.keyCode;
-        else if (e)
-            keycode = e.which;
-        return !(keycode == 13);
+    function getQueryParams(qs) {
+        let params = new URLSearchParams(qs);
+        let result = {};
+        params.forEach((value, key) => {
+            result[key] = value;
+        });
+        return result;
     }
 
-    var urlParms = getQueryParams(document.location.search);
+    jQuery(document).ready(function($) {
+        let captchaSolved = false;
 
-    $(document).ready(function() {
-        console.log("Lower custom script block ready");
-        $("#Consent").click(function() {
-            if ($(this).prop('checked') && $("#EMailDiv").is(":hidden")) {
-                $(this).attr("checked", "checked");
-                $("#Send").show();
+        const $emailDiv = $("#EMailDiv");
+        const $send = $("#Send");
+        const $hcSend = $(".captcha-send");
+
+        function noEnter(e) {
+            let keycode = e.which || e.keyCode; // Modern browsers support e.which
+            if (keycode === 13) { // 13 is the Enter key
+                e.preventDefault(); // Prevent form submission
+            }
+        }
+
+        // Apply the noEnter function to all input elements
+        $('input').on('keypress', noEnter);
+
+            // Function to handle showing/hiding captcha and submit button based on consent
+        function toggleCaptchaAndButton() {
+            if ($("#Consent").is(":checked")) {
+                $(".captcha-send").show(); // Show captcha
+                if (captchaSolved) {
+                    $("#Send").show().prop("disabled", false); // Show and enable submit button if captcha is solved
+                } else {
+                    $("#Send").hide(); // Otherwise, keep the submit button hidden
+                }
             } else {
-                $(this).prop("checked", false);
+                $(".captcha-send").hide(); // Hide captcha and submit button if consent is not checked
                 $("#Send").hide();
             }
+        }
+
+        // Consent checkbox change event
+        $("#Consent").change(function() {
+            toggleCaptchaAndButton(); // Call the function to toggle captcha and button based on consent
         });
+
+        // Define the onCaptchaSuccess function to handle captcha success
+        window.onCaptchaSuccess = function(token) {
+            captchaSolved = true; // Set flag to true when captcha is solved
+            if ($("#Consent").is(":checked")) {
+                $("#Send").show().prop("disabled", false); // Show and enable submit button
+            }
+        };
 
         $("#prtapp").click(function() {
             console.log("print")
@@ -324,34 +278,28 @@
             return false;
         });
 
-        $("#Send").click(function() {
-
-            var id = $("#MCY").val(); // Get MemberTypeID|Cost|Years
-            var arrTmp = id.split("|"); // use "|" to separate
-            var mtid = arrTmp[0]; // Get the 1st parm - membertypeid
+        $send.click(function() {
+            if (!captchaSolved) {
+                alert("Please complete the captcha challenge.");
+                return; // Do not proceed with form submission
+            }
+            let id = $("#MCY").val(); // Get MemberTypeID|Cost|Years
+            let arrTmp = id.split("|"); // use "|" to separate
+            let mtid = arrTmp[0]; // Get the 1st parm - membertypeid
             $("#MemberTypeID").val(mtid); // set the membertypeid in the form
 
-            $("#Send").click(function() {
-                var id = $("#MCY").val(); // Get MemberTypeID|Cost|Years
-                var arrTmp = id.split("|"); // use "|" to separate
-                var mtid = arrTmp[0]; // Get the 1st parm - membertypeid
-                $("#MemberTypeID").val(mtid); // set the membertypeid in the form
-
-                $("#Send").hide();
-                var f = $("#form").serialize();
-                if ($("#form").valid()) {
-                    // Removed captcha-related console logs and AJAX call
-                    $("#Step1").hide();
-                    $("#wait").show();
-                    $("#Send").hide();
-                    document.form.submit();
-                    // Note: Ensure any necessary adjustments to form submission logic here
-                } else {
-                    alert("Some required fields were not entered")
-                    $("#Send").show();
-                }
-            });
-
+            $hcSend.hide();
+            let f = $("#form").serialize();
+            if ($("#form").valid()) {
+                $("#Step1").hide();
+                $("#wait").show();
+                $hcSend.hide();
+                document.form.submit();
+            } else {
+                alert("Some required fields were not entered")
+                $hcSend.show();
+            }
+        }); 
 
         $("#Email").change(function() {
             console.log("Handler for email .change() called.");
@@ -361,27 +309,29 @@
                 dataType: 'json',
                 data: {
                     AccountID: $("#AccountID").val(),
-                    Email: $(this).val(),
+                    Email: $(this).val().trim(),
                     IsActive: 'Y' // Search for active subscriptions
                 }
             }).done(function(data) {
                 console.log(data)
                 if (data == 1) {
-                    $("#EMailDiv").show();
-                    $("#EMailDiv").html("This email is already in the system associated with a membership.<BR>Please email membership at " + $("#AccountEMail").val() + " to change your membership type.");
-                    $("#Send").hide();
+                    $emailDiv.show();
+                    $emailDiv.html(`This email is already in the system associated with a membership.Please email membership at ${$("#AccountEMail").val()} to change your membership type.`);
+                    $hcSend.hide();
                     console.log("EMail found")
                 } else {
-                    $("#EMailDiv").hide();
+                    $emailDiv.hide();
                     console.log("EMail NOT found")
                 }
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                $emailDiv.html("Error checking email. Please try again.").show();
+                console.error("Email change AJAX request failed: " + textStatus, errorThrown);
             });
-
         });
 
         $("#fkclubtype").change(function() {
             console.log("Handler for membertype .change() called.");
-            var mt = $(this).val()
+            let mt = $(this).val()
             console.log(mt)
             switch (mt) {
                 case 'Rotary Club':
@@ -400,7 +350,7 @@
         });
 
         $('.CountryLookup').on('select2:select', function(e) {
-            var data = e.params.data;
+            let data = e.params.data;
             console.log(data)
             console.log("id=" + data.id) // countrycode
             console.log("country=" + data.text) // countryname
@@ -411,11 +361,11 @@
             else
                 $("#staterow").show();
         });
+
         $('.CountryLookup').select2({
             placeholder: 'Select Country',
             ajax: {
                 url: 'https://www.emembersdb.com/Lookup/FKRotaryCountry.cfm',
-                // url: 'http://emdb.com/Lookup/FKRotaryCountry.cfm',
                 type: "POST",
                 dataType: 'json',
                 quietMillis: 100,
@@ -448,7 +398,7 @@
         });
 
         $('.StateProvLookup').on('select2:select', function(e) {
-            var data = e.params.data;
+            let data = e.params.data;
             console.log(data)
             console.log("id=" + data.id) // statecode
             console.log("StateProv=" + data.text) // StateProv
@@ -456,6 +406,7 @@
             $("#fkstateprov").val(data.text) // StateProv
             $("#ProvOrOther").val(data.province) // Province
         });
+
         $('.StateProvLookup').select2({
             placeholder: 'Select State or Province',
             tags: true,
@@ -503,14 +454,14 @@
 
         $('.ClubLookupInZone').on('select2:select', function(e) {
             console.log("ClubLookup change")
-            var data = e.params.data;
+            let data = e.params.data;
             console.log(data)
 
             $("#fkdistrict").val(data.districtid) // DistrictID
             $("#zonename").val(data.zonename) // zonename
             $("#ClubID").val(data.id) // iMembersDB ClubID
             $("#fkclubname").val(data.text) // fkclubNmae
-            $("#ClubLocDiv").html("Distict: " + data.districtid + "   RAGAS zone: " + data.zonename)
+            $("#ClubLocDiv").html("District: " + data.districtid + "   RAGAS zone: " + data.zonename)
 
         });
 
@@ -519,16 +470,15 @@
             tags: true,
             ajax: {
                 url: 'https://www.emembersdb.com/Lookup/FKRotaryClubInZone.cfm',
-                // url: 'http://emdb.com/Lookup/FKRotaryClubInZone.cfm',
                 type: "POST",
                 dataType: 'json',
                 quietMillis: 100,
                 data: function(params) {
-                    var countrycode = $(".CountryLookup option:selected").val();
-                    var statecode = $("#StateCode").val();
-                    var orgtype = $("#fkclubtype").val();
+                    let countrycode = $(".CountryLookup option:selected").val();
+                    let statecode = $("#StateCode").val();
+                    let orgtype = $("#fkclubtype").val();
                     console.log("countrycode=" + countrycode + " statecode=" + statecode + " orgtype=" + orgtype);
-                    var query = {
+                    let query = {
                         AccountID: $("#AccountID").val(),
                         countrycode: countrycode,
                         statecode: statecode,
@@ -540,7 +490,6 @@
             },
             results: function(data) {
                 results = [];
-                // console.log (data);
                 $.each(data, function(index, item) {
                     results.push({
                         id: item.id,
@@ -561,9 +510,8 @@
         });
 
         $("#paycc").click(function() {
-            var f = $("#form2").serialize();
-            var url = 'https://emembersdb.com/Portal/pbcc.cfm';
-            //var url = 'http://Localhost/emembersdb/Portal/pbcc.cfm';
+            let f = $("#form2").serialize();
+            const url = 'https://emembersdb.com/Portal/pbcc.cfm';
 
             try {
                 $('#form2').attr('action', url);
@@ -574,9 +522,8 @@
         });
 
         $("#payck").click(function() {
-            var f = $("#form2").serialize();
-            var url = 'https://emembersdb.com/Portal/pbck.cfm';
-            //var url = 'http://Localhost/emembersdb/Portal/pbck.cfm';
+            let f = $("#form2").serialize();
+            const url = 'https://emembersdb.com/Portal/pbck.cfm';
 
             try {
                 $('#form2').attr('action', url);
@@ -585,18 +532,7 @@
                 alert("Could not submit form.")
             }
         });
+
     });
-});
-    function getQueryParams(qs) {
-        qs = qs.split('+').join(' ');
-        var params = {},
-            tokens,
-            re = /[?&]?([^=]+)=([^&]*)/g;
-
-        while (tokens = re.exec(qs)) {
-            params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
-        }
-        return params;
-    }
-
 </script>
+<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
