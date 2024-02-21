@@ -12,6 +12,7 @@
 <style>.entry{ height: 30px;} .error{ color: red} .TDData{ font-size: 13px; margin: 0px; padding: 0px;} .thc{ text-align: center;} .tdc{ text-align: center;} input, select{ border: 1px solid #444; border-radius: 4px; height: 22px;} input.error{ border: 2px solid red;} .error{ padding-left: 10px; color: red; font-size: 11px; font-family: Tahoma, Geneva, sans-serif; font-weight: bold;} .membercategorywrap{ min-width: 200px; float: left; padding-bottom: 3px; white-space: nowrap; margin-right: 10px;} .star{ color: red; font-weight: bold;}</style>
 <div id="Step1">
     <h3>Join Us!</h3>
+    <div id="messageContainer"></div>
     <form id="joinForm" name="form" Action="https://www.emembersdb.com/nm/custom.cfm" method="Post">
         <!-- These parameters MUST be changed for each account membership application -->
         <input type="hidden" name="AccountID" value="10621" id="AccountID" /> <!-- Account -->
@@ -171,7 +172,7 @@
                     </tr>
                     <tr class="hide25">
                         <td class="TDData" width="170"><span class="star">*</span>Postal Code: </td>
-                        <td class="TDData"><input class="entry" id="PostalZip" type="text" maxlength="12" name="PostalZip" value="" style="height: 25px;" onkeypress="return noEnter(event)" size="12" required placeholder="Zip / Postal Code" /></td>
+                        <td class="TDData"><input class="entry" id="PostalZip" type="text" maxlength="12" name="PostalZip" value="" style="height: 25px;" onkeypress="return noEnter(event)" size="12" autocomplete="postal-code" required placeholder="Zip / Postal Code" /></td>
                     </tr>
                     <tr class="spam-handler">
                         <td class="TDData" colspan="2">
@@ -296,11 +297,27 @@
                 dataType: 'json', // Expecting JSON response
                 success: function(validationResponse) {
                     if (validationResponse.success) {
-                        // hCaptcha validation succeeded
-                
+                        // hCaptcha validation succeeded, enable the submit button
+                        $('#Send').prop('disabled', false);
+
+                        // Dynamically update the UI with the redirection message
+                        $('#messageContainer').html("<h4>Thank You!</h4><p>You will now be redirected to our payment gateway in a new window to complete the process. You may safely navigate away from this page or close this tab.</p>");
+     
+                        // Prevent sending the Captcha input to the ColdFusion server
+                        $('input[name="g-recaptcha-response"]').remove(); // If switching from reCAPTCHA to hCaptcha
+                        // or
+                        $('input[name="h-captcha-response"]').prop('disabled', true); // Temporarily disable
+                        
+                        // Set the form's target attribute to '_blank' to open in a new tab
+                        $("#joinForm").attr("target", "_blank");
+
+                        // Hide the form
+                        $("#joinForm").hide();
+
                         // Directly submit the form to the original action endpoint
                         document.getElementById("joinForm").submit();
-        
+
+                
                     } else {
                         // Handle hCaptcha validation failure
                         alert('Captcha validation failed.');
