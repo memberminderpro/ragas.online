@@ -12,7 +12,7 @@
 <style>.entry{ height: 30px;} .error{ color: red} .TDData{ font-size: 13px; margin: 0px; padding: 0px;} .thc{ text-align: center;} .tdc{ text-align: center;} input, select{ border: 1px solid #444; border-radius: 4px; height: 22px;} input.error{ border: 2px solid red;} .error{ padding-left: 10px; color: red; font-size: 11px; font-family: Tahoma, Geneva, sans-serif; font-weight: bold;} .membercategorywrap{ min-width: 200px; float: left; padding-bottom: 3px; white-space: nowrap; margin-right: 10px;} .star{ color: red; font-weight: bold;}</style>
 <div id="Step1">
     <h3>Join Us!</h3>
-    <form id="form" name="form" Action="https://www.emembersdb.com/nm/custom.cfm" method="Post">
+    <form id="joinForm" name="form" Action="https://www.emembersdb.com/nm/custom.cfm" method="Post">
         <!-- These parameters MUST be changed for each account membership application -->
         <input type="hidden" name="AccountID" value="10621" id="AccountID" /> <!-- Account -->
         <input type="hidden" name="APIKey" value="72a929802e4f44a0beea7c69aaf795da" id="APIKey" /> <!-- APIKey -->
@@ -275,44 +275,44 @@
             return false;
         });
 
-        $send.click(function(event) {
+        $send.click(async function(event) {
             event.preventDefault(); // Prevent the form from submitting via the browser
-
+        
             if (!captchaSolved) {
                 alert("Please complete the captcha challenge.");
                 return;
             }
-
-            // Extract MemberTypeID from the selected option and update the hidden field
-            let id = $("#MCY").val(); // Get MemberTypeID|Cost|Years
-            let arrTmp = id.split("|"); // Use "|" to separate
-            let mtid = arrTmp[0]; // Get the 1st part - membertypeid
-            $("#MemberTypeID").val(mtid); // Set the membertypeid in the form
-
-            // Serialize form data after updating the hidden field
-            let formData = $("#form").serialize(); // Note the change to serialize()
-
-            // Add action for WP AJAX
-            formData += '&action=verify_hcaptcha_and_submit'; // Append the action to the serialized data string
-
+        
+            // Serialize form data for AJAX submission
+            let formData = $("#joinForm").serialize();
+        
+            // Prepare data for the WordPress AJAX request, including the action
+            let ajaxData = formData + '&action=verify_hcaptcha_and_submit';
+        
             $.ajax({
                 url: '/wp-admin/admin-ajax.php', // Direct path to admin-ajax.php
                 type: 'POST',
-                data: formData,
-                success: function(response) {
-                    if(response.success) {
-                        alert(response.data.message);
-                        // Optionally, redirect the user or display a success message
+                data: ajaxData,
+                dataType: 'json', // Expecting JSON response
+                success: function(validationResponse) {
+                    if (validationResponse.success) {
+                        // hCaptcha validation succeeded
+                
+                        // Directly submit the form to the original action endpoint
+                        document.getElementById("joinForm").submit();
+        
                     } else {
-                        alert(response.data.message); // Captcha verification failed or other error
+                        // Handle hCaptcha validation failure
+                        alert('Captcha validation failed.');
                     }
                 },
                 error: function() {
-                    alert("There was an error processing the form. Please try again.");
+                    // Handle AJAX request error
+                    alert('AJAX request failed.');
                 }
             });
         });
-
+        
         $("#Email").change(function() {
             console.log("Handler for email .change() called.");
             $.ajax({
@@ -520,31 +520,6 @@
                 }
             }
         });
-
-        $("#paycc").click(function() {
-            let f = $("#form2").serialize();
-            const url = 'https://emembersdb.com/Portal/pbcc.cfm';
-
-            try {
-                $('#form2').attr('action', url);
-                $('#form2').submit();
-            } catch (error) {
-                alert("Could not submit form.")
-            }
-        });
-
-        $("#payck").click(function() {
-            let f = $("#form2").serialize();
-            const url = 'https://emembersdb.com/Portal/pbck.cfm';
-
-            try {
-                $('#form2').attr('action', url);
-                $('#form2').submit();
-            } catch (error) {
-                alert("Could not submit form.")
-            }
-        });
-
     });
 </script>
 <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
