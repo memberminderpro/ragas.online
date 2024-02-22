@@ -283,59 +283,61 @@
         });
 
         $send.click(async function(event) {
-            event.preventDefault(); // Prevent the form from submitting via the browser
-        
             if (!captchaSolved) {
+                event.preventDefault(); // Prevent form submission if captcha not solved
                 alert("Please complete the captcha challenge.");
                 return;
-            }
-        
-            // Serialize form data for AJAX submission
-            let formData = $("#joinForm").serialize();
-        
-            // Prepare data for the WordPress AJAX request, including the action
-            let ajaxData = formData + '&action=verify_hcaptcha_and_submit';
-        
-            $.ajax({
-                url: '/wp-admin/admin-ajax.php', // Direct path to admin-ajax.php
-                type: 'POST',
-                data: ajaxData,
-                dataType: 'json', // Expecting JSON response
-                success: function(validationResponse) {
-                    if (validationResponse.success) {
-                        // hCaptcha validation succeeded, enable the submit button
-                        $('#Send').prop('disabled', false);
+            } else {
+                console.log("Captcha solved, proceeding with form submission.");            
+                // Serialize form data for AJAX submission
+                let formData = $("#joinForm").serialize();
+            
+                // Prepare data for the WordPress AJAX request, including the action
+                let ajaxData = formData + '&action=verify_hcaptcha_and_submit';
+            
+                $.ajax({
+                    url: '/wp-admin/admin-ajax.php', // Direct path to admin-ajax.php
+                    type: 'POST',
+                    data: ajaxData,
+                    dataType: 'json', // Expecting JSON response
+                    success: function(validationResponse) {
+                        if (validationResponse.success) {
+                            // hCaptcha validation succeeded, enable the submit button
+                            $('#Send').prop('disabled', false);
 
-                        // Dynamically update the UI with the redirection message
-                        $('#messageContainer').html("<h4>Thank You!</h4><p>You will now be redirected to our payment gateway in a new window to complete the process. You may safely navigate away from this page or close this tab.</p>");
-     
-                        // Prevent sending the Captcha input to the ColdFusion server
-                        $('input[name="g-recaptcha-response"]').remove(); // If switching from reCAPTCHA to hCaptcha
-                        // or
-                        $('input[name="h-captcha-response"]').prop('disabled', true); // Temporarily disable
-                        
-                        // Set the form's target attribute to '_blank' to open in a new tab
-                        $("#joinForm").attr("target", "_blank");
+                            // Dynamically update the UI with the redirection message
+                            $('#messageContainer').html("<h4>Thank You!</h4><p>You will now be redirected to our payment gateway in a new window to complete the process. You may safely navigate away from this page or close this tab.</p>");
 
-                        // Hide the form
-                        $("#joinForm").hide();
+                            // Temporarily disable captcha response fields
+                            $('input[name="g-recaptcha-response"], input[name="h-captcha-response"]').prop('disabled', true);
 
-                        // Directly submit the form to the original action endpoint
-                        document.getElementById("joinForm").submit();
+                            // Serialize and log the form data for inspection
+                            let formData = $("#joinForm").serialize();
 
-                
-                    } else {
-                        // Handle hCaptcha validation failure
-                        alert('Captcha validation failed.');
+                            console.log("Form data being sent: ", formData);
+
+                            // Optionally, confirm with the developer if they want to continue
+                            let shouldContinue = confirm("Do you want to proceed with form submission with the above data?");
+                            if (!shouldContinue) {
+                                return; // Stop if not proceeding
+                            }
+
+                            // Directly submit the form to the original action endpoint
+                            $("#joinForm").attr("target", "_blank").hide().submit();
+
+                        } else {
+                            // Handle hCaptcha validation failure
+                            alert('Captcha validation failed.');
+                        }
+                    },
+                    error: function() {
+                        // Handle AJAX request error
+                        alert('AJAX request failed.');
                     }
-                },
-                error: function() {
-                    // Handle AJAX request error
-                    alert('AJAX request failed.');
-                }
-            });
+                });
+            }
         });
-        
+
         $("#Email").change(function() {
             console.log("Handler for email .change() called.");
             $.ajax({
