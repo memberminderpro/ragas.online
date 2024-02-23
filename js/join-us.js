@@ -1,4 +1,3 @@
-
 var captchaHash = '';
 function noEnter(e) { // Do not allow Enter Key to cause submission
 var keycode;
