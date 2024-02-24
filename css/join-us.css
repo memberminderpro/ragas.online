@@ -58,6 +58,12 @@ h4 {
     margin: 0, auto;
     text-align: center;
 }
+h5{
+    font-size:14px; 
+    font-family:Tahoma, Geneva, sans-serif; 
+    font-weight:bold;
+    color: #FF0000;
+}
 p {
     font-size:14px; font-family:Tahoma, Geneva, sans-serif; font-weight:bold;
 }
@@ -71,3 +77,42 @@ p {
     text-align: center;
     padding: 2em;
 }
+
+#joinForm select {
+    width: 350px;
+    height: 30px;
+    color: #444;
+}
+
+#joinForm input[type="text"] {
+    height: 25px;
+}
+#fkcountry, #stateprov {
+    width: 300px;
+}
+
+#clubname {
+    width: 400px;
+}
+#wait {
+    display: none;
+}
+
+#wait div {
+    margin: 25px auto;
+    text-align: center;
+}
+#wait div h4 {
+    font-family:Tahoma, Geneva, sans-serif"
+}
+
+#wait div img {
+    width: auto;
+    height: 50px;
+}
+
+#wait div img:nth-child(2) {
+    height: 30px;
+}
+
+/* Divs hidden on page load */

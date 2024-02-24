@@ -23,7 +23,6 @@
         crossorigin="anonymous" />
 
     <div id="Step1">
-        <div id="messageContainer"></div>
         <form id="joinForm" name="form" Action="https://www.emembersdb.com/nm/custom.cfm" method="Post">
             <!-- SECTION: Hidden Fields (Account parameters) -->
             <!-- These parameters MUST be changed for each account membership application -->
@@ -50,9 +49,7 @@
             <table border="0" cellpadding="3" cellspacing="0" style="padding-top:12px">
                 <tbody>
                     <tr>
-                        <td align="left"><span
-                                style="font-size:14px; font-family:Tahoma, Geneva, sans-serif; font-weight:bold;color: #FF0000;">Member
-                                Information: </span></td>
+                        <td align="left"><h5>Member Information: </h5></td>
                     </tr>
                 </tbody>
             </table>
@@ -62,8 +59,7 @@
                     <tr>
                         <td class="TDData" width="170"><span class="star">*</span> Member Type: </td>
                         <td class="TDData">
-                            <select id="MCY" name="MCY" style="width: 350px; height: 30px; color: #444"
-                                class="TxtIn">
+                            <select id="MCY" name="MCY" class="TxtIn">
                                 <option value="588|75|5"> 5-Year Membership ($75.00 USD)</option>
                                 <option value="587|30|1"> 1-Year Annual ($30.00 USD)</option>
                                 <option value="589|15|1"> 1-Year Rotaractor/Peace Fellow ($15.00 USD)</option>
@@ -80,13 +76,13 @@
                     <tr>
                         <td class="TDData" width="170"><span class="star">*</span> Last Name: </td>
                         <td class="TDData"><input class="entry" id="LastName" type="text" maxlength="32"
-                                name="LastName" value="" style="height: 25px;" onkeypress="return noEnter(event)"
+                                name="LastName" value="" onkeypress="return noEnter(event)"
                                 required size="32" placeholder="Last Name" /></td>
                     </tr>
                     <tr>
                         <td class="TDData" width="170"><span class="star">*</span> Email Address </td>
                         <td class="TDData"><input class="entry" id="Email" type="text" maxlength="64" name="email"
-                                value="" style="height: 25px;" onkeypress="return noEnter(event)" size="32" required
+                                value="" onkeypress="return noEnter(event)" size="32" required
                                 placeholder="EMail Address" />
                             <div id="EMailDiv" style="display: none; color: red">This email is already in the
                                 system. Please email membership at membership@RAGAS.org to change your membership
@@ -97,8 +93,7 @@
                     <tr>
                         <td class="TDData" width="170"><span class="star">*</span> Are you a: </td>
                         <td class="TDData">
-                            <select id="fkclubtype" name="fkclubtype"
-                                style="width: 350px; height: 30px; color: #444" class="TxtIn">
+                            <select id="fkclubtype" name="fkclubtype" class="TxtIn">
                                 <option value="Rotary Club"> Rotarian</option>
                                 <option value="Rotaract Club"> Rotaractor</option>
                                 <option value="Non-Rotarian"> Non-Rotarian / Peace Fellow</option>
@@ -110,25 +105,22 @@
                     <tr>
                         <td class="TDData" width="170"><span class="star">*</span> Club Country: </td>
                         <td class="TDData">
-                            <select id="fkcountry" name="fkcountry" style="width: 300px;"
-                                class="TxtIn CountryLookup"> </select>
+                            <select id="fkcountry" name="fkcountry" class="TxtIn CountryLookup"> </select>
                         </td>
                     </tr>
                     <tr id="staterow">
                         <td class="TDData" width="170"><span class="star">*</span> State/Province: </td>
                         <td class="TDData">
-                            <select id="stateprov" name="stateprov" style="width: 300px;"
-                                class="TxtIn StateProvLookup"></select>
+                            <select id="stateprov" name="stateprov" class="TxtIn StateProvLookup"></select>
                             <input id="fkstateprov" type="hidden" name="fkstateprov" value="">
                             <!--- FK reference in iMembersDB Region(Club) tab (not currently used) --->
                         </td>
                     </tr>
                     <tr class="hide9">
-                        <td class="TDData" width="170"><span style="color: red; font-weight: bold;">*</span> Club
+                        <td class="TDData" width="170"><span class="star">*</span> Club
                             Name: </td>
                         <td class="TDData">
-                            <select id="clubname" type="text" name="clubname" style="width: 400px;"
-                                class="TxtIn ClubLookupInZone"></select>
+                            <select id="clubname" type="text" name="clubname" class="TxtIn ClubLookupInZone"></select>
                             <div id="ClubLocDiv"></div>
                         </td>
                     </tr>
@@ -138,9 +130,7 @@
             <table border="0" cellpadding="0" cellspacing="0" style="padding-top:12px">
                 <tbody>
                     <tr>
-                        <td align="left"><span
-                                style="font-size:14px; font-family:Tahoma, Geneva, sans-serif; font-weight:bold; color: #FF0000;">Billing
-                                Address: </span></td>
+                        <td align="left"><h5>Billing Address: </h5></td>
                     </tr>
                 </tbody>
             </table>
@@ -150,39 +140,39 @@
                     <tr>
                         <td class="TDData" width="170"><span class="star">*</span> Address1: </td>
                         <td class="TDData"><input class="entry" id="Address1" type="text" maxlength="50"
-                                name="Address1" value="" style="height: 25px;" onkeypress="return noEnter(event)"
-                                size="50" type="text" value="" required placeholder="Street Address" /> (Address)
+                                name="Address1" value="" onkeypress="return noEnter(event)"
+                                size="50" type="text" value="" required placeholder="Street Address" /> 
                         </td>
                     </tr>
                     <tr>
                         <td class="TDData" width="170">Address2: </td>
                         <td class="TDData"><input class="entry" id="Address2" type="text" maxlength="50"
-                                name="Address2" style="height: 25px;" onkeypress="return noEnter(event)" size="50"
-                                placeholder="Ste / Suite" /> (Ste/Suite)</td>
+                                name="Address2"  onkeypress="return noEnter(event)" size="50"
+                                placeholder="Ste / Suite" /></td>
                     </tr>
                     <tr>
                         <td class="TDData" width="170"><span class="star">*</span> City: </td>
                         <td class="TDData"><input class="entry" id="City" type="text" maxlength="50" name="City"
-                                value="" style="height: 25px;" onkeypress="return noEnter(event)" size="50" required
+                                value="" onkeypress="return noEnter(event)" size="50" required
                                 placeholder="City" /></td>
                     </tr>
                     <tr>
                         <td class="TDData" width="170">State Code: </td>
                         <td class="TDData"><input class="entry" id="StateCode" type="text" maxlength="3"
-                                name="StateCode" value="" style="height: 25px;" onkeypress="return noEnter(event)"
+                                name="StateCode" value="" onkeypress="return noEnter(event)"
                                 size="3" /></td>
                     </tr>
                     <tr>
                         <td class="TDData" width="170">Province: </td>
                         <td class="TDData"><input class="entry" id="ProvOrOther" type="text" maxlength="20"
-                                name="ProvOrOther" value="" style="height: 25px;" onkeypress="return noEnter(event)"
+                                name="ProvOrOther" value=""  onkeypress="return noEnter(event)"
                                 size="20" placeholder="Province" /></td>
                     </tr>
                     <tr>
                         <td class="TDData" width="170">Country Code: </td>
                         <td class="TDData">
                             <input class="entry" id="CountryCode" type="text" maxlength="3" name="CountryCode"
-                                value="" style="height: 25px;" onkeypress="return noEnter(event)" size="3"
+                                value="" onkeypress="return noEnter(event)" size="3"
                                 required />
                             <input class="entry" id="CountryName" type="hidden" maxlength="3" name="CountryName"
                                 value="" />
@@ -191,13 +181,12 @@
                     <tr class="hide25">
                         <td class="TDData" width="170"><span class="star">*</span>Postal Code: </td>
                         <td class="TDData"><input class="entry" id="PostalZip" type="text" maxlength="12"
-                                name="PostalZip" value="" style="height: 25px;" onkeypress="return noEnter(event)"
+                                name="PostalZip" value="" onkeypress="return noEnter(event)"
                                 size="12" autocomplete="postal-code" required placeholder="Zip / Postal Code" />
                         </td>
                     </tr>
                     <tr class="spam-handler">
                         <td class="TDData" colspan="2">
-
                         </td>
                     </tr>
                 </tbody>
@@ -238,17 +227,14 @@
         <BR>
     </div>
 
-    <div id="wait" style="display: none;">
-        <div style="margin-top:25px;" align="center">
-            <div style="width: auto">
-                <img src="https://www.emembersdb.com/Portal/images/tm.png" height="50"><BR>
-                <h4 style="font-family:Tahoma, Geneva, sans-serif">Please wait... We are taking you over to Team
-                    Merchant</h4>
-                <BR>
-                <img src="https://www.emembersdb.com/images/loading.gif" height="30">
-            </div>
+    <div id="wait">
+        <div>
+            <img src="https://www.emembersdb.com/Portal/images/tm.png" height="50">
+            <h4>Redirecting to payment processor...</h4>
+            <img src="https://www.emembersdb.com/images/loading.gif" height="30">
         </div>
     </div>
+
     <!-- !SECTION: Hidden Divs -->
     <!-- SECTION: JavaScript Libraries-->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
