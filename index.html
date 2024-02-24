@@ -1,0 +1,256 @@
+<div class="mmp">
+    <!-- NOTE: This form is used to sign up new members for RAGAS.online 
+    using the iMembersDB membership management system. For version 
+    history, development notes,and additional documentation, visit 
+    https://github.com/memberminderpro/ragas.online
+
+    For more information or support contact Member Minder Pro, LLC
+    at support@memberminderpro.com or visit https://memberminderpro.com
+ -->
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/fontawesome.min.css" rel="stylesheet"
+        crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"
+        crossorigin="anonymous" />
+
+    <!-- NOTE: Uncomment the following line prior to deploying this to production 
+     to use the join-us.js file from the Member Minder Pro GitHub repository
+<script src="https://cdn.jsdelivr.net/gh/memberminderpro/ragas.online/css/join-us.css"></script>  -->
+
+    <!-- NOTE: Uncomment the following line prior to developing locally to use the join-us.css 
+     file in the mmp-sandbox theme (no cache-busting required) -->
+    <link href="/wp-content/themes/divi-sandbox/assets/ragas.online/css/join-us.css" rel="stylesheet"
+        crossorigin="anonymous" />
+
+    <div id="Step1">
+        <form id="joinForm" name="form" Action="https://www.emembersdb.com/nm/custom.cfm" method="Post">
+            <!-- SECTION: Hidden Fields (Account parameters) -->
+            <!-- These parameters MUST be changed for each account membership application -->
+            <input type="hidden" name="AccountID" value="10621" id="AccountID" /> <!-- Account -->
+            <input type="hidden" name="APIKey" value="72a929802e4f44a0beea7c69aaf795da" id="APIKey" /> <!-- APIKey -->
+            <input type="hidden" name="BID" value="1040" id="BID" /> <!-- Account -->
+            <input type="hidden" name="MemberID" value="0" /> <!-- Default MemberID -->
+            <input type="hidden" name="UserID" value="0" id="UserID" /><!-- UserID -->
+            <input type="hidden" name="AddressTypeID" value="1" /> <!-- Default Address type -->
+            <input type="hidden" name="EmailTypeID" value="1" /> <!-- Default Email type -->
+            <input type="hidden" name="UserStatusCode" value="P" /> <!-- DefaultUser Status -->
+            <input type="hidden" name="MemberTypeID" value="587" id="MemberTypeID" /> <!-- Default MemberTypeID -->
+            <!-- <input type="hidden" name="AccountEmail" value="membership@RAGAS.online" id="AccountEMail" /> Who gets the application -->
+            <input type="hidden" name="AccountEmail" value="rob.moore@memberminderpro.com" id="AccountEMail" />
+            <input id="fkclubname" type="hidden" name="fkclubname" value="">
+            <!--- FK reference in iMembersDB Region(Club) tab --->
+            <input id="fkdistrict" type="hidden" name="fkdistrict" value="0">
+            <!--- FK reference in iMembersDB Region(Club) tab --->
+            <input id="Region" type="hidden" name="Region" value="0">
+            <input id="zonename" type="hidden" name="zonename" value="">
+            <input id="ClubID" type="hidden" name="ClubID" value="989153">
+            <!-- !SECTION: Hidden Fields (Account parameters) -->
+            <!-- SECTION: Form Fields -->
+            <table border="0" cellpadding="3" cellspacing="0" style="padding-top:12px">
+                <tbody>
+                    <tr>
+                        <td align="left"><h5>Member Information: </h5></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table border="0" cellpadding="0" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td class="TDData" width="170"><span class="star">*</span> Member Type: </td>
+                        <td class="TDData">
+                            <select id="MCY" name="MCY" class="TxtIn">
+                                <option value="588|75|5"> 5-Year Membership ($75.00 USD)</option>
+                                <option value="587|30|1"> 1-Year Annual ($30.00 USD)</option>
+                                <option value="589|15|1"> 1-Year Rotaractor/Peace Fellow ($15.00 USD)</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="TDData" width="170"><span class="star">*</span> First Name: </td>
+                        <td class="TDData"><input class="entry" id="FirstName" type="text" maxlength="32"
+                                name="FirstName" value="" onkeypress="return noEnter(event)" required size="32"
+                                placeholder="First Name" /></td>
+                    </tr>
+
+                    <tr>
+                        <td class="TDData" width="170"><span class="star">*</span> Last Name: </td>
+                        <td class="TDData"><input class="entry" id="LastName" type="text" maxlength="32"
+                                name="LastName" value="" onkeypress="return noEnter(event)"
+                                required size="32" placeholder="Last Name" /></td>
+                    </tr>
+                    <tr>
+                        <td class="TDData" width="170"><span class="star">*</span> Email Address </td>
+                        <td class="TDData"><input class="entry" id="Email" type="text" maxlength="64" name="email"
+                                value="" onkeypress="return noEnter(event)" size="32" required
+                                placeholder="EMail Address" />
+                            <div id="EMailDiv" style="display: none; color: red">This email is already in the
+                                system. Please email membership at membership@RAGAS.org to change your membership
+                                type.</div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="TDData" width="170"><span class="star">*</span> Are you a: </td>
+                        <td class="TDData">
+                            <select id="fkclubtype" name="fkclubtype" class="TxtIn">
+                                <option value="Rotary Club"> Rotarian</option>
+                                <option value="Rotaract Club"> Rotaractor</option>
+                                <option value="Non-Rotarian"> Non-Rotarian / Peace Fellow</option>
+                            </select>
+                            <input id="fkmembertype" type="hidden" name="fkmembertype" value="Active">
+                            <!--- FK reference in iMembersDB Region(Club) tab --->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="TDData" width="170"><span class="star">*</span> Club Country: </td>
+                        <td class="TDData">
+                            <select id="fkcountry" name="fkcountry" class="TxtIn CountryLookup"> </select>
+                        </td>
+                    </tr>
+                    <tr id="staterow">
+                        <td class="TDData" width="170"><span class="star">*</span> State/Province: </td>
+                        <td class="TDData">
+                            <select id="stateprov" name="stateprov" class="TxtIn StateProvLookup"></select>
+                            <input id="fkstateprov" type="hidden" name="fkstateprov" value="">
+                            <!--- FK reference in iMembersDB Region(Club) tab (not currently used) --->
+                        </td>
+                    </tr>
+                    <tr class="hide9">
+                        <td class="TDData" width="170"><span class="star">*</span> Club
+                            Name: </td>
+                        <td class="TDData">
+                            <select id="clubname" type="text" name="clubname" class="TxtIn ClubLookupInZone"></select>
+                            <div id="ClubLocDiv"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table border="0" cellpadding="0" cellspacing="0" style="padding-top:12px">
+                <tbody>
+                    <tr>
+                        <td align="left"><h5>Billing Address: </h5></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table border="0" cellpadding="3" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td class="TDData" width="170"><span class="star">*</span> Address1: </td>
+                        <td class="TDData"><input class="entry" id="Address1" type="text" maxlength="50"
+                                name="Address1" value="" onkeypress="return noEnter(event)"
+                                size="50" type="text" value="" required placeholder="Street Address" /> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="TDData" width="170">Address2: </td>
+                        <td class="TDData"><input class="entry" id="Address2" type="text" maxlength="50"
+                                name="Address2"  onkeypress="return noEnter(event)" size="50"
+                                placeholder="Ste / Suite" /></td>
+                    </tr>
+                    <tr>
+                        <td class="TDData" width="170"><span class="star">*</span> City: </td>
+                        <td class="TDData"><input class="entry" id="City" type="text" maxlength="50" name="City"
+                                value="" onkeypress="return noEnter(event)" size="50" required
+                                placeholder="City" /></td>
+                    </tr>
+                    <tr>
+                        <td class="TDData" width="170">State Code: </td>
+                        <td class="TDData"><input class="entry" id="StateCode" type="text" maxlength="3"
+                                name="StateCode" value="" onkeypress="return noEnter(event)"
+                                size="3" /></td>
+                    </tr>
+                    <tr>
+                        <td class="TDData" width="170">Province: </td>
+                        <td class="TDData"><input class="entry" id="ProvOrOther" type="text" maxlength="20"
+                                name="ProvOrOther" value=""  onkeypress="return noEnter(event)"
+                                size="20" placeholder="Province" /></td>
+                    </tr>
+                    <tr>
+                        <td class="TDData" width="170">Country Code: </td>
+                        <td class="TDData">
+                            <input class="entry" id="CountryCode" type="text" maxlength="3" name="CountryCode"
+                                value="" onkeypress="return noEnter(event)" size="3"
+                                required />
+                            <input class="entry" id="CountryName" type="hidden" maxlength="3" name="CountryName"
+                                value="" />
+                        </td>
+                    </tr>
+                    <tr class="hide25">
+                        <td class="TDData" width="170"><span class="star">*</span>Postal Code: </td>
+                        <td class="TDData"><input class="entry" id="PostalZip" type="text" maxlength="12"
+                                name="PostalZip" value="" onkeypress="return noEnter(event)"
+                                size="12" autocomplete="postal-code" required placeholder="Zip / Postal Code" />
+                        </td>
+                    </tr>
+                    <tr class="spam-handler">
+                        <td class="TDData" colspan="2">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div>
+                <P> RAGAS and our membership management system vendor, <a href="https://mmpro.llc" target="_blank"
+                        rel="noopener external">Member Minder Pro, LLC</a>, <em>(dba <strong>iMembersDB</strong>)</em>,
+                    is collecting your personal information in order</a> to process your online application for RAGAS
+                    membership. The Registrant authorizes RAGAS to collect and use personal information about the
+                    Registrant for the purpose of receiving communications and the purposes described in the RAGAS
+                    policies relating to data privacy - RAGAS.online/privacy. Permission may be withdrawn at any time by
+                    contacting RAGAS’s Privacy Officer at <a
+                        href="mailto:privacy@ragas.online?subject=RE%3A%20%27Join%20Us%20Form%27%20Privacy"
+                        target="_blank">privacy@ragas.online</a>. Please check the <code>I Consent</code> checkbox below
+                    to allow us to collect, use, and disclose your personal information as described above.</P>
+                <p><input id="Consent" type="checkbox" name="consent" value="1"> <strong>I Consent</strong></p>
+            </div>
+            <P class="noprint"><a href="" id="prtapp">Click here</a> to print.
+            <p>
+            <div class="captcha-send" style="display: none;">
+                <!-- NOTE: Add captcha vendor front-end code here -->
+                <!-- <div class="h captcha" data-sitekey="11111-22222-333-000000-99" data-callback="onCaptchaSuccess"></div> -->
+
+                <p><input id="Send" type="button" name="Send" value="Submit Application" class="btn btn-warning noprint"
+                        style="display: none;"></p>
+            </div>
+            <!-- !SECTION: Form Fields -->
+        </form>
+    </div>
+    <!-- SECTION: Hidden Divs -->
+    <div id="Step2" style="display:none;">
+        <h3>Problem!</h3>
+        <P>There was a system error creating your new membership. Please contact support to resolve this issue.</P>
+        <P><BR />
+        <div id="ErrorDiv"></div>
+        </P>
+        <BR>
+    </div>
+
+    <div id="wait">
+        <div>
+            <img src="https://www.emembersdb.com/Portal/images/tm.png" height="50">
+            <h4>Redirecting to payment processor...</h4>
+            <img src="https://www.emembersdb.com/images/loading.gif" height="30">
+        </div>
+    </div>
+
+    <!-- !SECTION: Hidden Divs -->
+    <!-- SECTION: JavaScript Libraries-->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js" defer></script>
+    <!-- !SECTION: JavaScript Libraries-->
+    <!-- SECTION: Custom JavaScript event handlers -->
+
+    <!-- NOTE: Uncomment the following line prior to deploying this to production 
+     to use the join-us.js file from the Member Minder Pro GitHub repository
+<script src="https://cdn.jsdelivr.net/gh/memberminderpro/ragas.online/js/join-us.js"></script>  -->
+
+    <!-- NOTE: Uncomment the following line prior to developing locally to use the join-us.js 
+     file in the mmp-sandbox theme (no cache-busting required) -->
+    <script src="/wp-content/themes/divi-sandbox/assets/ragas.online/js/join-us.js" defer></script>
+
+    <!-- !SECTION: Custom JavaScript event handlers -->
+</div>
