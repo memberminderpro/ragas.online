@@ -1,126 +1,158 @@
-/* Contents of css/join-us.css */
 .entry {
-    height: 30px;
+  height: 30px;
 }
 
 .error {
-    color: red
+  color: red;
 }
 
 .TDData {
-    font-size: 13px;
-    margin: 0px;
-    padding: 0px;
+  font-size: 13px;
+  margin: 0px;
+  padding: 0px;
 }
 
 .thc {
-    text-align: center;
+  text-align: center;
 }
 
 .tdc {
-    text-align: center;
+  text-align: center;
 }
 
 input,
 select {
-    border: 1px solid #444;
-    border-radius: 4px;
-    height: 22px;
+  border: 1px solid #444;
+  border-radius: 4px;
+  height: 22px;
 }
 
 input.error {
-    border: 2px solid red;
+  border: 2px solid red;
 }
 
 .error {
-    padding-left: 10px;
-    color: red;
-    font-size: 11px;
-    font-family: Tahoma, Geneva, sans-serif;
-    font-weight: bold;
+  padding-left: 10px;
+  color: red;
+  font-size: 11px;
+  font-family: Tahoma, Geneva, sans-serif;
+  font-weight: bold;
 }
 
 .membercategorywrap {
-    min-width: 200px;
-    float: left;
-    padding-bottom: 3px;
-    white-space: nowrap;
-    margin-right: 10px;
+  min-width: 200px;
+  float: left;
+  padding-bottom: 3px;
+  white-space: nowrap;
+  margin-right: 10px;
 }
 
 .star {
-    color: red;
-    font-weight: bold;
+  color: red;
+  font-weight: bold;
 }
 h4 {
-    font-size:24px; 
-    font-family:Tahoma, Geneva, sans-serif; 
-    font-weight:bold;
-    margin: 0, auto;
-    text-align: center;
+  font-size: 24px;
+  font-family: Tahoma, Geneva, sans-serif;
+  font-weight: bold;
+  margin: 0, auto;
+  text-align: center;
 }
-h5{
-    font-size:14px; 
-    font-family:Tahoma, Geneva, sans-serif; 
-    font-weight:bold;
-    color: #FF0000;
+h5, legend {
+  font-size: 14px;
+  font-family: Tahoma, Geneva, sans-serif;
+  font-weight: bold;
+  color: #ff0000;
 }
+
+fieldset {
+  margin: 2em auto;
+}
+
+legend {
+  margin: 2em 0;
+}
+
+fieldset p label {
+  display: inline-block;
+  width: 170px;
+  font-size: 14px;
+}
+
+label.required::after {
+    content: " *";
+    color: red;
+}
+
 p {
-    font-size:14px; font-family:Tahoma, Geneva, sans-serif; font-weight:bold;
+  font-size: 14px;
+  font-family: Tahoma, Geneva, sans-serif;
+  font-weight: bold;
 }
 #messageContainer {
-    margin: 10px auto;
-    padding: .6em 2em;
+  margin: 10px auto;
+  padding: 0.6em 2em;
 }
 #messageContainer p {
-    font-size: 1.6em;
-    line-height: 1.8em;;
-    text-align: center;
-    padding: 2em;
+  font-size: 1.6em;
+  line-height: 1.8em;
+  text-align: center;
+  padding: 2em;
 }
 
 #joinForm select {
-    width: 350px;
-    height: 30px;
-    color: #444;
+  width: 350px;
+  height: 30px;
+  color: #444;
 }
 
 #joinForm input[type="text"] {
-    height: 25px;
+  height: 25px;
 }
-#fkcountry, #stateprov {
-    width: 300px;
+
+#joinForm .captcha-send {
+  margin: 10px auto;
+}
+
+#fkcountry,
+#stateprov {
+  width: 300px;
 }
 
 #clubname {
-    width: 400px;
+  width: 400px;
 }
 #wait {
-    display: none;
+  display: none;
 }
 
 #wait div {
-    margin: 25px auto;
-    text-align: center;
+  margin: 25px auto;
+  text-align: center;
 }
 #wait div h4 {
-    font-family:Tahoma, Geneva, sans-serif"
+  font-family: Tahoma, Geneva, sans-serif;
 }
 
 #wait div img {
-    width: auto;
-    height: 50px;
+  width: auto;
+  height: 50px;
 }
 
 #wait div img:nth-child(2) {
-    height: 30px;
+  height: 30px;
 }
 
-#EmailDiv {
-    color: red;
+#EMailDiv {
+  color: red;
 }
 
 /* Divs hidden on page load */
-#wait, #Step2, #EmailDiv, .captcha-send, #Send {
-    display: none;
+#wait,
+#Step2,
+#EMailDiv,
+.captcha-send,
+#Send,
+.print-link {
+  display: none;
 }

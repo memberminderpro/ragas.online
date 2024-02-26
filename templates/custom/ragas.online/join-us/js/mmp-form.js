@@ -1,296 +1,351 @@
 // Function to dynamically load the reCAPTCHA script
 function loadReCaptchaScript() {
-    var script = document.createElement('script');
-    script.src = 'https://www.google.com/recaptcha/api.js?render=' + captchaKeys.recaptcha_site_key;
-    document.head.appendChild(script);
+  var script = document.createElement("script");
+  script.src =
+    "https://www.google.com/recaptcha/api.js?render=" +
+    captchaKeys.recaptcha_site_key;
+  document.head.appendChild(script);
 }
 
 // Call the function to load the script
 loadReCaptchaScript();
 
 function getQueryParams(qs) {
-    let params = new URLSearchParams(qs);
-    let result = {};
-    params.forEach((value, key) => {
-        result[key] = value;
-    });
-    return result;
+  let params = new URLSearchParams(qs);
+  let result = {};
+  params.forEach((value, key) => {
+    result[key] = value;
+  });
+  return result;
 }
 
-function noEnter(e) {
-    let keycode = e.which || e.keyCode; // Modern browsers support e.which
-    if (keycode === 13) { // 13 is the Enter key
-        e.preventDefault(); // Prevent form submission
+function preventEnterSubmit(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    return false;
+  }
+  return true;
+}
+
+jQuery(document).ready(function ($) {
+  const $emailDiv = $("#EMailDiv");
+  const $captchaSend = $(".captcha-send");
+  const $consent = $("#Consent");
+  const $joinForm = $("#joinForm");
+  const $send = $("#Send");
+
+  let $siteEmail = $("#AccountEMail").val();
+
+  // Function to handle showing/hiding captcha and submit button based on consent
+  function toggleCaptchaAndButton() {
+    if ($consent.is(":checked")) {
+      $captchaSend.show(); // Show captcha
+      $send.show().prop("disabled", false); // Show and enable submit button if captcha is solved
+    } else {
+      $captchaSend.hide(); // Hide captcha and submit button if consent is not checked
+      $send.prop("disabled", true);
     }
-}
+  }
 
-jQuery(document).ready(function($) {
+  // Consent checkbox change event
+  $consent.change(function () {
+    toggleCaptchaAndButton(); // Call the function to toggle captcha and button based on consent
+  });
 
-    const $emailDiv = $("#EMailDiv");
-    const $captchaSend = $(".captcha-send");
-    const $consent = $("#Consent");
-    const $joinForm = $("#joinForm");
-    const $send = $("#Send");
+  $send.click(function (event) {
+    event.preventDefault(); // Prevent form submission
 
-    // Function to handle showing/hiding captcha and submit button based on consent
-    function toggleCaptchaAndButton() {
-        if ($consent.is(":checked")) {
-            $captchaSend.show(); // Show captcha
-            $send.show().prop("disabled", false); // Show and enable submit button if captcha is solved
+    let captchaData = {};
+    if ($("[name='g-recaptcha-response']").length > 0) {
+      // Google reCAPTCHA is used
+      grecaptcha.ready(function () {
+        grecaptcha
+          .execute(captchaKeys.recaptcha_site_key, { action: "submit" })
+          .then(function (token) {
+            console.log("reCAPTCHA token received:", token);
+            captchaData["g-recaptcha-response"] = token;
+
+            verifyCaptchaAndSubmitForm(captchaData);
+          });
+      });
+    } else if ($("[name='h-captcha-response']").length > 0) {
+      // hCaptcha is used, assume the hCaptcha response is already in the form
+      captchaData["h-captcha-response"] = $(
+        "[name='h-captcha-response']"
+      ).val();
+      verifyCaptchaAndSubmitForm(captchaData);
+    } else {
+      // No captcha response could mean an error or misconfiguration
+      alert(
+        "Captcha response is missing. Please ensure captcha is configured correctly."
+      );
+    }
+  });
+
+  function verifyCaptchaAndSubmitForm(captchaData) {
+    $.ajax({
+      url: "/wp-admin/admin-ajax.php", // WordPress AJAX handler
+      type: "POST",
+      data: Object.assign(
+        {
+          action: "verify_and_submit_captcha", // The action hook for the PHP function
+        },
+        captchaData
+      ),
+      success: function (response) {
+        if (response.success) {
+          // Captcha verification succeeded; proceed with form submission
+          // Remove captcha response field or modify formData as needed
+          $(
+            '[name="g-recaptcha-response"], [name="h-captcha-response"]'
+          ).remove();
+
+          // Serialize form data for submission, now excluding the captcha response
+          let formData = $joinForm.serialize();
+
+          // Dynamically update the UI with the redirection message
+          $("#messageContainer").html(
+            "<h4>Thank You!</h4><p>You will now be redirected to our payment gateway in a new window to complete the process. You may safely navigate away from this page or close this tab.</p>"
+          );
+
+          // Dynamically update UI or redirect as needed before form submission
+          // This part submits the form to the action URL, opening in a new tab/window
+          $joinForm.attr("target", "_blank").hide().submit();
         } else {
-            $captchaSend.hide(); // Hide captcha and submit button if consent is not checked
-            $send.prop("disabled", true);
+          // Handle captcha verification failure
+          alert("Captcha verification failed. Please try again.");
         }
+      },
+      error: function (xhr, status, error) {
+        // Handle potential AJAX request errors
+        alert("An error occurred: " + error);
+      },
+    });
+  }
+
+  $("#Email").change(function () {
+    console.log("Handler for email .change() called.");
+    $.ajax({
+      url: "https://www.emembersdb.com/Lookup/EMailCheck.cfm",
+      type: "POST",
+      dataType: "json",
+      data: {
+        AccountID: $("#AccountID").val(),
+        Email: $(this).val().trim(),
+        IsActive: "Y", // Search for active subscriptions
+      },
+    })
+      .done(function (data) {
+        console.log(data);
+        if (data == 1) {
+          $emailDiv.show();
+          $emailDiv.html(
+            `This email is already associated with a membership. Please contact <a href="mailto:${$siteEmail}?subject=Duplicate%20Membership%20Email%20Address">${$siteEmail}</a> to change your membership type.`
+          );
+          $captchaSend.hide();
+          console.log("EMail found");
+        } else {
+          $emailDiv.hide();
+          console.log("EMail NOT found");
+        }
+      })
+      .fail(function (jqXHR, textStatus, errorThrown) {
+        $emailDiv.html("Error checking email. Please try again.").show();
+        console.error(
+          "Email change AJAX request failed: " + textStatus,
+          errorThrown
+        );
+      });
+  });
+  $("#fkclubtype").change(function () {
+    console.log("Handler for membertype .change() called.");
+    let mt = $(this).val();
+    console.log(mt);
+    switch (mt) {
+      case "Rotary Club":
+        $(".hide9").show();
+        $("#fkmembertype").val("Active");
+        break;
+      case "Rotaract Club":
+        $(".hide9").show();
+        $("#fkmembertype").val("Rotaractor");
+        break;
+      case "Non-Rotarian":
+        $(".hide9").hide();
+        $("#fkmembertype").val("Non-Rotarian");
+        break;
     }
+  });
 
-    // Consent checkbox change event
-    $consent.change(function() {
-        toggleCaptchaAndButton(); // Call the function to toggle captcha and button based on consent
-    });
+  $(".CountryLookup").on("select2:select", function (e) {
+    let data = e.params.data;
+    console.log(data);
+    console.log("id=" + data.id); // countrycode
+    console.log("country=" + data.text); // countryname
+    console.log("cnt=" + data.cnt); // count of states
+    $("#CountryCode").val(data.id); // countrycode
+    if (data.cnt == 0) $("#staterow").hide();
+    else $("#staterow").show();
+  });
 
-    $send.click(async function(event) {
-        event.preventDefault(); // Prevent form submission
-
-        // Call reCAPTCHA to get the token
-        grecaptcha.ready(function() {
-            grecaptcha.execute(captchaKeys.recaptcha_site_key, {action: 'submit'}).then(function(token) {
-                // Append the token to the form data
-                $('<input>').attr({
-                    type: 'hidden',
-                    name: 'g-recaptcha-response',
-                    value: token
-                }).appendTo($joinForm);
-
-                // Serialize form data for AJAX submission, now including the reCAPTCHA token
-                let formData = $joinForm.serialize();
-                console.log("Form data being sent: ", formData);
-
-                // Optionally, confirm with the developer if they want to continue
-                let shouldContinue = confirm("Do you want to proceed with form submission with the above data?");
-                if (!shouldContinue) {
-                    return; // Stop if not proceeding
-                }
-
-                // Dynamically update the UI with the redirection message
-                $('#messageContainer').html("<h4>Thank You!</h4><p>You will now be redirected to our payment gateway in a new window to complete the process. You may safely navigate away from this page or close this tab.</p>");
-
-                // Submit form data to the form action URL
-                $joinForm.attr("target", "_blank").hide().submit();
-                //alert("Form data sent to server. Please check the console for the form data.");
-            });
+  $(".CountryLookup").select2({
+    placeholder: "Select Country",
+    ajax: {
+      url: "https://www.emembersdb.com/Lookup/FKRotaryCountry.cfm",
+      type: "POST",
+      dataType: "json",
+      quietMillis: 100,
+      data: function (params) {
+        var query = {
+          term: params.term,
+        };
+        return query;
+      },
+    },
+    results: function (data) {
+      results = [];
+      $.each(data, function (index, item) {
+        results.push({
+          id: item.id,
+          text: item.text,
         });
-    });
+      });
+      return {
+        results: results,
+      };
+    },
+    createTag: function (params) {
+      return {
+        id: params.term,
+        text: params.term,
+        newOption: true,
+      };
+    },
+  });
 
-    $("#Email").change(function() {
-        console.log("Handler for email .change() called.");
-        $.ajax({
-            url: 'https://www.emembersdb.com/Lookup/EMailCheck.cfm',
-            type: "POST",
-            dataType: 'json',
-            data: {
-                AccountID: $("#AccountID").val(),
-                Email: $(this).val().trim(),
-                IsActive: 'Y' // Search for active subscriptions
-            }
-        }).done(function(data) {
-            console.log(data)
-            if (data == 1) {
-                $emailDiv.show();
-                $emailDiv.html(`This email is already in the system associated with a membership.Please email membership at ${$("#AccountEMail").val()} to change your membership type.`);
-                $captchaSend.hide();
-                console.log("EMail found")
-            } else {
-                $emailDiv.hide();
-                console.log("EMail NOT found")
-            }
-        }).fail(function(jqXHR, textStatus, errorThrown) {
-            $emailDiv.html("Error checking email. Please try again.").show();
-            console.error("Email change AJAX request failed: " + textStatus, errorThrown);
+  $(".StateProvLookup").on("select2:select", function (e) {
+    let data = e.params.data;
+    console.log(data);
+    console.log("id=" + data.id); // statecode
+    console.log("StateProv=" + data.text); // StateProv
+    $("#StateCode").val(data.statecode); // statecode
+    $("#fkstateprov").val(data.text); // StateProv
+    $("#ProvOrOther").val(data.province); // Province
+  });
+
+  $(".StateProvLookup").select2({
+    placeholder: "Select State or Province",
+    tags: true,
+    ajax: {
+      url: "https://www.emembersdb.com/Lookup/FKRotaryStateProv.cfm",
+      // url: 'http://emdb.com/Lookup/FKRotaryStateProv.cfm',
+      type: "POST",
+      dataType: "json",
+      quietMillis: 100,
+      data: function (params) {
+        var country = $("#fkcountry").val(); // countrycode
+        console.log("country=" + country);
+        if (country.length == 0) {
+          alert("select Country first!");
+          return "[]";
+        }
+        var query = {
+          countrycode: country,
+          AccountID: $("#AccountID").val(),
+          term: params.term,
+        };
+        return query;
+      },
+    },
+    results: function (data) {
+      results = [];
+      $.each(data, function (index, item) {
+        results.push({
+          id: item.id,
+          text: item.text,
         });
-    });
-    $("#fkclubtype").change(function() {
-        console.log("Handler for membertype .change() called.");
-        let mt = $(this).val()
-        console.log(mt)
-        switch (mt) {
-            case 'Rotary Club':
-                $(".hide9").show();
-                $("#fkmembertype").val("Active");
-                break;
-            case 'Rotaract Club':
-                $(".hide9").show();
-                $("#fkmembertype").val("Rotaractor");
-                break;
-            case 'Non-Rotarian':
-                $(".hide9").hide();
-                $("#fkmembertype").val("Non-Rotarian");
-                break;
-        }
-    });
+      });
+      return {
+        results: results,
+      };
+    },
+    createTag: function (params) {
+      return {
+        id: params.term,
+        text: params.term,
+        newOption: true,
+      };
+    },
+  });
 
-    $('.CountryLookup').on('select2:select', function(e) {
-        let data = e.params.data;
-        console.log(data)
-        console.log("id=" + data.id) // countrycode
-        console.log("country=" + data.text) // countryname
-        console.log("cnt=" + data.cnt) // count of states
-        $("#CountryCode").val(data.id) // countrycode
-        if (data.cnt == 0)
-            $("#staterow").hide();
-        else
-            $("#staterow").show();
-    });
+  $(".ClubLookupInZone").on("select2:select", function (e) {
+    console.log("ClubLookup change");
+    let data = e.params.data;
+    console.log(data);
 
-    $('.CountryLookup').select2({
-        placeholder: 'Select Country',
-        ajax: {
-            url: 'https://www.emembersdb.com/Lookup/FKRotaryCountry.cfm',
-            type: "POST",
-            dataType: 'json',
-            quietMillis: 100,
-            data: function(params) {
-                var query = {
-                    term: params.term
-                }
-                return query;
-            }
-        },
-        results: function(data) {
-            results = [];
-            $.each(data, function(index, item) {
-                results.push({
-                    id: item.id,
-                    text: item.text
-                });
-            });
-            return {
-                results: results
-            };
-        },
-        createTag: function(params) {
-            return {
-                id: params.term,
-                text: params.term,
-                newOption: true
-            }
-        }
-    });
+    $("#fkdistrict").val(data.districtid); // DistrictID
+    $("#zonename").val(data.zonename); // zonename
+    $("#ClubID").val(data.id); // iMembersDB ClubID
+    $("#fkclubname").val(data.text); // fkclubNmae
+    $("#ClubLocDiv").html(
+      "District: " + data.districtid + "   RAGAS zone: " + data.zonename
+    );
+  });
 
-    $('.StateProvLookup').on('select2:select', function(e) {
-        let data = e.params.data;
-        console.log(data)
-        console.log("id=" + data.id) // statecode
-        console.log("StateProv=" + data.text) // StateProv
-        $("#StateCode").val(data.statecode) // statecode
-        $("#fkstateprov").val(data.text) // StateProv
-        $("#ProvOrOther").val(data.province) // Province
-    });
+  $(".ClubLookupInZone").select2({
+    placeholder: "Rotary Club",
+    tags: true,
+    ajax: {
+      url: "https://www.emembersdb.com/Lookup/FKRotaryClubInZone.cfm",
+      type: "POST",
+      dataType: "json",
+      quietMillis: 100,
+      data: function (params) {
+        let countrycode = $(".CountryLookup option:selected").val();
+        let statecode = $("#StateCode").val();
+        let orgtype = $("#fkclubtype").val();
+        console.log(
+          "countrycode=" +
+            countrycode +
+            " statecode=" +
+            statecode +
+            " orgtype=" +
+            orgtype
+        );
+        let query = {
+          AccountID: $("#AccountID").val(),
+          countrycode: countrycode,
+          statecode: statecode,
+          orgtype: orgtype,
+          term: params.term,
+        };
+        return query;
+      },
+    },
+    results: function (data) {
+      results = [];
+      $.each(data, function (index, item) {
+        results.push({
+          id: item.id,
+          text: item.text,
+        });
+      });
+      return {
+        results: results,
+      };
+    },
+    createTag: function (params) {
+      return {
+        id: params.id,
+        text: params.text,
+        newOption: true,
+      };
+    },
+  });
 
-    $('.StateProvLookup').select2({
-        placeholder: 'Select State or Province',
-        tags: true,
-        ajax: {
-            url: 'https://www.emembersdb.com/Lookup/FKRotaryStateProv.cfm',
-            // url: 'http://emdb.com/Lookup/FKRotaryStateProv.cfm',
-            type: "POST",
-            dataType: 'json',
-            quietMillis: 100,
-            data: function(params) {
-                var country = $("#fkcountry").val(); // countrycode
-                console.log("country=" + country);
-                if (country.length == 0) {
-                    alert("select Country first!");
-                    return '[]';
-                }
-                var query = {
-                    countrycode: country,
-                    AccountID: $("#AccountID").val(),
-                    term: params.term
-                }
-                return query;
-            }
-        },
-        results: function(data) {
-            results = [];
-            $.each(data, function(index, item) {
-                results.push({
-                    id: item.id,
-                    text: item.text
-                });
-            });
-            return {
-                results: results
-            };
-        },
-        createTag: function(params) {
-            return {
-                id: params.term,
-                text: params.term,
-                newOption: true
-            }
-        }
-    });
-
-    $('.ClubLookupInZone').on('select2:select', function(e) {
-        console.log("ClubLookup change")
-        let data = e.params.data;
-        console.log(data)
-
-        $("#fkdistrict").val(data.districtid) // DistrictID
-        $("#zonename").val(data.zonename) // zonename
-        $("#ClubID").val(data.id) // iMembersDB ClubID
-        $("#fkclubname").val(data.text) // fkclubNmae
-        $("#ClubLocDiv").html("District: " + data.districtid + "   RAGAS zone: " + data.zonename)
-
-    });
-
-    $('.ClubLookupInZone').select2({
-        placeholder: 'Rotary Club',
-        tags: true,
-        ajax: {
-            url: 'https://www.emembersdb.com/Lookup/FKRotaryClubInZone.cfm',
-            type: "POST",
-            dataType: 'json',
-            quietMillis: 100,
-            data: function(params) {
-                let countrycode = $(".CountryLookup option:selected").val();
-                let statecode = $("#StateCode").val();
-                let orgtype = $("#fkclubtype").val();
-                console.log("countrycode=" + countrycode + " statecode=" + statecode + " orgtype=" + orgtype);
-                let query = {
-                    AccountID: $("#AccountID").val(),
-                    countrycode: countrycode,
-                    statecode: statecode,
-                    orgtype: orgtype,
-                    term: params.term
-                }
-                return query;
-            }
-        },
-        results: function(data) {
-            results = [];
-            $.each(data, function(index, item) {
-                results.push({
-                    id: item.id,
-                    text: item.text
-                });
-            });
-            return {
-                results: results
-            };
-        },
-        createTag: function(params) {
-            return {
-                id: params.id,
-                text: params.text,
-                newOption: true
-            }
-        }
-    });
-
-    $("#prtapp").click(function() {
-        console.log("print")
-        $("#PrintContent").printThis();
-        return false;
-    });
+  $("#prtapp").click(function () {
+    console.log("print");
+    $("#PrintContent").printThis();
+    return false;
+  });
 });

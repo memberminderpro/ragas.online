@@ -38,6 +38,7 @@ function verify_hcaptcha($captchaResponse, $remoteip) {
         }
     }
 }
+
 // Verify Google reCAPTCHA
 function verify_recaptcha($captchaResponse, $remoteip) {
     $secretKey = RECAPTCHA_SECRET_KEY; // Define this in wp-config.php
@@ -51,6 +52,7 @@ function verify_recaptcha($captchaResponse, $remoteip) {
         )
     );
 
+    error_log('Sending Google reCAPTCHA verification request: ' . print_r($args, true));
     $response = wp_remote_post($verifyURL, $args);
 
     // Similar error handling and response processing as verify_hcaptcha
@@ -61,8 +63,10 @@ function verify_recaptcha($captchaResponse, $remoteip) {
         $body = wp_remote_retrieve_body($response);
         $data = json_decode($body);
         if (isset($data->success) && $data->success) {
+            error_log('Google reCAPTCHA verification succeeded');
             return true;
         } else {
+            error_log('Google reCAPTCHA verification failed: ' . (isset($data->{'error-codes'}) ? implode(', ', $data->{'error-codes'}) : 'No error codes returned'));
             return false;
         }
     }
@@ -76,23 +80,33 @@ function handle_captcha_form_submission() {
     $remoteip = $_SERVER['REMOTE_ADDR']; // User's IP address
 
     if (!empty($_POST['h-captcha-response'])) {
+
+        error_log('Processing hCaptcha response');
+
         // Handle hCaptcha verification
         $captcha_response = $_POST['h-captcha-response'];
         $verification_result = verify_hcaptcha($captcha_response, $remoteip);
     } elseif (!empty($_POST['g-recaptcha-response'])) {
+
+        error_log('Processing Google reCAPTCHA response');
+
         // Handle reCAPTCHA verification
         $captcha_response = $_POST['g-recaptcha-response'];
         $verification_result = verify_recaptcha($captcha_response, $remoteip);
     } else {
+        // No captcha response was submitted
+        error_log('Captcha response is missing');
         wp_send_json_error(array('message' => 'Captcha response is missing.'));
         wp_die();
     }
 
     // Proceed based on the verification result
     if ($verification_result === true) {
+        error_log('Captcha verified successfully');
         // Form submission logic
         wp_send_json_success(array('message' => 'Captcha verified, form submitted successfully.'));
     } else {
+        error_log('Captcha verification failed');
         wp_send_json_error(array('message' => 'Captcha verification failed.'));
     }
 
