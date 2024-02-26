@@ -56,7 +56,8 @@ jQuery(document).ready(function($) {
         $('#messageContainer').html("<h4>Thank You!</h4><p>You will now be redirected to our payment gateway in a new window to complete the process. You may safely navigate away from this page or close this tab.</p>");
 
         // Submit form data to the form action URL
-        $joinForm.attr("target", "_blank").hide().submit();
+        // $joinForm.attr("target", "_blank").hide().submit();
+        alert("Form data sent to server. Please check the console for the form data.");
 
     });
 
@@ -87,7 +88,6 @@ jQuery(document).ready(function($) {
             console.error("Email change AJAX request failed: " + textStatus, errorThrown);
         });
     });
-
     $("#fkclubtype").change(function() {
         console.log("Handler for membertype .change() called.");
         let mt = $(this).val()

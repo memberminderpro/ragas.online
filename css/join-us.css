@@ -115,4 +115,11 @@ p {
     height: 30px;
 }
 
+#EmailDiv {
+    color: red;
+}
+
 /* Divs hidden on page load */
+#wait, #Step2, #EmailDiv, .captcha-send, #Send {
+    display: none;
+}
