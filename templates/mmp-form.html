@@ -20,7 +20,7 @@
     <!-- NOTE: Uncomment the following line prior to developing locally to use the join-us.css 
      file in the mmp-sandbox theme (no cache-busting required) -->
     <link href="/wp-content/themes/divi-sandbox/assets/ragas.online/css/join-us.css" rel="stylesheet"
-        crossorigin="anonymous" />
+    crossorigin="anonymous" />
 
     <div id="Step1">
         <form id="joinForm" name="form" Action="https://www.emembersdb.com/nm/custom.cfm" method="Post">
@@ -84,7 +84,7 @@
                         <td class="TDData"><input class="entry" id="Email" type="text" maxlength="64" name="email"
                                 value="" onkeypress="return noEnter(event)" size="32" required
                                 placeholder="EMail Address" />
-                            <div id="EMailDiv" style="display: none; color: red">This email is already in the
+                            <div id="EMailDiv">This email is already in the
                                 system. Please email membership at membership@RAGAS.org to change your membership
                                 type.</div>
                         </td>
@@ -207,18 +207,17 @@
             </div>
             <P class="noprint"><a href="" id="prtapp">Click here</a> to print.
             <p>
-            <div class="captcha-send" style="display: none;">
+            <div class="captcha-send">
                 <!-- NOTE: Add captcha vendor front-end code here -->
                 <!-- <div class="h captcha" data-sitekey="11111-22222-333-000000-99" data-callback="onCaptchaSuccess"></div> -->
 
-                <p><input id="Send" type="button" name="Send" value="Submit Application" class="btn btn-warning noprint"
-                        style="display: none;"></p>
+                <p><input id="Send" type="button" name="Send" value="Submit Application" class="btn btn-warning noprint"></p>
             </div>
             <!-- !SECTION: Form Fields -->
         </form>
     </div>
     <!-- SECTION: Hidden Divs -->
-    <div id="Step2" style="display:none;">
+    <div id="Step2">
         <h3>Problem!</h3>
         <P>There was a system error creating your new membership. Please contact support to resolve this issue.</P>
         <P><BR />
@@ -242,15 +241,6 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js" defer></script>
     <!-- !SECTION: JavaScript Libraries-->
-    <!-- SECTION: Custom JavaScript event handlers -->
-
-    <!-- NOTE: Uncomment the following line prior to deploying this to production 
-     to use the join-us.js file from the Member Minder Pro GitHub repository
-<script src="https://cdn.jsdelivr.net/gh/memberminderpro/ragas.online/js/join-us.js"></script>  -->
-
-    <!-- NOTE: Uncomment the following line prior to developing locally to use the join-us.js 
-     file in the mmp-sandbox theme (no cache-busting required) -->
-    <script src="/wp-content/themes/divi-sandbox/assets/ragas.online/js/join-us.js" defer></script>
 
     <!-- !SECTION: Custom JavaScript event handlers -->
 </div>
