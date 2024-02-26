@@ -1,3 +1,13 @@
+// Function to dynamically load the reCAPTCHA script
+function loadReCaptchaScript() {
+    var script = document.createElement('script');
+    script.src = 'https://www.google.com/recaptcha/api.js?render=' + captchaKeys.recaptcha_site_key;
+    document.head.appendChild(script);
+}
+
+// Call the function to load the script
+loadReCaptchaScript();
+
 function getQueryParams(qs) {
     let params = new URLSearchParams(qs);
     let result = {};
@@ -39,26 +49,36 @@ jQuery(document).ready(function($) {
     });
 
     $send.click(async function(event) {
+        event.preventDefault(); // Prevent form submission
 
+        // Call reCAPTCHA to get the token
+        grecaptcha.ready(function() {
+            grecaptcha.execute(captchaKeys.recaptcha_site_key, {action: 'submit'}).then(function(token) {
+                // Append the token to the form data
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'g-recaptcha-response',
+                    value: token
+                }).appendTo($joinForm);
 
-        // Serialize form data for AJAX submission
-        let formData = $joinForm.serialize();
-        // Log the form data for inspection
-        console.log("Form data being sent: ", formData);
+                // Serialize form data for AJAX submission, now including the reCAPTCHA token
+                let formData = $joinForm.serialize();
+                console.log("Form data being sent: ", formData);
 
-        // Optionally, confirm with the developer if they want to continue
-        let shouldContinue = confirm("Do you want to proceed with form submission with the above data?");
-        if (!shouldContinue) {
-            return; // Stop if not proceeding
-        }
+                // Optionally, confirm with the developer if they want to continue
+                let shouldContinue = confirm("Do you want to proceed with form submission with the above data?");
+                if (!shouldContinue) {
+                    return; // Stop if not proceeding
+                }
 
-        // Dynamically update the UI with the redirection message
-        $('#messageContainer').html("<h4>Thank You!</h4><p>You will now be redirected to our payment gateway in a new window to complete the process. You may safely navigate away from this page or close this tab.</p>");
+                // Dynamically update the UI with the redirection message
+                $('#messageContainer').html("<h4>Thank You!</h4><p>You will now be redirected to our payment gateway in a new window to complete the process. You may safely navigate away from this page or close this tab.</p>");
 
-        // Submit form data to the form action URL
-        // $joinForm.attr("target", "_blank").hide().submit();
-        alert("Form data sent to server. Please check the console for the form data.");
-
+                // Submit form data to the form action URL
+                $joinForm.attr("target", "_blank").hide().submit();
+                //alert("Form data sent to server. Please check the console for the form data.");
+            });
+        });
     });
 
     $("#Email").change(function() {
