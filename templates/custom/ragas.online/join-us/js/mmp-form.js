@@ -3,7 +3,7 @@ function loadReCaptchaScript() {
   var script = document.createElement("script");
   script.src =
     "https://www.google.com/recaptcha/api.js?render=" +
-    captchaKeys.recaptcha_site_key;
+    mmpFormOptions.recaptcha_site_key;
   document.head.appendChild(script);
 }
 
@@ -34,44 +34,54 @@ jQuery(document).ready(function ($) {
   const $joinForm = $("#joinForm");
   const $send = $("#Send");
 
-  let $siteEmail = $("#AccountEMail").val();
+  let $siteEmail = mmpFormOptions.account_email;
+
+  $('input[required], select[required]').each(function () {
+    var inputId = $(this).attr("id");
+    var label = $('label[for="' + inputId + '"]');
+    if (label.length) {
+      label.html('<span style="color: red;">*</span> ' + label.html());
+    }
+  });
 
   function checkRequiredFields() {
     // Assume all fields are valid initially
     let allFieldsValid = true;
-  
+
     // Check each input within the form
-    $("#joinForm input[required], #joinForm select[required]").each(function() {
-      if (!$(this).val()) {
-        allFieldsValid = false;
-        // Break out of the loop if a field is not filled
-        return false;
+    $("#joinForm input[required], #joinForm select[required]").each(
+      function () {
+        if (!$(this).val()) {
+          allFieldsValid = false;
+          // Break out of the loop if a field is not filled
+          return false;
+        }
       }
-    });
-  
+    );
+
     // Enable or disable the consent checkbox based on field validity
-    $consent.prop('disabled', !allFieldsValid);
-    
-  // If all fields are valid, remove the 'disabled' class from the sibling label; otherwise, add it back
-  if (allFieldsValid) {
-    $consent.siblings("label").removeClass("disabled");
-  } else {
-    $consent.siblings("label").addClass("disabled");
-  }
+    $consent.prop("disabled", !allFieldsValid);
+
+    // If all fields are valid, remove the 'disabled' class from the sibling label; otherwise, add it back
+    if (allFieldsValid) {
+      $consent.siblings("label").removeClass("disabled");
+    } else {
+      $consent.siblings("label").addClass("disabled");
+    }
   }
 
-  $('input[required]').on('keyup change paste', function() {
+  $("input[required]").on("keyup change paste", function () {
     var $field = $(this);
-    if ($field.val() === '') {
-        $field.addClass('is-invalid'); // Add class for visual feedback
+    if ($field.val() === "") {
+      $field.addClass("is-invalid"); // Add class for visual feedback
     } else {
-        $field.removeClass('is-invalid'); // Remove class if the field is valid
+      $field.removeClass("is-invalid"); // Remove class if the field is valid
     }
 
     checkRequiredFields(); // enable/disable the submit button
-});
+  });
 
-// Function to handle showing/hiding captcha and submit button based on consent
+  // Function to handle showing/hiding captcha and submit button based on consent
   function toggleCaptchaAndButton() {
     if ($consent.is(":checked")) {
       $captchaSend.show(); // Show captcha
@@ -95,7 +105,7 @@ jQuery(document).ready(function ($) {
       // Google reCAPTCHA is used
       grecaptcha.ready(function () {
         grecaptcha
-          .execute(captchaKeys.recaptcha_site_key, { action: "submit" })
+          .execute(mmpFormOptions.recaptcha_site_key, { action: "submit" })
           .then(function (token) {
             console.log("reCAPTCHA token received:", token);
             captchaData["g-recaptcha-response"] = token;
@@ -135,9 +145,32 @@ jQuery(document).ready(function ($) {
             '[name="g-recaptcha-response"], [name="h-captcha-response"]'
           ).remove();
 
+          // Append new fields directly to the form before submission
+          $('<input>').attr({
+              type: 'hidden',
+              name: 'AccountID',
+              value: mmpFormOptions.account_ID
+          }).appendTo($joinForm);
+
+          $('<input>').attr({
+              type: 'hidden',
+              name: 'BID',
+              value: mmpFormOptions.BID
+          }).appendTo($joinForm);
+
+          $('<input>').attr({
+              type: 'hidden',
+              name: 'AccountEmail',
+              value: mmpFormOptions.account_email
+          }).appendTo($joinForm);
+
           // Serialize form data for submission, now excluding the captcha response
           let formData = $joinForm.serialize();
 
+          console.log(formData); // Log the serialized form data
+          // Debugger statement acts as a breakpoint if the developer console is open
+          debugger;
+          
           // Dynamically update the UI with the redirection message
           $("#messageContainer").html(
             "<h4>Thank You!</h4><p>You will now be redirected to our payment gateway in a new window to complete the process. You may safely navigate away from this page or close this tab.</p>"
@@ -165,7 +198,7 @@ jQuery(document).ready(function ($) {
       type: "POST",
       dataType: "json",
       data: {
-        AccountID: $("#AccountID").val(),
+        AccountID: mmpFormOptions.account_ID,
         Email: $(this).val().trim(),
         IsActive: "Y", // Search for active subscriptions
       },
@@ -286,7 +319,7 @@ jQuery(document).ready(function ($) {
         }
         var query = {
           countrycode: country,
-          AccountID: $("#AccountID").val(),
+          AccountID: mmpFormOptions.account_ID,
           term: params.term,
         };
         return query;
@@ -348,7 +381,7 @@ jQuery(document).ready(function ($) {
             orgtype
         );
         let query = {
-          AccountID: $("#AccountID").val(),
+          AccountID: mmpFormOptions.account_ID,
           countrycode: countrycode,
           statecode: statecode,
           orgtype: orgtype,
