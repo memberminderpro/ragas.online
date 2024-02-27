@@ -30,7 +30,12 @@ This form is used to sign up new members for RAGAS.online. It is a modified vers
 
 ## Change log
 
+### v1.0.1
+
+- Added confirmation modal to prevent popup blocking.
+
 ### v1.0.0
+
   - Converted static form to WordPress plugin
   - replaced table layout with responsive html and css
   - Moved all embeded javascript and inline css to js/scripts.js and css/sytles.css
@@ -38,8 +43,6 @@ This form is used to sign up new members for RAGAS.online. It is a modified vers
   - removed local third-party libraries and linked using CDN paths
   - added support for Google Recaptcha3, with optional support for hcaptcha and Turnstile.
 
-### v1.0.1
-- Added confirmation modal to prevent popup blocking.
 
 ## Original Version history:
 
