@@ -1,3 +1,9 @@
+.mmp {
+    width: 100%;
+    max-width: 580px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
 .entry {
   height: 30px;
 }
@@ -56,17 +62,22 @@ legend {
 }
 
 fieldset {
-  margin: 2em auto;
+    width: auto;
+    margin: 2em auto;
 }
 
 legend {
   margin: 2em 0;
 }
-
+fieldset p {
+    width: auto;
+    margin: 0.5em auto;
+}
 fieldset p label {
   display: inline-block;
   width: 170px;
   font-size: 14px;
+  font-weight: bold;
 }
 
 label.required::after {
@@ -135,8 +146,9 @@ select2-selection__rendered {
   width: 400px;
 }
 
-#ClubLocDiv {
-  margin-left: 175px;
+#ClubLocDiv, #EMailDiv {
+  margin: -20px 0 0 175px;
+
 }
 
 #wait {
@@ -200,7 +212,7 @@ select2-selection__rendered {
     margin: 2px auto;
     padding: 0;
   }
-  #ClubLocDiv {
+  #ClubLocDiv, #EMailDiv {
     margin-left: 0px;
   }
   .consent-affirmation label {

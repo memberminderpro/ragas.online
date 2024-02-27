@@ -36,42 +36,52 @@ jQuery(document).ready(function ($) {
 
   let $siteEmail = $("#AccountEMail").val();
 
+  $('input[required], select[required]').each(function () {
+    var inputId = $(this).attr("id");
+    var label = $('label[for="' + inputId + '"]');
+    if (label.length) {
+      label.html('<span style="color: red;">*</span> ' + label.html());
+    }
+  });
+
   function checkRequiredFields() {
     // Assume all fields are valid initially
     let allFieldsValid = true;
-  
+
     // Check each input within the form
-    $("#joinForm input[required], #joinForm select[required]").each(function() {
-      if (!$(this).val()) {
-        allFieldsValid = false;
-        // Break out of the loop if a field is not filled
-        return false;
+    $("#joinForm input[required], #joinForm select[required]").each(
+      function () {
+        if (!$(this).val()) {
+          allFieldsValid = false;
+          // Break out of the loop if a field is not filled
+          return false;
+        }
       }
-    });
-  
+    );
+
     // Enable or disable the consent checkbox based on field validity
-    $consent.prop('disabled', !allFieldsValid);
-    
-  // If all fields are valid, remove the 'disabled' class from the sibling label; otherwise, add it back
-  if (allFieldsValid) {
-    $consent.siblings("label").removeClass("disabled");
-  } else {
-    $consent.siblings("label").addClass("disabled");
-  }
+    $consent.prop("disabled", !allFieldsValid);
+
+    // If all fields are valid, remove the 'disabled' class from the sibling label; otherwise, add it back
+    if (allFieldsValid) {
+      $consent.siblings("label").removeClass("disabled");
+    } else {
+      $consent.siblings("label").addClass("disabled");
+    }
   }
 
-  $('input[required]').on('keyup change paste', function() {
+  $("input[required]").on("keyup change paste", function () {
     var $field = $(this);
-    if ($field.val() === '') {
-        $field.addClass('is-invalid'); // Add class for visual feedback
+    if ($field.val() === "") {
+      $field.addClass("is-invalid"); // Add class for visual feedback
     } else {
-        $field.removeClass('is-invalid'); // Remove class if the field is valid
+      $field.removeClass("is-invalid"); // Remove class if the field is valid
     }
 
     checkRequiredFields(); // enable/disable the submit button
-});
+  });
 
-// Function to handle showing/hiding captcha and submit button based on consent
+  // Function to handle showing/hiding captcha and submit button based on consent
   function toggleCaptchaAndButton() {
     if ($consent.is(":checked")) {
       $captchaSend.show(); // Show captcha
