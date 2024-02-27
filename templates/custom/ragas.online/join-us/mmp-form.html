@@ -1,8 +1,4 @@
-<html lang="en">
-  <head>
-    <title>MMP Custom Form</title>
-  </head>
-  <body>
+
     <div class="mmp">
       <!-- NOTE: This form is used to sign up new members for RAGAS.online 
         using the iMembersDB membership management system. For version 
@@ -51,11 +47,11 @@
             </p>
             <p>
                 <!--- FK reference in iMembersDB Region(Club) tab -->
-                <label for="fkcountry"> Club Country</label>
+                <label for="fkcountry">Club Country</label>
                 <select id="fkcountry" name="fkcountry" class="TxtIn CountryLookup" required></select>
             </p>
             <p>
-                <label for="stateprov"> State/Province</label>
+                <label for="stateprov">State/Province</label>
                 <select id="stateprov" name="stateprov" class="TxtIn StateProvLookup" required></select>
                 <!--- FK reference in iMembersDB Region(Club) tab (not currently used) -->
                 <input id="fkstateprov" type="hidden" name="fkstateprov" />
@@ -96,7 +92,8 @@
             </p>
             <p>
                 <label for="PostalZip">Postal Code</label>
-                <input class="entry" id="PostalZip" type="text" maxlength="12" name="PostalZip" size="12" autocomplete="postal-code"  placeholder="Zip / Postal Code" required />
+                <input class="entry" id="PostalZip" type="text" maxlength="12" name="PostalZip" size="12" autocomplete="postal-code"  placeholder="Zip / Postal Code" pattern="^[A-Za-z0-9 -]{3,9}$"
+                title="Please enter a valid postal code." required />
             </p>
 
          </fieldset>
@@ -138,5 +135,3 @@
       </div>
       <!-- !SECTION: Hidden Divs -->
     </div>
-  </body>
-</html>
