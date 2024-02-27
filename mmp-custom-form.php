@@ -14,7 +14,7 @@ function mmp_custom_form_script_shortcode() {
     wp_enqueue_script('jquery');
     wp_enqueue_script('mmp-custom-form-select2-js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', array('jquery'), null, true);
     wp_enqueue_script('mmp-custom-form-jquery-validate', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js', array('jquery'), null, true);
-    script
+    
     // Enqueue the CSS specific to this form
     // wp_enqueue_style('mmp-form-style', plugin_dir_url(__FILE__) . 'css/mmp-form.css');
     wp_enqueue_style('mmp-form-style', plugin_dir_url(__FILE__) . 'templates/custom/ragas.online/join-us/css/mmp-form.css');
