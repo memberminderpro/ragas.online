@@ -3,7 +3,7 @@ function loadReCaptchaScript() {
   var script = document.createElement("script");
   script.src =
     "https://www.google.com/recaptcha/api.js?render=" +
-    captchaKeys.recaptcha_site_key;
+    mmpFormOptions.recaptcha_site_key;
   document.head.appendChild(script);
 }
 
@@ -34,7 +34,7 @@ jQuery(document).ready(function ($) {
   const $joinForm = $("#joinForm");
   const $send = $("#Send");
 
-  let $siteEmail = $("#AccountEMail").val();
+  let $siteEmail = mmpFormOptions.account_email;
 
   $('input[required], select[required]').each(function () {
     var inputId = $(this).attr("id");
@@ -105,7 +105,7 @@ jQuery(document).ready(function ($) {
       // Google reCAPTCHA is used
       grecaptcha.ready(function () {
         grecaptcha
-          .execute(captchaKeys.recaptcha_site_key, { action: "submit" })
+          .execute(mmpFormOptions.recaptcha_site_key, { action: "submit" })
           .then(function (token) {
             console.log("reCAPTCHA token received:", token);
             captchaData["g-recaptcha-response"] = token;
@@ -145,9 +145,32 @@ jQuery(document).ready(function ($) {
             '[name="g-recaptcha-response"], [name="h-captcha-response"]'
           ).remove();
 
+          // Append new fields directly to the form before submission
+          $('<input>').attr({
+              type: 'hidden',
+              name: 'AccountID',
+              value: mmpFormOptions.account_ID
+          }).appendTo($joinForm);
+
+          $('<input>').attr({
+              type: 'hidden',
+              name: 'BID',
+              value: mmpFormOptions.BID
+          }).appendTo($joinForm);
+
+          $('<input>').attr({
+              type: 'hidden',
+              name: 'AccountEmail',
+              value: mmpFormOptions.account_email
+          }).appendTo($joinForm);
+
           // Serialize form data for submission, now excluding the captcha response
           let formData = $joinForm.serialize();
 
+          console.log(formData); // Log the serialized form data
+          // Debugger statement acts as a breakpoint if the developer console is open
+          debugger;
+          
           // Dynamically update the UI with the redirection message
           $("#messageContainer").html(
             "<h4>Thank You!</h4><p>You will now be redirected to our payment gateway in a new window to complete the process. You may safely navigate away from this page or close this tab.</p>"
@@ -175,7 +198,7 @@ jQuery(document).ready(function ($) {
       type: "POST",
       dataType: "json",
       data: {
-        AccountID: $("#AccountID").val(),
+        AccountID: mmpFormOptions.account_ID,
         Email: $(this).val().trim(),
         IsActive: "Y", // Search for active subscriptions
       },
@@ -296,7 +319,7 @@ jQuery(document).ready(function ($) {
         }
         var query = {
           countrycode: country,
-          AccountID: $("#AccountID").val(),
+          AccountID: mmpFormOptions.account_ID,
           term: params.term,
         };
         return query;
@@ -358,7 +381,7 @@ jQuery(document).ready(function ($) {
             orgtype
         );
         let query = {
-          AccountID: $("#AccountID").val(),
+          AccountID: mmpFormOptions.account_ID,
           countrycode: countrycode,
           statecode: statecode,
           orgtype: orgtype,
