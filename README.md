@@ -1,4 +1,6 @@
-# RAGAS.online `Join Us` form
+# MMP Custom Form Plugin
+
+## The RAGAS.online `Join Us` form
 
 This form is used to sign up new members for RAGAS.online. It is a modified version of the ESRAG form located at https://esrag.org/subscriptions/?mtid=501
 
