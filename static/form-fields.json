@@ -1,0 +1,529 @@
+[
+    {
+        "name": "Form Fields",
+        "content": [
+            {
+                "Title": "x",
+                "Name": "Prefix",
+                "ID": "Prefix"
+            },
+            {
+                "First Name": "",
+                "Name": "FirstName",
+                "ID": "FirstName",
+                "Required": true
+            },
+            {
+                "MI": "",
+                "Name": "MidName",
+                "ID": "MidName"
+            },
+            {
+                "Last Name": "",
+                "Name": "LastName",
+                "ID": "LastName",
+                "Required": true
+            },
+            {
+                "Suffix": "",
+                "Name": "NameSfx",
+                "ID": "NameSfx",
+                "Options": [
+                    "",
+                    "Jr.",
+                    "Sr.",
+                    "II",
+                    "III",
+                    "IV",
+                    "V"
+                ]
+            },
+            {
+                "Nickname (Badge Name)": "",
+                "Name": "NickName",
+                "ID": "NickName"
+            },
+            {
+                "Birthdate (mm/dd/yyyy)": "",
+                "Name": "Birthdate",
+                "ID": "Birthdate",
+                "Required": true
+            },
+            {
+                "Gender": "",
+                "Name": "Gender",
+                "ID": "Gender",
+                "Options": [
+                    "",
+                    "M",
+                    "F",
+                    "?"
+                ],
+                "Required": true
+            },
+            {
+                "Email": "",
+                "Name": "Email",
+                "ID": "Email",
+                "Required": true
+            },
+            {
+                "Home Phone": "",
+                "Name": "HomePhone",
+                "ID": "HomePhone"
+            },
+            {
+                "Office Phone": "",
+                "Name": "Thingy",
+                "ID": "Thingy"
+            },
+            {
+                "Cell Phone": "",
+                "Name": "CellPhone",
+                "ID": "CellPhone",
+                "Required": true
+            },
+            {
+                "Cell Carrier": "",
+                "Name": "CarrierID",
+                "ID": "CarrierID",
+                "Options": [
+                    "{select}",
+                    "none",
+                    "Aliant",
+                    "Alltel",
+                    "Ameritech",
+                    "AT&T",
+                    "Bell Canada",
+                    "Bell Mobility Canada",
+                    "Bellsouth",
+                    "BellSouth Mobility",
+                    "Cellular South",
+                    "CellularOne (Dobson)",
+                    "CellularOne West",
+                    "Centennial Wireless",
+                    "Cincinnati Bell",
+                    "Cricket",
+                    "Edge Wireless",
+                    "Metro PCS",
+                    "Metrocall Pager",
+                    "MobileOne",
+                    "MTN ZA",
+                    "Nextel",
+                    "PCS Rogers",
+                    "Powertel",
+                    "PSC Wireless",
+                    "Qualcomm",
+                    "Qwest",
+                    "Rogers",
+                    "Satelindo GSM",
+                    "Simple Freedom",
+                    "Sprint",
+                    "Sprint Nextel",
+                    "Sprint PM",
+                    "T-Mobile",
+                    "The Phone House",
+                    "Tracfone",
+                    "U.S. Cellular",
+                    "Verizon",
+                    "Virgin Mobile USA",
+                    "Vodacom ZA",
+                    "Vodafone Spain",
+                    "Vodafone UK"
+                ],
+                "Required": true
+            },
+            {
+                "Sponsor 1": "",
+                "Name": "SponsorName1",
+                "ID": "SponsorName1",
+                "Required": true
+            },
+            {
+                "Sponsor 2": "",
+                "Name": "SponsorName2",
+                "ID": "SponsorName2",
+                "Required": true
+            },
+            {
+                "Preferred Mailing Address Checkbox": "",
+                "ID": "AddressSelect",
+                "Name": "AddressSelect"
+            },
+            {
+                "Address 1 (Home Address)": "",
+                "Name": "HomeAddress1",
+                "ID": "HomeAddress1"
+            },
+            {
+                "Address 2 (Home Address, Ste/Suite)": "",
+                "Name": "HomeAddress2",
+                "ID": "HomeAddress2"
+            },
+            {
+                "Address 3 (Home Address)": "",
+                "Name": "HomeAddress3",
+                "ID": "HomeAddress3"
+            },
+            {
+                "City (Home Address)": "",
+                "Name": "HomeCity",
+                "ID": "HomeCity"
+            },
+            {
+                "State (Home Address)": "",
+                "Name": "HomeStateCode",
+                "ID": "HomeStateCode",
+                "Options": "(List of US states, Canadian provinces, and territories)"
+            },
+            {
+                "County (Home Address)": "",
+                "Name": "HomeCounty",
+                "ID": "HomeCounty"
+            },
+            {
+                "Province (Home Address)": "",
+                "Name": "HomeProvince",
+                "ID": "HomeProvince"
+            },
+            {
+                "Postal Code (Home Address)": "",
+                "Name": "HomePostalZip",
+                "ID": "HomePostalZip"
+            },
+            {
+                "Country (Home Address)": "",
+                "Name": "HomeCountryCode",
+                "ID": "HomeCountryCode",
+                "Options": "(List of countries)"
+            },
+            {
+                "Address 1 (Vacation Address)": "",
+                "Name": "VacAddress1",
+                "ID": "VacAddress1"
+            },
+            {
+                "Address 2 (Vacation Address, Ste/Suite)": "",
+                "Name": "VacAddress2",
+                "ID": "VacAddress2"
+            },
+            {
+                "Address 3 (Vacation Address)": "",
+                "Name": "VacAddress3",
+                "ID": "VacAddress3"
+            },
+            {
+                "City (Vacation Address)": "",
+                "Name": "VacCity",
+                "ID": "VacCity"
+            },
+            {
+                "State (Vacation Address)": "",
+                "Name": "VacStateCode",
+                "ID": "VacStateCode",
+                "Options": "(List of US states, Canadian provinces, and territories)"
+            },
+            {
+                "County (Vacation Address)": "",
+                "Name": "VacCounty",
+                "ID": "VacCounty"
+            },
+            {
+                "Province (Vacation Address)": "",
+                "Name": "VacProvince",
+                "ID": "VacProvince"
+            },
+            {
+                "Postal Code (Vacation Address)": "",
+                "Name": "VacPostalZip",
+                "ID": "VacPostalZip"
+            },
+            {
+                "Country (Vacation Address)": "",
+                "Name": "VacCountryCode",
+                "ID": "VacCountryCode",
+                "Options": "(List of countries)"
+            },
+            {
+                "Company (Business)": "",
+                "Name": "BusName",
+                "ID": "BusName"
+            },
+            {
+                "Occupation (Business Position / Job Title)": "",
+                "Name": "BusPos",
+                "ID": "BusPos"
+            },
+            {
+                "Website (Business)": "",
+                "Name": "BusWeb",
+                "ID": "BusWeb"
+            },
+            {
+                "Number of Employees (Business)": "",
+                "Name": "Employees",
+                "ID": "Employees"
+            },
+            {
+                "Office Phone (Business)": "",
+                "Name": "OfficePhone",
+                "ID": "OfficePhone"
+            },
+            {
+                "Fax Number (Business)": "",
+                "Name": "FaxNumber",
+                "ID": "FaxNumber"
+            },
+            {
+                "Address 1 (Business Address)": "",
+                "Name": "OfficeAddress1",
+                "ID": "OfficeAddress1"
+            },
+            {
+                "Address 2 (Business Address, Ste/Suite)": "",
+                "Name": "OfficeAddress2",
+                "ID": "OfficeAddress2"
+            },
+            {
+                "Address 3 (Business Address)": "",
+                "Name": "OfficeAddress3",
+                "ID": "OfficeAddress3"
+            },
+            {
+                "City (Business Address)": "",
+                "Name": "OfficeCity",
+                "ID": "OfficeCity"
+            },
+            {
+                "State (Business Address)": "",
+                "Name": "OfficeStateCode",
+                "ID": "OfficeStateCode",
+                "Options": "(List of US states, Canadian provinces, and territories)"
+            },
+            {
+                "County (Business Address)": "",
+                "Name": "OfficeCounty",
+                "ID": "OfficeCounty"
+            },
+            {
+                "Province (Business Address)": "",
+                "Name": "OfficeProvince",
+                "ID": "OfficeProvince"
+            },
+            {
+                "Postal Code (Business Address)": "",
+                "Name": "OfficePostalZip",
+                "ID": "OfficePostalZip"
+            },
+            {
+                "Country (Business Address)": "",
+                "Name": "OfficeCountryCode",
+                "ID": "OfficeCountryCode",
+                "Options": "(List of countries)"
+            },
+            {
+                "First Name (Spouse / Partner)": "",
+                "Name": "PartnerFirstName",
+                "ID": "PartnerFirstName"
+            },
+            {
+                "MI Name (Spouse / Partner)": "",
+                "Name": "PartnerMidName",
+                "ID": "PartnerMidName"
+            },
+            {
+                "Last Name (Spouse / Partner)": "",
+                "Name": "PartnerLastName",
+                "ID": "PartnerLastName"
+            },
+            {
+                "Suffix (Spouse / Partner)": "",
+                "Name": "PartnerNameSfx",
+                "ID": "PartnerNameSfx",
+                "Options": [
+                    "",
+                    "Jr.",
+                    "Sr.",
+                    "II",
+                    "III",
+                    "IV",
+                    "V"
+                ]
+            },
+            {
+                "Nickname (Spouse / Partner)": "",
+                "Name": "PartnerNickName",
+                "ID": "PartnerNickName"
+            },
+            {
+                "Date of Birth (Spouse / Partner, mm/dd/yyyy)": "",
+                "Name": "PartnerBirthDate",
+                "ID": "PartnerBirthDate"
+            },
+            {
+                "Married": "",
+                "Name": "MaritalStatus",
+                "ID": "MaritalStatus",
+                "Options": [
+                    "N",
+                    "Y"
+                ]
+            },
+            {
+                "Anniversary (mm/dd/yyyy)": "",
+                "Name": "AnniversaryDate",
+                "ID": "AnniversaryDate"
+            },
+            {
+                "Partner Email": "",
+                "Name": "PartnerEmail",
+                "ID": "PartnerEmail"
+            },
+            {
+                "Is Spouse/Partner a Rotarian?": "",
+                "Name": "IsPartnerMember",
+                "ID": "IsPartnerMember",
+                "Options": [
+                    "N",
+                    "Y"
+                ]
+            },
+            {
+                "Rotary ID Number (Previous Rotary Clubs)": "",
+                "Name": "MemberID",
+                "ID": "MemberID"
+            },
+            {
+                "Club Name (Previous Rotary Clubs)": "",
+                "Name": "PrevClubName1",
+                "ID": "PrevClubName1"
+            },
+            {
+                "City/State (Previous Rotary Clubs)": "",
+                "Name": "PrevCityState1",
+                "ID": "PrevCityState1"
+            },
+            {
+                "Date Joined (Previous Rotary Clubs)": "",
+                "Name": "PrevClubFrom1",
+                "ID": "PrevClubFrom1"
+            },
+            {
+                "Date Resigned (Previous Rotary Clubs)": "",
+                "Name": "PrevClubTo1",
+                "ID": "PrevClubTo1"
+            },
+            {
+                "Club Name (2nd Previous Rotary Clubs)": "",
+                "Name": "PrevClubName2",
+                "ID": "PrevClubName2"
+            },
+            {
+                "City/State (2nd Previous Rotary Clubs)": "",
+                "Name": "PrevCityState2",
+                "ID": "PrevCityState2"
+            },
+            {
+                "Date Joined (2nd Previous Rotary Clubs)": "",
+                "Name": "PrevClubFrom2",
+                "ID": "PrevClubFrom2"
+            },
+            {
+                "Date Resigned (2nd Previous Rotary Clubs)": "",
+                "Name": "PrevClubTo2",
+                "ID": "PrevClubTo2"
+            },
+            {
+                "CLUB PARTICIPATION / ACHIEVEMENTS": "",
+                "Name": "Achievement",
+                "ID": "Achievement"
+            },
+            {
+                "BIO / DESCRIPTION": "",
+                "Name": "Description",
+                "ID": "Description"
+            },
+            {
+                "DEGREES": "",
+                "Name": "Degree",
+                "ID": "Degree"
+            },
+            {
+                "HOBBIES & INTERESTS": "",
+                "Name": "Hobbies",
+                "ID": "Hobbies"
+            },
+            {
+                "COMMUNITY LEADERSHIP & OTHER COMMENTS": "",
+                "Name": "Notes",
+                "ID": "Notes"
+            },
+            {
+                "REFERENCES": "",
+                "Name": "Reference",
+                "ID": "Reference"
+            },
+            {
+                "WHY DO YOU WANT TO JOIN ROTARY?": "",
+                "Name": "WhyJoin",
+                "ID": "WhyJoin"
+            },
+            {
+                "Classification (To Be filled out by Club Secretary)": "",
+                "Name": "Classification",
+                "ID": "Classification"
+            },
+            {
+                "Member Type: Active": "",
+                "Name": "MemberTypeID",
+                "ID": "MemberType",
+                "Value": 0
+            },
+            {
+                "Member Type: Active-Rule of 85": "",
+                "Name": "MemberTypeID",
+                "ID": "MemberType",
+                "Value": 5
+            },
+            {
+                "Member Type: Active-Leave of Absence": "",
+                "Name": "MemberTypeID",
+                "ID": "MemberType",
+                "Value": 1
+            },
+            {
+                "Member Type: Honorary": "",
+                "Name": "MemberTypeID",
+                "ID": "MemberType",
+                "Value": 2
+            },
+            {
+                "Paul Harris Fellow": "",
+                "Name": "PHF",
+                "ID": "PData",
+                "Value": "PHS"
+            },
+            {
+                "Which Rotary Year (Paul Harris Fellow)": "",
+                "Name": "PHFDate",
+                "ID": "PHFDate"
+            },
+            {
+                "Induction Date": "",
+                "Name": "StartDate",
+                "ID": "StartDate"
+            },
+            {
+                "Sponsor Name 1 (Club Secretary Section)": "",
+                "Name": "SponsorName1",
+                "ID": "SponsorName1"
+            },
+            {
+                "Sponsor Name 2 (Club Secretary Section)": "",
+                "Name": "SponsorName2",
+                "ID": "SponsorName2"
+            }
+        ],
+        "tags": []
+    }
+]
