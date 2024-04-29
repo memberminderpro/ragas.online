@@ -1,0 +1,621 @@
+<!-- SECTION custom form -->
+<link
+  href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css"
+  rel="stylesheet"
+/>
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css"
+  rel="stylesheet"
+/>
+<!-- Rotary International Brand Colors -->
+<link href="css/rotary-colors.css" rel="stylesheet" />
+<!-- Rotary Masterbrand Signature and Header -->
+<link href="css/rotary-masterbrand-signature.css" rel="stylesheet" />
+<!-- Custom Styles for the new member information form and page -->
+<link href="css/custom-club.css" rel="stylesheet" />
+<section id="new-member-form">
+  <header>
+    <div class="rotary-masterbrand-signature">
+      <a href="https://www.merrillrotary.org" target="_blank">
+        <img
+          alt="Rotary Club of Merrill Logo"
+          src="https://www.merrillrotary.org/wp-content/uploads/2023/04/Rotary_Club_of_Merrill_Logo_FC.png"
+        />
+      </a>
+    </div>
+    <h1>New Member Information</h1>
+    <p>
+      Thank you for your interest in joining Rotary, an organization committed
+      to making the world a better place by putting service above self. We are
+      thrilled to connect with individuals like you who share our values and
+      vision for community and global improvement.
+    </p>
+    <p>
+      This form is not an application but a way for us to connect and explore
+      the possibilities of your involvement in Rotary. We welcome everyone who
+      wishes to join us in our mission, and we look forward to the opportunity
+      to work together for a better world.
+    </p>
+    <p>
+      <strong> Please note, </strong>
+      to ensure a seamless connection and begin this meaningful journey
+      together, the most important fields in the form are marked with a red
+      asterisk (
+      <span class="required"> * </span>
+      ) beside the field name, indicating they are required.
+    </p>
+  </header>
+  <fieldset>
+    <legend>About Me</legend>
+    <div>
+      <label class="required" for="FirstName"> First Name: </label>
+      <input
+        autofill-prediction="NAME_FIRST"
+        id="FirstName"
+        maxlength="50"
+        name="FirstName"
+        required=""
+        type="text"
+      />
+    </div>
+    <div>
+      <label for="MidName"> Middle Initial: </label>
+      <input
+        autofill-prediction="NAME_MIDDLE_INITIAL"
+        id="MidName"
+        maxlength="32"
+        name="MidName"
+        type="text"
+      />
+    </div>
+    <div>
+      <label class="required" for="LastName"> Last Name: </label>
+      <input
+        autofill-prediction="NAME_LAST"
+        id="LastName"
+        maxlength="50"
+        name="LastName"
+        required=""
+        type="text"
+      />
+    </div>
+    <div>
+      <label for="NickName"> Nickname: </label>
+      <input
+        autofill-prediction="UNKNOWN_TYPE"
+        id="NickName"
+        maxlength="20"
+        name="NickName"
+        type="text"
+      />
+    </div>
+    <div>
+      <label for="Birthdate"> Birthdate: </label>
+      <input id="Birthdate" maxlength="10" name="Birthdate" type="date" />
+    </div>
+    <div>
+      <label for="Gender"> Gender: </label>
+      <select autofill-prediction="UNKNOWN_TYPE" id="Gender" name="Gender">
+        <option></option>
+        <option value="M">Male</option>
+        <option value="F">Female</option>
+        <option value="?">Not Given</option>
+      </select>
+    </div>
+    <div>
+      <label class="required" for="Email"> Email: </label>
+      <input
+        autofill-prediction="EMAIL_ADDRESS"
+        class="entry email"
+        id="Email"
+        maxlength="80"
+        name="Email"
+        required=""
+        type="email"
+      />
+    </div>
+    <div>
+      <label for="HomePhone"> Home Phone: </label>
+      <input
+        autofill-prediction="PHONE_HOME_CITY_AND_NUMBER"
+        id="HomePhone"
+        maxlength="20"
+        name="HomePhone"
+        type="tel"
+      />
+    </div>
+    <div>
+      <label class="required" for="CellPhone"> Mobile Phone: </label>
+      <input
+        autofill-prediction="PHONE_HOME_CITY_AND_NUMBER"
+        id="CellPhone"
+        maxlength="20"
+        name="CellPhone"
+        required=""
+        type="tel"
+      />
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Addresses</legend>
+    <fieldset>
+      <legend>Home Address</legend>
+      <div>
+        <label for="HomeAddress1"> Address 1: </label>
+        <input
+          autofill-prediction="ADDRESS_HOME_LINE1"
+          id="HomeAddress1"
+          maxlength="50"
+          name="HomeAddress1"
+          type="text"
+        />
+      </div>
+      <div>
+        <label for="HomeAddress2"> Address 2: </label>
+        <input
+          autofill-prediction="ADDRESS_HOME_LINE2"
+          id="HomeAddress2"
+          maxlength="50"
+          name="HomeAddress2"
+          type="text"
+        />
+      </div>
+      <div>
+        <label for="HomeAddress3"> Address 3: </label>
+        <input
+          autofill-prediction="ADDRESS_HOME_LINE3"
+          id="HomeAddress3"
+          maxlength="50"
+          name="HomeAddress3"
+          type="text"
+        />
+      </div>
+      <div>
+        <label for="HomeCity"> City: </label>
+        <input
+          autofill-prediction="ADDRESS_HOME_CITY"
+          id="HomeCity"
+          maxlength="50"
+          name="HomeCity"
+          type="text"
+        />
+      </div>
+      <div>
+        <label for="HomeStateCode"> State: </label>
+        <select
+          autofill-prediction="ADDRESS_HOME_STATE"
+          id="HomeStateCode"
+          name="HomeStateCode"
+        >
+          <option disabled="disabled" hidden="" selected="selected" value="">
+            Select a state
+          </option>
+          <!-- State options -->
+        </select>
+      </div>
+      <div>
+        <label for="HomePostalZip"> Postal Code: </label>
+        <input
+          autofill-prediction="ADDRESS_HOME_ZIP"
+          id="HomePostalZip"
+          maxlength="12"
+          name="HomePostalZip"
+          type="text"
+        />
+      </div>
+    </fieldset>
+  </fieldset>
+  <fieldset>
+    <legend>Business/Company Information</legend>
+    <div>
+      <label for="BusName"> Business/Company Name: </label>
+      <input
+        autofill-prediction="COMPANY_NAME"
+        id="BusName"
+        maxlength="75"
+        name="BusName"
+        type="text"
+      />
+    </div>
+    <div>
+      <label class="required" for="BusPos"> Profession: </label>
+      <input
+        autofill-prediction="UNKNOWN_TYPE"
+        id="BusPos"
+        maxlength="64"
+        name="BusPos"
+        required=""
+        type="text"
+      />
+    </div>
+    <div>
+      <label for="BusWeb"> Website: </label>
+      <input
+        autofill-prediction="UNKNOWN_TYPE"
+        id="BusWeb"
+        maxlength="64"
+        name="BusWeb"
+        type="url"
+      />
+    </div>
+    <div>
+      <label for="OfficePhone"> Office Phone: </label>
+      <input
+        autofill-prediction="PHONE_HOME_CITY_AND_NUMBER"
+        id="OfficePhone"
+        maxlength="20"
+        name="OfficePhone"
+        type="tel"
+      />
+    </div>
+    <fieldset>
+      <legend>Business Address</legend>
+      <div>
+        <label for="OfficeAddress1"> Address 1: </label>
+        <input
+          autofill-prediction="ADDRESS_HOME_LINE1"
+          id="OfficeAddress1"
+          maxlength="50"
+          name="OfficeAddress1"
+          type="text"
+        />
+      </div>
+      <div>
+        <label for="OfficeAddress2"> Address 2: </label>
+        <input
+          autofill-prediction="ADDRESS_HOME_LINE2"
+          id="OfficeAddress2"
+          maxlength="50"
+          name="OfficeAddress2"
+          type="text"
+        />
+      </div>
+      <div>
+        <label for="OfficeAddress3"> Address 3: </label>
+        <input
+          autofill-prediction="ADDRESS_HOME_LINE3"
+          id="OfficeAddress3"
+          maxlength="50"
+          name="OfficeAddress3"
+          type="text"
+        />
+      </div>
+      <div>
+        <label for="OfficeCity"> City: </label>
+        <input
+          autofill-prediction="ADDRESS_HOME_CITY"
+          id="OfficeCity"
+          maxlength="50"
+          name="OfficeCity"
+          type="text"
+        />
+      </div>
+      <div>
+        <label for="OfficeStateCode"> State: </label>
+        <select
+          autofill-prediction="ADDRESS_HOME_STATE"
+          id="OfficeStateCode"
+          name="OfficeStateCode"
+        >
+          <option disabled="disabled" hidden="" selected="selected" value="">
+            Select a state
+          </option>
+          <!-- State options -->
+        </select>
+      </div>
+      <div>
+        <label for="OfficePostalZip"> Postal Code: </label>
+        <input
+          autofill-prediction="ADDRESS_HOME_ZIP"
+          id="OfficePostalZip"
+          maxlength="12"
+          name="OfficePostalZip"
+          type="text"
+        />
+      </div>
+    </fieldset>
+  </fieldset>
+  <fieldset>
+    <legend>Spouse or Partner Information</legend>
+    <div>
+      <label for="PartnerFirstName"> First Name: </label>
+      <input
+        autofill-prediction="NAME_FIRST"
+        id="PartnerFirstName"
+        maxlength="50"
+        name="PartnerFirstName"
+        type="text"
+      />
+    </div>
+    <div>
+      <label for="PartnerMidName"> Middle Initial: </label>
+      <input
+        autofill-prediction="NAME_MIDDLE_INITIAL"
+        id="PartnerMidName"
+        maxlength="32"
+        name="PartnerMidName"
+        type="text"
+      />
+    </div>
+    <div>
+      <label for="PartnerLastName"> Last Name: </label>
+      <input
+        autofill-prediction="NAME_LAST"
+        id="PartnerLastName"
+        maxlength="50"
+        name="PartnerLastName"
+        type="text"
+      />
+    </div>
+    <div>
+      <label for="PartnerNickName"> Nickname: </label>
+      <input
+        autofill-prediction="UNKNOWN_TYPE"
+        id="PartnerNickName"
+        maxlength="50"
+        name="PartnerNickName"
+        type="text"
+      />
+    </div>
+    <div>
+      <label for="IsPartnerMember"> Is Spouse/Partner a Rotarian? </label>
+      <select
+        autofill-prediction="UNKNOWN_TYPE"
+        id="IsPartnerMember"
+        name="IsPartnerMember"
+      >
+        <option value="N">No</option>
+        <option value="Y">Yes</option>
+      </select>
+    </div>
+  </fieldset>
+  <!-- Sponsor Section -->
+  <fieldset>
+    <legend>Sponsors</legend>
+    <div>
+      <h4>Whom may we thank for introducing you to Rotary?</h4>
+    </div>
+    <div>
+      <label for="SponsorName1"> Sponsor 1: </label>
+      <input
+        autofill-prediction="UNKNOWN_TYPE"
+        id="SponsorName1"
+        maxlength="50"
+        name="SponsorName1"
+        type="text"
+      />
+    </div>
+    <div>
+      <label for="SponsorName2"> Sponsor 2: </label>
+      <input
+        autofill-prediction="UNKNOWN_TYPE"
+        id="SponsorName2"
+        maxlength="50"
+        name="SponsorName2"
+        type="text"
+      />
+    </div>
+  </fieldset>
+  <!-- Previous Rotary Clubs Section -->
+  <fieldset>
+    <legend>Previous Rotary Clubs</legend>
+    <div>
+      <label for="MemberID"> Rotary ID Number: </label>
+      <input
+        autofill-prediction="UNKNOWN_TYPE"
+        id="MemberID"
+        maxlength="10"
+        name="MemberID"
+        type="text"
+      />
+    </div>
+    <fieldset>
+      <legend>Club 1</legend>
+      <div>
+        <label for="PrevClubNumber1"> Club Number: </label>
+        <input
+          autofill-prediction="UNKNOWN_TYPE"
+          id="PrevClubNumber1"
+          maxlength="60"
+          name="PrevClubNumber1"
+          type="text"
+        />
+      </div>
+      <div>
+        <label for="PrevClubName1"> Club Name: </label>
+        <input
+          autofill-prediction="UNKNOWN_TYPE"
+          id="PrevClubName1"
+          maxlength="60"
+          name="PrevClubName1"
+          type="text"
+        />
+      </div>
+      <div>
+        <label for="PrevCity1"> City: </label>
+        <input
+          autofill-prediction="ADDRESS_HOME_CITY"
+          id="PrevCity1"
+          maxlength="60"
+          name="PrevCity1"
+          type="text"
+        />
+      </div>
+      <div>
+        <label for="PrevState1"> State: </label>
+        <input
+          autofill-prediction="ADDRESS_HOME_STATE"
+          id="PrevState1"
+          maxlength="60"
+          name="PrevState1"
+          type="text"
+        />
+      </div>
+      <div>
+        <label for="PrevClubFrom1"> Date Joined: </label>
+        <input
+          class="entry date"
+          id="PrevClubFrom1"
+          maxlength="10"
+          name="PrevClubFrom1"
+          type="date"
+        />
+      </div>
+      <div>
+        <label for="PrevClubTo1"> Date Resigned: </label>
+        <input
+          class="entry date"
+          id="PrevClubTo1"
+          maxlength="10"
+          name="PrevClubTo1"
+          type="date"
+        />
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Club 2</legend>
+      <div>
+        <label for="PrevClubNumber2"> Club Number: </label>
+        <input
+          autofill-prediction="UNKNOWN_TYPE"
+          id="PrevClubNumber2"
+          maxlength="60"
+          name="PrevClubNumber2"
+          type="text"
+        />
+      </div>
+      <div>
+        <label for="PrevClubName2"> Club Name: </label>
+        <input
+          autofill-prediction="UNKNOWN_TYPE"
+          id="PrevClubName2"
+          maxlength="60"
+          name="PrevClubName2"
+          type="text"
+        />
+      </div>
+      <div>
+        <label for="PrevCity2"> City: </label>
+        <input
+          autofill-prediction="ADDRESS_HOME_CITY"
+          id="PrevCity2"
+          maxlength="60"
+          name="PrevCity2"
+          type="text"
+        />
+      </div>
+      <div>
+        <label for="PrevState2"> State: </label>
+        <input
+          autofill-prediction="ADDRESS_HOME_STATE"
+          id="PrevState2"
+          maxlength="60"
+          name="PrevState2"
+          type="text"
+        />
+      </div>
+      <div>
+        <label for="PrevClubFrom2"> Date Joined: </label>
+        <input
+          class="entry date"
+          id="PrevClubFrom2"
+          maxlength="10"
+          name="PrevClubFrom2"
+          type="date"
+        />
+      </div>
+      <div>
+        <label for="PrevClubTo2"> Date Resigned: </label>
+        <input
+          class="entry date"
+          id="PrevClubTo2"
+          maxlength="10"
+          name="PrevClubTo2"
+          type="date"
+        />
+      </div>
+    </fieldset>
+  </fieldset>
+  <fieldset>
+    <legend>Additional Information</legend>
+    <!-- Additional Information Sections -->
+    <h4>Club Participation / Achievements</h4>
+    <p>
+      Include details such as offices held in previous clubs and the
+      corresponding years.
+    </p>
+    <textarea
+      autofill-prediction="UNKNOWN_TYPE"
+      id="Achievement"
+      name="Achievement"
+    ></textarea>
+    <h4>Bio / Description</h4>
+    <p>Provide your personal and professional background information.</p>
+    <textarea
+      autofill-prediction="UNKNOWN_TYPE"
+      id="Description"
+      name="Description"
+    ></textarea>
+    <h4>Degrees</h4>
+    <textarea
+      autofill-prediction="UNKNOWN_TYPE"
+      id="Degree"
+      name="Degree"
+    ></textarea>
+    <h4>Hobbies &amp; Interests</h4>
+    <p>Examples: golf, fishing, hunting, etc.</p>
+    <textarea
+      autofill-prediction="UNKNOWN_TYPE"
+      id="Hobbies"
+      name="Hobbies"
+    ></textarea>
+    <h4>Community Leadership &amp; Other Comments</h4>
+    <p>
+      Detail your involvement with community organizations (e.g., board member,
+      volunteer), projects, organizations, or topics you could present to the
+      club in a 30-minute talk.
+    </p>
+    <textarea
+      autofill-prediction="UNKNOWN_TYPE"
+      id="Notes"
+      name="Notes"
+    ></textarea>
+    <h4>References</h4>
+    <textarea
+      autofill-prediction="UNKNOWN_TYPE"
+      id="Reference"
+      name="Reference"
+    ></textarea>
+    <h4>Why Do You Want to Join Rotary?</h4>
+    <textarea
+      autofill-prediction="UNKNOWN_TYPE"
+      id="WhyJoin"
+      name="WhyJoin"
+    ></textarea>
+  </fieldset>
+  <fieldset>
+    <p>
+      Your privacy is important to Rotary International and The Rotary
+      Foundation (collectively, "Rotary") and the personal data you share with
+      Rotary will only be used for official Rotary business. This means that the
+      personal data you provide will primarily be used for your potential and
+      (if you are invited to join a Rotary club) active membership in a Rotary
+      club, which includes inviting you to participate in other membership
+      opportunities, membership data reporting purposes, financial processing,
+      supporting The Rotary Foundation, facilitating event planning,
+      communicating key organizational messages and responding to your
+      inquiries. The personal data you provide will be shared with Rotary club
+      and district officers and their delegates; if you are in Great Britain or
+      Ireland, your information may be shared with Rotary International in Great
+      Britain and Ireland (RIBI). Personal data collected on this form is
+      subject to Rotary's Privacy Policy.
+    </p>
+  </fieldset>
+  <script src="https://www.merrillrotary.org/wp-content/plugins/membership/form/js/scripts.js?v=20240203143146"></script>
+  <!-- <script src="https://www.merrillrotary.org/wp-content/plugins/membership/form/js/rotary-masterbrand-signature.js"></script> -->
+</section>
+<!-- !SECTION custom form -->
