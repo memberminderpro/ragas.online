@@ -1,3 +1,10 @@
+<!---
+	NewMember-Signup
+	Version
+		10/21/2021 - adapated from ESRAG Form
+		05/17/2022 - added missing club
+--->
+
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -29,20 +36,21 @@
 	This form is customized for RGHF
  -->
 
- <div id="Step1">
+<div id="Step1">
 	<h3>Membership SignUp</h3>
 	<form id="form" name="form" Action="https://www.emembersdb.com/Portal/RGHF/NewMember.cfm" method="Post">
 	<!-- These parameters MUST be changed for each account membership application -->
-	<input type="hidden" name="AccountID" value="10611" id="AccountID" /> <!-- Account -->
-	<input type="hidden" name="APIKey" value="620f470b35f041e6b257a5b31de46d72" id="APIKey" /> <!-- APIKey -->
-	<input type="hidden" name="BID" value="1016" id="BID" /> <!-- BankAccountID -->
-	<input type="hidden" name="MemberID" value="0" /> <!-- Default memberide -->
-	<input type="hidden" name="UserID" value="0" id="UserID" /> <!-- UserID -->
-	<input type="hidden" name="AddressTypeID" value="1" /> <!-- Default Address type -->
-	<input type="hidden" name="EmailTypeID" value="1"  /> <!-- Default Email type -->
-	<input type="hidden" name="UserStatusCode" value="P" /> <!-- DefaultUser Status -->
-	<input type="hidden" name="MemberTypeID" value="526" id="MemberTypeID" />	<!-- Default MemberTypeID -->
-	<input type="hidden" name="AccountEmail" value="registration1905@rghf.org" id="AccountEMail" />	<!-- Who gets the application -->
+	<input type="hidden" name="AccountID" 		value="10611" 								id="AccountID" />	<!-- Account -->
+	<input type="hidden" name="APIKey" 			value="620f470b35f041e6b257a5b31de46d72" 	id="APIKey" />		<!-- APIKey -->
+	<input type="hidden" name="BID" 			value="1016" 								id="BID" />			<!-- BankAccountID -->
+	<input type="hidden" name="MemberID" 		value="0" />													<!-- Default memberide -->
+	<input type="hidden" name="UserID" 			value="0" 									id="UserID"	/>		<!-- UserID -->
+
+	<input type="hidden" name="AddressTypeID" 	value="1" />													<!-- Default Address type -->
+	<input type="hidden" name="EmailTypeID" 	value="1"  />													<!-- Default Email type -->
+	<input type="hidden" name="UserStatusCode" 	value="P" />													<!-- DefaultUser Status -->
+	<input type="hidden" name="MemberTypeID" 	value="526" 								id="MemberTypeID" />	<!-- Default MemberTypeID -->
+	<input type="hidden" name="AccountEmail" 	value="registration1905@rghf.org"			id="AccountEMail" />	<!-- Who gets the application -->
 
 	<div id="PrintContent">
 	<table border="0" cellpadding="3" cellspacing="0">
@@ -115,7 +123,7 @@
 						<option value="Rotaract Club">	Rotaractor</option>
 						<option value="Non-Rotarian">	Non-Rotarian</option>
 					</select>
-					<input id="fkmembertype" type="hidden" name="fkmembertype" 	value="Active">		<!--- FK reference in iMembersDB Region(Club) tab -->
+					<input id="fkmembertype" type="hidden" name="fkmembertype" 	value="Active">		<!--- FK reference in iMembersDB Region(Club) tab --->
 				</td>
 			</tr>
 			<tr>
@@ -128,7 +136,7 @@
 				<td class="TDData" width="170"><span class="star">*</span>  State/Province: </td>
 				<td class="TDData">
 					<select id="stateprov" name="stateprov" style="width: 300px;" class="TxtIn StateProvLookup"></select>
-					<input id="fkstateprov" type="hidden" name="fkstateprov" 	value="">		<!--- FK reference in iMembersDB Region(Club) tab (not currently used) -->
+					<input id="fkstateprov" type="hidden" name="fkstateprov" 	value="">		<!--- FK reference in iMembersDB Region(Club) tab (not currently used) --->
 				</td>
 			</tr>
 			<tr class="hide9">
@@ -138,8 +146,8 @@
             <option value="0">Club Not Found</option>
           </select>
 					<div id="ClubLocDiv" style="display: none;"></div>
-					<input id="fkclubname" 		type="hidden" name="fkclubname" 	value="zTBD Country">		<!--- FK reference in iMembersDB Region(Club) tab -->
-					<input id="fkdistrict" 		type="hidden" name="fkdistrict" 	value="989071">		<!--- FK reference in iMembersDB Region(Club) tab -->
+					<input id="fkclubname" 		type="hidden" name="fkclubname" 	value="zTBD Country">		<!--- FK reference in iMembersDB Region(Club) tab --->
+					<input id="fkdistrict" 		type="hidden" name="fkdistrict" 	value="989071">		<!--- FK reference in iMembersDB Region(Club) tab --->
 					<input id="Region" 			type="hidden" name="Region" 		value=0"">
 					<input id="RegionName" 		type="hidden" name="RegionName" 	value="">
 					<input id="ClubID" 			type="hidden" name="ClubID" 		value="989071">
@@ -339,7 +347,7 @@ $(document).ready(function() {
 							$('#captchaError').hide();
  							$.ajax({
 								type: 'POST',
-								url: 'https://iMembersdb.net:9400/API//Membership/Member?api_key='+$("#APIKey").val(),
+								url: 'https://www.emembersdb.com/Portal/RGHF/NewMember.cfm',
 								data: f,
 								error: function(jqXHR, textStatus, errorThrown) {
 									$("#Send").show();
