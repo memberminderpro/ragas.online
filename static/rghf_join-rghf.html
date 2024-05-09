@@ -38,7 +38,7 @@
 
 <div id="Step1">
 	<h3>Membership SignUp</h3>
-	<form id="form" name="form" Action="https://www.emembersdb.com/Portal/RGHF/NewMember.cfm" method="Post">
+	<form id="form" name="form" Action="https://www.emembersdb.com/nm/custom.cfm" method="Post">
 	<!-- These parameters MUST be changed for each account membership application -->
 	<input type="hidden" name="AccountID" 		value="10611" 								id="AccountID" />	<!-- Account -->
 	<input type="hidden" name="APIKey" 			value="620f470b35f041e6b257a5b31de46d72" 	id="APIKey" />		<!-- APIKey -->
@@ -148,7 +148,7 @@
 					<div id="ClubLocDiv" style="display: none;"></div>
 					<input id="fkclubname" 		type="hidden" name="fkclubname" 	value="zTBD Country">		<!--- FK reference in iMembersDB Region(Club) tab --->
 					<input id="fkdistrict" 		type="hidden" name="fkdistrict" 	value="989071">		<!--- FK reference in iMembersDB Region(Club) tab --->
-					<input id="Region" 			type="hidden" name="Region" 		value=0"">
+					<input id="Region" 			type="hidden" name="Region" 		value="0">
 					<input id="RegionName" 		type="hidden" name="RegionName" 	value="">
 					<input id="ClubID" 			type="hidden" name="ClubID" 		value="989071">
 				</td>
@@ -347,7 +347,7 @@ $(document).ready(function() {
 							$('#captchaError').hide();
  							$.ajax({
 								type: 'POST',
-								url: 'https://www.emembersdb.com/Portal/RGHF/NewMember.cfm',
+								url: 'https://www.emembersdb.com/nm/custom.cfm',
 								data: f,
 								error: function(jqXHR, textStatus, errorThrown) {
 									$("#Send").show();
