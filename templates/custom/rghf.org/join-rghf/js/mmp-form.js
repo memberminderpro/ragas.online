@@ -417,3 +417,62 @@ jQuery(document).ready(function ($) {
     return false;
   });
 });
+
+// Day/Month only Birthday Date Validation
+
+  document.getElementById('monthDayInput').addEventListener('input', function(e) {
+    var input = e.target.value;
+
+    // Remove all non-digit characters
+    input = input.replace(/\D/g,'');
+
+    // Insert a slash after two digits for the month
+    if (input.length >= 2) {
+      input = input.substring(0, 2) + '/' + input.substring(2, 4);
+    }
+
+    // Automatically add leading zeros
+    if (input.length == 2 && parseInt(input.substring(0, 2), 10) < 10) {
+      input = '0' + input.substring(0, 1) + '/';
+    }
+
+    // Set the new value on the input
+    e.target.value = input;
+
+    // Validate month and day
+    validateDate(input);
+  });
+
+  // Validates the month and day are correct
+  function validateDate(dateStr) {
+    var parts = dateStr.split('/');
+    if (parts.length === 2) {
+      var month = parseInt(parts[0], 10);
+      var day = parseInt(parts[1], 10);
+      if (!isValidMonth(month) || !isValidDay(month, day)) {
+        console.log("Invalid date. Please correct.");
+        // Optionally, you could clear the input or alert the user
+        // document.getElementById('monthDayInput').value = '';
+      }
+    }
+  }
+
+  // Check if the month is valid
+  function isValidMonth(month) {
+    return month >= 1 && month <= 12;
+  }
+
+  // Check if the day is valid for the given month
+  function isValidDay(month, day) {
+    var monthLengths = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    return day >= 1 && day <= monthLengths[month - 1];
+  }
+</script>
+
+// Initialize days
+populateDays(document.getElementById('month'));
+
+// Update days when month changes
+document.getElementById('month').addEventListener('change', function() {
+  populateDays(this);
+});
