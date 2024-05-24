@@ -1,0 +1,336 @@
+
+<div id="Step1">
+	<form id="joinForm" name="form" action="https://www.emembersdb.com/nm/custom.cfm" method="Post" >
+	  <!-- <input type="hidden" name="AccountEmail" value="wash-rag@rmoore.dev" id="AccountEMail" />
+	  <!-- SECTION: Form Fields -->
+	  
+		<div id="PrintContent">
+			<table border="0" cellpadding="0" cellspacing="0" style="padding-top:12px">
+				<tbody>
+					<tr>
+						<td align="left"><span
+								style="font-size:14px; font-family:Tahoma, Geneva, sans-serif; font-weight:bold;">Contact
+								Information: </span></td>
+					</tr>
+				</tbody>
+			</table>
+			<div id="ErrorDiv"></div>
+			<table id="contact" border="0" cellpadding="0" cellspacing="0">
+				<tbody>
+					<tr>
+						<td class="TDData" width="170"><span class="star">*</span> First Name: </td>
+						<td class="TDData"><input class="entry" id="FirstName" type="text" maxlength="32"
+								name="FirstName" value="" style="height: 25px;" onkeypress="return noEnter(event)"
+								required size="32" placeholder="First Name" /></td>
+					</tr>
+					<tr>
+						<td class="TDData" width="170"><span class="star">*</span> Last Name: </td>
+						<td class="TDData"><input class="entry" id="LastName" type="text" maxlength="32"
+								name="LastName" value="" style="height: 25px;" onkeypress="return noEnter(event)"
+								required size="32" placeholder="Last Name" /></td>
+					</tr>
+					<tr>
+						<td class="TDData" width="170"><span class="star">*</span> Email Address </td>
+						<td class="TDData"><input class="entry" id="Email" type="text" maxlength="64" name="email"
+								value="" style="height: 25px;" onkeypress="return noEnter(event)" size="32" required
+								placeholder="EMail Address" />
+							<div id="EMailDiv" style="display: none; color: red">This email is already in the
+								system. Please email membership at membership@wash-rag.org to change your membership
+								type.</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="TDData" width="170"><span class="star">*</span>Gender: </td>
+						<td class="TDData">
+							<select id="Gender" name="Gender" class="entry" style="height: 25px;">
+								<option value=""> Select One </option>
+								<option value="M"> Male </option>
+								<option value="F"> Female </option>
+								<option value=""> Unknown </option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="TDData" width="170">Your primary phone number: </td>
+						<td class="TDData"><input class="entry" id="CellPhone" maxlength="20" name="CellPhone"
+								onkeypress="return noEnter();" size="20" type="text" value=""
+								placeholder="Cell Phone" style="height: 25px;" /></td>
+					</tr>
+				</tbody>
+			</table>
+			<table border="0" cellpadding="0" cellspacing="0" style="padding-top:12px">
+				<tbody>
+					<tr>
+						<td align="left"><span
+								style="font-size:14px; font-family:Tahoma, Geneva, sans-serif; font-weight:bold;">Address:
+							</span></td>
+					</tr>
+				</tbody>
+			</table>
+			<table border="0" cellpadding="0" cellspacing="0">
+				<tbody>
+					<tr>
+						<td class="TDData" width="170"><span class="star">*</span> Address1: </td>
+						<td class="TDData"><input class="entry" id="Address1" type="text" maxlength="50"
+								name="Address1" value="" style="height: 25px;" onkeypress="return noEnter(event)"
+								size="50" type="text" value="" required placeholder="Street Address" /> (Address)
+						</td>
+					</tr>
+					<tr>
+						<td class="TDData" width="170">Address2: </td>
+						<td class="TDData"><input class="entry" id="Address2" type="text" maxlength="50"
+								name="Address2" style="height: 25px;" onkeypress="return noEnter(event)" size="50"
+								placeholder="Ste / Suite" /> (Ste/Suite)</td>
+					</tr>
+					<tr>
+						<td class="TDData" width="170"><span class="star">*</span> City: </td>
+						<td class="TDData"><input class="entry" id="City" type="text" maxlength="50" name="City"
+								value="" style="height: 25px;" onkeypress="return noEnter(event)" size="50" required
+								placeholder="City" /></td>
+					</tr>
+					<tr>
+						<td class="TDData" width="170">State Code: </td>
+						<td class="TDData"><input class="entry" id="StateCode" type="text" maxlength="3"
+								name="StateCode" value="" style="height: 25px;" onkeypress="return noEnter(event)"
+								size="3" /></td>
+					</tr>
+					<tr>
+						<td class="TDData" width="170">Province: </td>
+						<td class="TDData"><input class="entry" id="ProvOrOther" type="text" maxlength="20"
+								name="ProvOrOther" value="" style="height: 25px;" onkeypress="return noEnter(event)"
+								size="20" placeholder="Province" /></td>
+					</tr>
+					<tr>
+						<td class="TDData" width="170">Country Code: </td>
+						<td class="TDData">
+							<input class="entry" id="CountryCode" type="text" maxlength="3" name="CountryCode"
+								value="" style="height: 25px;" onkeypress="return noEnter(event)" size="3"
+								required />
+							<input class="entry" id="CountryName" type="hidden" maxlength="3" name="CountryName"
+								value="" />
+						</td>
+					</tr>
+					<tr class="hide25">
+						<td class="TDData" width="170"><span class="star">*</span>Postal Code: </td>
+						<td class="TDData"><input class="entry" id="PostalZip" type="text" maxlength="12"
+								name="PostalZip" value="" style="height: 25px;" onkeypress="return noEnter(event)"
+								size="12" required placeholder="Zip / Postal Code" /></td>
+					</tr>
+				</tbody>
+			</table>
+			<table border="0" cellpadding="0" cellspacing="0" style="padding-top:12px">
+				<tbody>
+					<tr>
+						<td align="left"><span
+								style="font-size:14px; font-family:Tahoma, Geneva, sans-serif; font-weight:bold;">Rotary
+								Questions </span></td>
+					</tr>
+				</tbody>
+			</table>
+			<div id="ErrorDiv"></div>
+			<table id="rotarian-type" border="0" cellpadding="0" cellspacing="0">
+				<tbody>
+					<tr>
+						<td class="TDData" width="170"><span class="star">*</span>  Are you a: </td>
+						<td class="TDData">
+							<select id="fkclubtype" name="fkclubtype" style="width: 150px; height: 30px; color: #444" class="TxtIn">
+								<option value="">Select</option>
+								<option value="Rotary Club">	Rotarian</option>
+								<option value="Rotaract Club">	Rotaractor</option>
+								<option value="Non-Rotarian">	Non-Rotarian</option>
+							</select>
+							<input id="mcidFields" type="checkbox" name="mcidFields" value="390" onkeypress="return noEnter();" style="display: none;" />
+							<input id="mcidFields" type="checkbox" name="mcidFields" value="388" style="display: none;"/>
+
+							<input id="fkmembertype" type="hidden" name="fkmembertype" 	value="Active">		<!--- FK reference in iMembersDB Region(Club) tab --->
+						</td>
+					</tr>
+					<tr id="countryrow"  style="display: none;">
+						<td class="TDData" width="170"><span class="star">*</span> Club Country: </td>
+						<td class="TDData">
+							<select id="fkcountry" name="fkcountry" style="width: 300px;" class="TxtIn CountryLookup">					</select>
+						</td>
+					</tr>
+					<tr id="staterow" style="display: none;">
+						<td class="TDData" width="170"><span class="star">*</span> State/Province: </td>
+						<td class="TDData">
+							<select id="stateprov" name="stateprov" style="width: 300px;" class="TxtIn StateProvLookup"></select>
+							<input id="fkstateprov" type="hidden" name="fkstateprov" 	value="">		<!--- FK reference in iMembersDB Region(Club) tab (not currently used) --->
+						</td>
+					</tr>
+					<tr id="clubrow" style="display: none;">
+						<td class="TDData" width="170"><span style="color: red; font-weight: bold;">*</span> Club Name: </td>
+						<td class="TDData">
+							<select id="clubname" type="text" name="clubname" style="width: 400px;" class="TxtIn ClubLookup"></select>
+							<div id="ClubLocDiv"></div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<table border="0" cellpadding="0" cellspacing="0" style="padding-top:12px">
+				<tbody>
+					<tr>
+						<td align="left"><span
+								style="font-size:14px; font-family:Tahoma, Geneva, sans-serif; font-weight:bold;">WASH
+								Questions </span></td>
+					</tr>
+				</tbody>
+			</table>
+			<div id="ErrorDiv"></div>
+			<table id="rotarian-type" border="0" cellpadding="0" cellspacing="0">
+				<tbody>
+					<tr>
+						<td class="TDData" width="170"><span class="star">*</span> Your WASH Experience </td>
+						<td class="TDData" style="height: 25px;">
+
+							<select id="experienceDropdown" name="experienceDropdown" style="height: 30px;"
+								class="TxtIn">
+								<option value="" style="height: 25px;"> Select </option>
+								<option value="381"> None</option>
+								<option value="382"> Some</option>
+								<option value="383"> Extensive</option>
+							</select>
+							<input id="fkmembertype" type="hidden" name="fkmembertype" value="Active">
+							<!--- FK reference in iMembersDB Region(Club) tab --->
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<table id="rotarian-type" border="0" cellpadding="0" cellspacing="0">
+				<tbody>
+					<tr>
+						<td class="TDData" width="170"><span class="star">*</span> Are you willing to volunteer?
+						</td>
+						<td class="TDData" style="height: 25px;">
+							<input type="checkbox" id="387" name="mcidFields" value="387" >
+							<label for="387">Yes</label>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<table border="0" cellpadding="0" cellspacing="0" style="padding-top:12px">
+				<tbody>
+					<tr>
+						<td align="center"><span
+								style="font-size:14px; font-family:Tahoma, Geneva, sans-serif; font-weight:bold;">WASH Area of Interest (Select all that apply): </span></td>
+					</tr>
+				</tbody>
+			</table>
+			<table border="0" cellpadding="0" cellspacing="0">
+				<tbody>
+					<tr>
+						<td class="TDData">
+							<div class="membercategorywrap">
+								<input id="water" type="checkbox" name="mcidFields" value="386"
+									onkeypress="return noEnter();" /> Water
+							</div>
+							<div class="membercategorywrap">
+								<input id="sanitation" type="checkbox" name="mcidFields" value="385"
+									onkeypress="return noEnter();" /> Sanitation
+							</div>
+							<div class="membercategorywrap">
+								<input id="hygiene" type="checkbox" name="mcidFields" value="384"
+									onkeypress="return noEnter();" /> Hygiene
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="TDData" width="170"><span class="star">*</span> Are you interested in becoming a WASH-RAG Ambassador? </td>
+						<td class="TDData" style="height: 25px;">
+							<input type="checkbox" id="389" name="mcidFields" value="389" >
+							<label for="389">Yes</label>
+						</td>
+					</tr>
+					<tr>
+						<td class="TDData" width="170"><span class="star">*</span> Are you currently a member of the Rotary Cadre? </td>
+						<td class="TDData" style="height: 25px;">
+							<input type="checkbox" id="UDF240" name="UDF240" value="YES">
+							<label for="UDF240">Yes</label>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<table border="0" cellpadding="0" cellspacing="0" style="padding-top:12px">
+				<tbody>
+					<tr>
+						<td align="left"><span
+								style="font-size:14px; font-family:Tahoma, Geneva, sans-serif; font-weight:bold;">Login
+								Information</span></td>
+					</tr>
+					<tr>
+						<td class="TDData"><span style="font-size:12px;">Choose your own login name and
+								password</span></td>
+					</tr>
+				</tbody>
+			</table>
+			<table border="0" cellpadding="0" cellspacing="0">
+				<tbody>
+					<tr>
+						<td class="TDData" width="170">Username: </td>
+						<td class="TDData"><input class="entry" id="Username" maxlength="20" name="Username"
+								onkeypress="return noEnter();" size="20" type="text" value=""
+								placeholder="Username" /></td>
+					</tr>
+					<tr>
+						<td class="TDData" width="170"><span class="star">*</span> Enter Password: </td>
+						<td class="TDData">
+							<input class="entry pswd" id="Password" maxlength="16" name="Password"
+								onkeypress="return noEnter();" required size="16" type="text" required
+								placeholder="Password" />
+						</td>
+					</tr>
+					<tr>
+						<td class="TDData" width="170"><span class="star">*</span> Confirm Password: </td>
+						<td class="TDData">
+							<input class="entry pswd" id="Password2" maxlength="16" name="Password2"
+								onkeypress="return noEnter();" required size="16" type="text" required
+								placeholder="" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div>
+				<P>This site and our membership management system vendor, Member Minder Pro, LLC <em>(dba iMembersDB)</em>, is collecting your personal information in order to process your online membership registration. Our organizations do not sell your personal information.</P>
+
+				<p>The Registrant authorizes the collection and use personal information about the Registrant for the purpose of receiving communications and the purposes described in the policies relating to data privacy as stated in the privacy policy linked to in the site footer below.</p>
+				<p>Permission may be withdrawn at any time by contacting site's privacy officer at any time at the contact information listed in the posted privacy policy.  Please check the <em>"I Consent"</em> checkbox below to allow us to collect, use, and disclose your personal information as described above.</P>
+
+				<p><strong>Please check the "I Consent" checkbox below to allow us to collect, use, and disclose your personal information as described above.</strong></p>
+				<p><input id="Consent" type="checkbox" name="consent" value="1"> I Consent</p>
+			</div>
+		</div>
+		<p class="noprint">If you would like to print the application form please <button type="button" id="prtapp">Click Here</button> to print.</p>
+		<input id="Send" type="button" name="Send" value="Submit Application" class="btn btn-warning noprint" style="display: none;">
+	</form>
+</div>
+
+<div id="Step2" >
+	<form id="form2" name="form" method="post">
+		<!-- These parameters MUST be changed for each account membership application -->
+		<!-- The billing parameters must be defined in the Billing tab in Finance or from the Chart of Account.  IDs or the GL_AccountID (not account code)-->
+		<input type="hidden" name="BAID" value="0" style="visibility:hidden" /> <!-- Finance BankAccountID -->
+		<input type="hidden" name="BankAccountID" value="0" style="visibility:hidden" />
+		<!-- Finance Check/Savings to Deposit Subscription Funds -->
+
+		<input type="hidden" name="Subscription" value="Membership Subscription" style="visibility:hidden" />
+		<!-- Finance BankAccountID -->
+		<input type="hidden" name="Memos"
+			value="Thank you for your membership with Ontario Senior Games Association.  Please remit your cheque to the address below.  Once we receive your cheque your membership will be activiated."
+			style="visibility:hidden" /> <!-- Memo on Check-->
+
+		<input type="hidden" name="UUID" value="" style="visibility:hidden" id="UUID" /> <!-- User UUID -->
+		<input type="hidden" name="MCY" value="519|1|10" style="visibility:hidden" id="MCY" />
+		<!-- MemberTypeID, Cost, NoYears -->
+
+		<br />
+		<h2>Thank you for applying for membership.</h2>
+		<br />
+		<P class="tdl">To complete your membership application, a payment of <strong>$<span class="_pymtamt"></span></strong>
+			is now required to complete you membership.<BR>
+	</form>
+</div>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
+<script src="js\10651-1065.js" defer></script>
