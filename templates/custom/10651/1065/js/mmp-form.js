@@ -1,478 +1,374 @@
-// Function to dynamically load the reCAPTCHA script
-function loadReCaptchaScript() {
-  var script = document.createElement("script");
-  script.src =
-    "https://www.google.com/recaptcha/api.js?render=" +
-    mmpFormOptions.recaptcha_site_key;
-  document.head.appendChild(script);
-}
+	var captchaHash = '';
+	function noEnter(e) {		// Do not allow Enter Key to cause submission
+	var keycode;
+	if (window.event)
+		keycode = window.event.keyCode;
+	else if (e)
+		keycode = e.which;
+	return !(keycode == 13);
+	}
 
-// Call the function to load the script
-loadReCaptchaScript();
+	var urlParms = getQueryParams(document.location.search);
+	$(document).ready(function () {
+		//alert("ready");
 
-function getQueryParams(qs) {
-  let params = new URLSearchParams(qs);
-  let result = {};
-  params.forEach((value, key) => {
-    result[key] = value;
-  });
-  return result;
-}
+		// Read the URL Param to setup the MemberTypeID|Cost|NoYrs
+		console.log("urlParms.mtid: " + urlParms.mtid);
+		var mtid = parseInt(urlParms.mtid);
+		console.log("Constructed mtid: " + mtid);
 
-function preventEnterSubmit(event) {
-  if (event.keyCode === 13) {
-    event.preventDefault();
-    return false;
-  }
-  return true;
-}
+		// Map the member type passed on the URL to the MCY (MembertypeID, Cost, NoYrs) value
+		switch (mtid) { 
+			case 933:
+				$("#MCY").val(mtid + "|100|5")
+				$("#MemberTypeID").val(mtid)
+				break;
+			case 935:
+				$("#MCY").val(mtid + "|10|1")
+				$("#MemberTypeID").val(mtid)
+				break;
+			case 938:
+			default:
+				$("#MCY").val(mtid + "|25|1")
+				$("#MemberTypeID").val(mtid)
+				break
+		}
 
-jQuery(document).ready(function ($) {
-  const $emailDiv = $("#EMailDiv");
-  const $captchaSend = $(".captcha-send");
-  const $consent = $("#Consent");
-  const $joinForm = $("#joinForm");
-  const $send = $("#Send");
+		DisplayCaptcha()
 
-  let $siteEmail = mmpFormOptions.account_email;
+		$("#redoCaptcha").click(function() {
+			console.log('User clicked "redoCaptcha"');
+			DisplayCaptcha()
+		});
 
-  $('input[required], select[required]').each(function () {
-    var inputId = $(this).attr("id");
-    var label = $('label[for="' + inputId + '"]');
-    if (label.length) {
-      label.html('<span style="color: red;">*</span> ' + label.html());
-    }
-  });
+		$("#Consent").click(function() {
+				if ( $(this).prop('checked') && $("#EMailDiv").is(":hidden") ) {
+						$(this).attr("checked", "checked");
+				$("#Send").show();
+				} else {
+					$(this).prop("checked", false);
+					$("#Send").hide();
+					}
+		});
 
-  function checkRequiredFields() {
-    // Assume all fields are valid initially
-    let allFieldsValid = true;
+		$("#prtapp").click(function() {
+			console.log ('User clicked "print"');
+			$("#PrintContent").printThis();
+			return false;
+		});
 
-    // Check each input within the form
-    $("#joinForm input[required], #joinForm select[required]").each(
-      function () {
-        if (!$(this).val()) {
-          allFieldsValid = false;
-          // Break out of the loop if a field is not filled
-          return false;
-        }
-      }
-    );
+		var debug = false; 
+		console.log("Debug mode: " + debug);
+		$("#Send").click(function () {
+			$("#Send").hide();
 
-    // Enable or disable the consent checkbox based on field validity
-    $consent.prop("disabled", !allFieldsValid);
+			// Collect selected checkbox values
+			var selectedCategories = [];
+			$('input[name="mcidFields"]:checked').each(function() {
+				selectedCategories.push($(this).val());
+			});
+	
+			// Get the selected dropdown value
+			var selectedExperience = $('#experienceDropdown').val();
+			if (selectedExperience) {
+				selectedCategories.push(selectedExperience);
+			}
+	
+			// Set the hidden input value
+			$('#MemberCategoryIDs').val(selectedCategories.join(','));
+	
+			var f = $("#form").serialize();
+			if ($("#form").valid()) {
+				try {
+					if (debug) {                    // Parse the serialized string into an object
+                    	var formData = decodeURIComponent(f).split('&').reduce(function(acc, pair) {
+							var [key, value] = pair.split('=');
+							if (!acc[key]) {
+								acc[key] = value;
+							} else if (Array.isArray(acc[key])) {
+								acc[key].push(value);
+							} else {
+								acc[key] = [acc[key], value];
+							}
+							return acc;
+                    }, {});
 
-    // If all fields are valid, remove the 'disabled' class from the sibling label; otherwise, add it back
-    if (allFieldsValid) {
-      $consent.siblings("label").removeClass("disabled");
-    } else {
-      $consent.siblings("label").addClass("disabled");
-    }
-  }
+                    // Log the object in a readable format
+                    console.log("Form Data:", formData);
 
-  $("input[required]").on("keyup change paste", function () {
-    var $field = $(this);
-    if ($field.val() === "") {
-      $field.addClass("is-invalid"); // Add class for visual feedback
-    } else {
-      $field.removeClass("is-invalid"); // Remove class if the field is valid
-    }
+                    // Optionally, log each key-value pair on a new line
+                    console.log("Readable Form Data:");
+                    Object.entries(formData).forEach(([key, value]) => {
+                        console.log(`${key}: ${value}`);
+                    });
+					console.log("captchaHash=" + captchaHash);
+					console.log("captchaCode=" + $('#captchaCode').val());
+					alert("Form data logged to console. Debug mode is ON.");
+					$("#Send").show();
+				} else {
+					$.ajax({
+						type: "POST",
+						url: "https://www.emembersdb.com/CFC/Captcha.cfc",
+						data: {
+							method: 'chkCaptcha',
+							captchaHash: captchaHash,
+							captchaCode: $('#captchaCode').val(),
+							timeout: 8000
+						},
+						error: function () {
+							alert("error");
+						},
+						success: function (data) {
+							var rsp = JSON.parse(data);
+							if (rsp.SUCCESS == false) {
+								$('#captchaError').html(rsp.ERROR);
+								$('#captchaError').show();
+								$("#Send").show();
+							}
+							else {
+								$('#captcha').html('');
+								$('#captchaError').hide();
+								$("#form").submit();
+							}
+						}
+					});
+				}
+				}
+				catch (error) {
+					alert("Could not submit form.")
+					$("#Send").show();
+				}
+			}
+			else {
+				alert("Some required fields were not entered")
+				$("#Send").show();
+			}
+		});
 
-    checkRequiredFields(); // enable/disable the submit button
-  });
+		/* SECTION: Club Lookup */
+		$( "#fkclubtype" ).change(function() {
+			console.log( "Handler for membertype .change() called." );
+			var mt = $(this).val()
+			console.log (mt)
+			switch (mt) {
+				case 'Rotary Club':
+					$("#countryrow").show();
+					$("#fkmembertype").val("Active");
+					$('input[name="mcidFields"][value="390"]').prop('checked', true);
+					$('input[name="mcidFields"][value="388"]').prop('checked', false);
+					console.log( "Handler for membertype .change() called." );
+					break;
+				case 'Rotaract Club':
+					$("#countryrow").show();
+					$("#fkmembertype").val("Rotaractor");
+					$('input[name="mcidFields"][value="388"]').prop('checked', true);
+					$('input[name="mcidFields"][value="390"]').prop('checked', false);
+					break;
+				case 'Non-Rotarian':
+					$("#countryrow").hide();
+					$("#fkmembertype").val("Non-Rotarian");
+					break;
+			}
+		});
 
-  // Function to handle showing/hiding captcha and submit button based on consent
-  function toggleCaptchaAndButton() {
-    if ($consent.is(":checked")) {
-      $captchaSend.show(); // Show captcha
-      $send.show().prop("disabled", false); // Show and enable submit button if captcha is solved
-    } else {
-      $captchaSend.hide(); // Hide captcha and submit button if consent is not checked
-      $send.prop("disabled", true);
-    }
-  }
+		$('.CountryLookup').on('select2:select', function (e) {
+			var data = e.params.data;
+			console.log(data)
+			console.log("id="+data.id)					// countrycode
+			console.log("country="+data.text)			// countryname
+			console.log("cnt="+data.cnt)				// count of states
+			$("#CountryCode").val( data.id )			// countrycode
+			if (data.cnt === 0) {
+				$("#staterow").hide();
+				$("#clubrow").show();
+			} else {
+				$("#staterow").show();
+			}
+		});
+		$('.CountryLookup').select2({
+			placeholder:  'Select Country',
+			ajax: {
+				url: 'https://www.emembersdb.com/Lookup/FKRotaryCountry.cfm',
+				// url: 'http://emdb.com/Lookup/FKRotaryCountry.cfm',
+				type: "POST",
+				dataType: 'json',
+				quietMillis: 100,
+				data: function (params) {
+					var query = {
+						term: 	params.term
+					}
+					return query;
+				}
+			},
+			results: function (data) {
+				results = [];
+				$.each(data, function(index, item){
+					results.push({
+						id: 	item.id,
+						text: 	item.text
+					});
+				});
+				return {
+					results: results
+				};
+			},
+			createTag: function (params) {
+				return {
+					id: params.term,
+					text: params.term,
+					newOption: true
+				}
+			}
+		});
 
-  // Consent checkbox change event
-  $consent.change(function () {
-    toggleCaptchaAndButton(); // Call the function to toggle captcha and button based on consent
-  });
+		$('.StateProvLookup').on('select2:select', function (e) {
+			var data = e.params.data;
+			console.log(data)
+			$("#StateCode").val( data.statecode )		// statecode
+			$("#fkstateprov").val( data.statecode )		// StateProv
+			$("#ProvOrOther").val( data.province )		// Province
+			if (data.selected === true) {
+				$("#clubrow").show();
+			} else {
+				$("#clubrow").hide();
+			}
+		});
+		$('.StateProvLookup').select2({
+			placeholder: 'Select State or Province',
+			tags: 		  true,
+			ajax: {
+				url: 'https://www.emembersdb.com/Lookup/FKRotaryStateProv.cfm',
+				// url: 'http://emdb.com/Lookup/FKRotaryStateProv.cfm',
+				type: "POST",
+				dataType: 'json',
+				quietMillis: 100,
+				data: function (params) {
+					var country = $("#fkcountry").val();	// countrycode
+					console.log ("country="+country);
+					if ( country.length == 0 ){
+						alert("select Country first!");
+						return '[]';
+					}
+					var query = {
+						countrycode: country,
+						AccountID: $("#AccountID").val(),
+						term: 	params.term
+					}
+					return query;
+				}
+			},
+			results: function (data) {
+				results = [];
+				$.each(data, function(index, item){
+					results.push({
+						id: 	item.statecode,
+						text: 	item.text
+					});
+				});
+				return {
+					results: results
+				};
+			},
+			createTag: function (params) {
+				return {
+					id: params.term,
+					text: params.term,
+					newOption: true
+				}
+			}
+		});
 
-  $send.click(function (event) {
-    event.preventDefault(); // Prevent form submission
+		$('.ClubLookup').on('select2:select', function (e) {
+			console.log("ClubLookup change")
+			var data = e.params.data;
+			console.log(data)
 
-    let captchaData = {};
-    if ($("[name='g-recaptcha-response']").length > 0) {
-      // Google reCAPTCHA is used
-      grecaptcha.ready(function () {
-        grecaptcha
-          .execute(mmpFormOptions.recaptcha_site_key, { action: "submit" })
-          .then(function (token) {
-            console.log("reCAPTCHA token received:", token);
-            captchaData["g-recaptcha-response"] = token;
+			$("#fkdistrict").val( data.districtid )		// DistrictID
+			$("#Region").val( data.region )				// Region
+			$("#RegionName").val( data.regionname )		// regionname
+			$("#ClubID").val( data.id )					// iMembersDB ClubID
+			$("#fkclubname").val( data.text )			// fkclubNmae
+			$("#ClubLocDiv").html("Distict: " + data.districtid + "   ESRAG Region: " + data.regionname)
 
-            verifyCaptchaAndSubmitForm(captchaData);
-          });
-      });
-    } else if ($("[name='h-captcha-response']").length > 0) {
-      // hCaptcha is used, assume the hCaptcha response is already in the form
-      captchaData["h-captcha-response"] = $(
-        "[name='h-captcha-response']"
-      ).val();
-      verifyCaptchaAndSubmitForm(captchaData);
-    } else {
-      // No captcha response could mean an error or misconfiguration
-      alert(
-        "Captcha response is missing. Please ensure captcha is configured correctly."
-      );
-    }
-  });
+		});
 
-  function verifyCaptchaAndSubmitForm(captchaData) {
-    $.ajax({
-      url: "/wp-admin/admin-ajax.php", // WordPress AJAX handler
-      type: "POST",
-      data: Object.assign(
-        {
-          action: "verify_and_submit_captcha", // The action hook for the PHP function
-        },
-        captchaData
-      ),
-      success: function (response) {
-        if (response.success) {
-          // Captcha verification succeeded; proceed with form submission
-          // Remove captcha response field or modify formData as needed
-          $(
-            '[name="g-recaptcha-response"], [name="h-captcha-response"]'
-          ).remove();
+		$('.ClubLookup').select2({
+			placeholder: 'Rotary Club',
+			tags: 		  true,
+			ajax: {
+				url: 'https://www.emembersdb.com/Lookup/FKRotaryClubNoRegion.cfm',
+				// url: 'http://emdb.com/Lookup/FKRotaryClub.cfm',
+				type: "POST",
+				dataType: 'json',
+				quietMillis: 100,
+				data: function (params) {
+					var countrycode = $(".CountryLookup option:selected").val();
+					var statecode = $("#StateCode").val();
+					var orgtype = $("#fkclubtype").val();
+					console.log ("countrycode="+countrycode+ " statecode="+statecode+" orgtype="+orgtype);
+					var query = {
+						AccountID: $("#AccountID").val(),
+						countrycode: countrycode,
+						statecode: statecode,
+						orgtype: orgtype,
+						term: 	params.term
+					}
+					return query;
+				}
+			},
+			results: function (data) {
+				results = [];
+				$.each(data, function(index, item){
+					results.push({
+						id: 	item.id,
+						text: 	item.text
+					});
+				});
+				return {
+					results: results
+				};
+			},
+			createTag: function (params) {
+				return {
+					id:   params.id,
+					text: params.text,
+					newOption: true
+				}
+			}
+		});
+		/* !SECTION: Club Lookup */
 
-          // Append new fields directly to the form before submission
-          $('<input>').attr({
-              type: 'hidden',
-              name: 'AccountID',
-              value: mmpFormOptions.account_ID
-          }).appendTo($joinForm);
+	});
 
-          $('<input>').attr({
-              type: 'hidden',
-              name: 'BID',
-              value: mmpFormOptions.BID
-          }).appendTo($joinForm);
+	function DisplayCaptcha() {
+		$.ajax({
+			type: "POST",
+			url: "https://www.emembersdb.com/CFC/Captcha.cfc",
+			data: {
+				method: 'getCaptcha',
+				timeout: 16000,
+			},
+			error: function () {
+				alert("error");
+			},
+			success: function (data) {
+				var rsp = JSON.parse(data);
+				captchaHash = rsp.CAPTCHAHASH;
+				varsrc = 'data:image/png;base64,' + rsp.CAPTCHA;
+				$('#TestBox').val(varsrc);
+				$("#cimg").attr("src", varsrc);
+			}
+		});
+		return false;
+	}
+	function getQueryParams(qs) {
+		qs = qs.split('+').join(' ');
+		var params = {},
+			tokens,
+			re = /[?&]?([^=]+)=([^&]*)/g;
 
-          $('<input>').attr({
-              type: 'hidden',
-              name: 'AccountEmail',
-              value: mmpFormOptions.account_email
-          }).appendTo($joinForm);
-
-          // Serialize form data for submission, now excluding the captcha response
-          let formData = $joinForm.serialize();
-
-          console.log(formData); // Log the serialized form data
-          // Debugger statement acts as a breakpoint if the developer console is open
-          debugger;
-          
-          // Dynamically update the UI with the redirection message
-          $("#messageContainer").html(
-            "<h4>Thank You!</h4><p>You will now be redirected to our payment gateway in a new window to complete the process. You may safely navigate away from this page or close this tab.</p>"
-          );
-
-          // Dynamically update UI or redirect as needed before form submission
-          // This part submits the form to the action URL, opening in a new tab/window
-          $joinForm.attr("target", "_blank").hide().submit();
-        } else {
-          // Handle captcha verification failure
-          alert("Captcha verification failed. Please try again.");
-        }
-      },
-      error: function (xhr, status, error) {
-        // Handle potential AJAX request errors
-        alert("An error occurred: " + error);
-      },
-    });
-  }
-
-  $("#Email").change(function () {
-    console.log("Handler for email .change() called.");
-    $.ajax({
-      url: "https://www.emembersdb.com/Lookup/EMailCheck.cfm",
-      type: "POST",
-      dataType: "json",
-      data: {
-        AccountID: mmpFormOptions.account_ID,
-        Email: $(this).val().trim(),
-        IsActive: "Y", // Search for active subscriptions
-      },
-    })
-      .done(function (data) {
-        console.log(data);
-        if (data == 1) {
-          $emailDiv.show();
-          $emailDiv.html(
-            `This email is already associated with a membership. Please contact <a href="mailto:${$siteEmail}?subject=Duplicate%20Membership%20Email%20Address">${$siteEmail}</a> to change your membership type.`
-          );
-          $captchaSend.hide();
-          console.log("EMail found");
-        } else {
-          $emailDiv.hide();
-          console.log("EMail NOT found");
-        }
-      })
-      .fail(function (jqXHR, textStatus, errorThrown) {
-        $emailDiv.html("Error checking email. Please try again.").show();
-        console.error(
-          "Email change AJAX request failed: " + textStatus,
-          errorThrown
-        );
-      });
-  });
-  $("#fkclubtype").change(function () {
-    console.log("Handler for membertype .change() called.");
-    let mt = $(this).val();
-    console.log(mt);
-    switch (mt) {
-      case "Rotary Club":
-        $(".hide9").show();
-        $("#fkmembertype").val("Active");
-        break;
-      case "Rotaract Club":
-        $(".hide9").show();
-        $("#fkmembertype").val("Rotaractor");
-        break;
-      case "Non-Rotarian":
-        $(".hide9").hide();
-        $("#fkmembertype").val("Non-Rotarian");
-        break;
-    }
-  });
-
-  $(".CountryLookup").on("select2:select", function (e) {
-    let data = e.params.data;
-    console.log(data);
-    console.log("id=" + data.id); // countrycode
-    console.log("country=" + data.text); // countryname
-    console.log("cnt=" + data.cnt); // count of states
-    $("#CountryCode").val(data.id); // countrycode
-    if (data.cnt == 0) $("#staterow").hide();
-    else $("#staterow").show();
-  });
-
-  $(".CountryLookup").select2({
-    placeholder: "Select Country",
-    ajax: {
-      url: "https://www.emembersdb.com/Lookup/FKRotaryCountry.cfm",
-      type: "POST",
-      dataType: "json",
-      quietMillis: 100,
-      data: function (params) {
-        var query = {
-          term: params.term,
-        };
-        return query;
-      },
-    },
-    results: function (data) {
-      results = [];
-      $.each(data, function (index, item) {
-        results.push({
-          id: item.id,
-          text: item.text,
-        });
-      });
-      return {
-        results: results,
-      };
-    },
-    createTag: function (params) {
-      return {
-        id: params.term,
-        text: params.term,
-        newOption: true,
-      };
-    },
-  });
-
-  $(".StateProvLookup").on("select2:select", function (e) {
-    let data = e.params.data;
-    console.log(data);
-    console.log("id=" + data.id); // statecode
-    console.log("StateProv=" + data.text); // StateProv
-    $("#StateCode").val(data.statecode); // statecode
-    $("#fkstateprov").val(data.text); // StateProv
-    $("#ProvOrOther").val(data.province); // Province
-  });
-
-  $(".StateProvLookup").select2({
-    placeholder: "Select State or Province",
-    tags: true,
-    ajax: {
-      url: "https://www.emembersdb.com/Lookup/FKRotaryStateProv.cfm",
-      // url: 'http://emdb.com/Lookup/FKRotaryStateProv.cfm',
-      type: "POST",
-      dataType: "json",
-      quietMillis: 100,
-      data: function (params) {
-        var country = $("#fkcountry").val(); // countrycode
-        console.log("country=" + country);
-        if (country.length == 0) {
-          alert("select Country first!");
-          return "[]";
-        }
-        var query = {
-          countrycode: country,
-          AccountID: mmpFormOptions.account_ID,
-          term: params.term,
-        };
-        return query;
-      },
-    },
-    results: function (data) {
-      results = [];
-      $.each(data, function (index, item) {
-        results.push({
-          id: item.id,
-          text: item.text,
-        });
-      });
-      return {
-        results: results,
-      };
-    },
-    createTag: function (params) {
-      return {
-        id: params.term,
-        text: params.term,
-        newOption: true,
-      };
-    },
-  });
-
-  $(".ClubLookupInZone").on("select2:select", function (e) {
-    console.log("ClubLookup change");
-    let data = e.params.data;
-    console.log(data);
-
-    $("#fkdistrict").val(data.districtid); // DistrictID
-    $("#zonename").val(data.zonename); // zonename
-    $("#ClubID").val(data.id); // iMembersDB ClubID
-    $("#fkclubname").val(data.text); // fkclubNmae
-    $("#ClubLocDiv").html(
-      "District: " + data.districtid + "   RAGAS zone: " + data.zonename
-    );
-  });
-
-  $(".ClubLookupInZone").select2({
-    placeholder: "Rotary Club",
-    tags: true,
-    ajax: {
-      url: "https://www.emembersdb.com/Lookup/FKRotaryClubInZone.cfm",
-      type: "POST",
-      dataType: "json",
-      quietMillis: 100,
-      data: function (params) {
-        let countrycode = $(".CountryLookup option:selected").val();
-        let statecode = $("#StateCode").val();
-        let orgtype = $("#fkclubtype").val();
-        console.log(
-          "countrycode=" +
-            countrycode +
-            " statecode=" +
-            statecode +
-            " orgtype=" +
-            orgtype
-        );
-        let query = {
-          AccountID: mmpFormOptions.account_ID,
-          countrycode: countrycode,
-          statecode: statecode,
-          orgtype: orgtype,
-          term: params.term,
-        };
-        return query;
-      },
-    },
-    results: function (data) {
-      results = [];
-      $.each(data, function (index, item) {
-        results.push({
-          id: item.id,
-          text: item.text,
-        });
-      });
-      return {
-        results: results,
-      };
-    },
-    createTag: function (params) {
-      return {
-        id: params.id,
-        text: params.text,
-        newOption: true,
-      };
-    },
-  });
-
-  $("#prtapp").click(function () {
-    console.log("print");
-    $("#PrintContent").printThis();
-    return false;
-  });
-});
-
-// Day/Month only Birthday Date Validation
-
-  document.getElementById('monthDayInput').addEventListener('input', function(e) {
-    var input = e.target.value;
-
-    // Remove all non-digit characters
-    input = input.replace(/\D/g,'');
-
-    // Insert a slash after two digits for the month
-    if (input.length >= 2) {
-      input = input.substring(0, 2) + '/' + input.substring(2, 4);
-    }
-
-    // Automatically add leading zeros
-    if (input.length == 2 && parseInt(input.substring(0, 2), 10) < 10) {
-      input = '0' + input.substring(0, 1) + '/';
-    }
-
-    // Set the new value on the input
-    e.target.value = input;
-
-    // Validate month and day
-    validateDate(input);
-  });
-
-  // Validates the month and day are correct
-  function validateDate(dateStr) {
-    var parts = dateStr.split('/');
-    if (parts.length === 2) {
-      var month = parseInt(parts[0], 10);
-      var day = parseInt(parts[1], 10);
-      if (!isValidMonth(month) || !isValidDay(month, day)) {
-        console.log("Invalid date. Please correct.");
-        // Optionally, you could clear the input or alert the user
-        // document.getElementById('monthDayInput').value = '';
-      }
-    }
-  }
-
-  // Check if the month is valid
-  function isValidMonth(month) {
-    return month >= 1 && month <= 12;
-  }
-
-  // Check if the day is valid for the given month
-  function isValidDay(month, day) {
-    var monthLengths = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    return day >= 1 && day <= monthLengths[month - 1];
-  }
-</script>
-
-// Initialize days
-populateDays(document.getElementById('month'));
-
-// Update days when month changes
-document.getElementById('month').addEventListener('change', function() {
-  populateDays(this);
-});
+		while (tokens = re.exec(qs)) {
+			params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+		}
+		return params;
+	}
