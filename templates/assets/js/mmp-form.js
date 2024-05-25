@@ -12,28 +12,6 @@ var urlParms = getQueryParams(document.location.search);
 $(document).ready(function () {
     //alert("ready");
 
-    // Read the URL Param to setup the MemberTypeID|Cost|NoYrs
-    console.log("urlParms.mtid: " + urlParms.mtid);
-    var mtid = parseInt(urlParms.mtid);
-    console.log("Constructed mtid: " + mtid);
-
-    // Map the member type passed on the URL to the MCY (MembertypeID, Cost, NoYrs) value
-    switch (mtid) { 
-        case 933:
-            $("#MCY").val(mtid + "|100|5")
-            $("#MemberTypeID").val(mtid)
-            break;
-        case 935:
-            $("#MCY").val(mtid + "|10|1")
-            $("#MemberTypeID").val(mtid)
-            break;
-        case 938:
-        default:
-            $("#MCY").val(mtid + "|25|1")
-            $("#MemberTypeID").val(mtid)
-            break
-    }
-
     DisplayCaptcha()
 
     $("#redoCaptcha").click(function() {
@@ -78,8 +56,8 @@ $(document).ready(function () {
         // Set the hidden input value
         $('#MemberCategoryIDs').val(selectedCategories.join(','));
 
-        var f = $("#form").serialize();
-        if ($("#form").valid()) {
+        var f = $("#mmp-form").serialize();
+        if ($("#mmp-form").valid()) {
             try {
                 if (debug) {                    // Parse the serialized string into an object
                     var formData = decodeURIComponent(f).split('&').reduce(function(acc, pair) {
@@ -129,7 +107,7 @@ $(document).ready(function () {
                         else {
                             $('#captcha').html('');
                             $('#captchaError').hide();
-                            $("#form").submit();
+                            $("#mmp-form").submit();
                         }
                     }
                 });

@@ -10,85 +10,82 @@
         at support@memberminderpro.com or visit https://memberminderpro.com
         -->
   <div id="Step1">
-    <form id="joinForm" name="form" action="https://www.emembersdb.com/nm/custom.cfm" method="Post">
+    <form id="mmp-form" name="registration" action="https://www.emembersdb.com/nm/custom.cfm" method="Post">
       <!-- <input type="hidden" name="AccountEmail" value="wash-rag@rmoore.dev" id="AccountEMail" />
-          <!-- SECTION: Form Fields -->
-
+      <!-- SECTION: Form Fields -->
       <fieldset><!-- Contact Information -->
         <legend>Contact Information</legend>
-
-        <p>
+        <div>
           <label for="FirstName">First Name</label>
           <input class="entry" id="FirstName" type="text" maxlength="32" name="FirstName" size="32"
             placeholder="First Name" required />
-        </p>
-        <p>
+        </div>
+        <div>
           <label for="LastName">Last Name</label>
           <input class="entry" id="LastName" type="text" maxlength="32" name="LastName" size="32"
             placeholder="Last Name" required />
-        </p>
-        <p>
-          <label for="Email">Email Address </label>
+        </div>
+        <div>
+          <label for="Email">Email Address</label>
           <input class="entry" id="Email" type="text" maxlength="64" name="email" size="32" placeholder="EMail Address"
             required />
-        <div id="EMailDiv">This email is already in the system. Please email membership at membership@RAGAS.org to
-          change your membership type.</div>
-        </p>
-        <p>
-          <label for="BDay">Gender </label>
+          <div id="EMailDiv">This email is already in the system. Please contact customer support to make changes to your membership.</div>
+        </div>
+        <div>
+          <label for="BDay">Gender</label>
           <select id="Gender" name="Gender" class="entry" style="height: 25px;">
             <option value=""> Select One </option>
             <option value="M"> Male </option>
             <option value="F"> Female </option>
             <option value=""> Unknown </option>
           </select>
-        </p>
-        <p>
+        </div>
+        <div>
           <label for="Email">Mobile Phone Number </label>
           <input class="entry" id="CellPhone" maxlength="20" name="CellPhone" onkeypress="return noEnter();" size="20"
             type="text" value="" placeholder="Cell Phone" style="height: 25px;" /></td>
-        </p>
+        </div>
       </fieldset>
       <fieldset><!-- Address Information -->
         <legend>Address:</legend>
-        <p>
+        <div>
           <label for="Address1">Address1</label>
           <input class="entry" id="Address1" type="text" maxlength="50" name="Address1" size="50" type="text"
             placeholder="Street Address" required />
-        </p>
-        <p>
+        </div>
+        <div>
           <label for="Address2">Address2</label>
           <input class="entry" id="Address2" type="text" maxlength="50" name="Address2" size="50"
             placeholder="Ste / Suite" />
-        </p>
-        <p>
+        </div>
+        <div>
           <label for="City"> City</label>
           <input class="entry" id="City" type="text" maxlength="50" name="City" size="50" placeholder="City" required />
-        </p>
-        <p>
+        </div>
+        <div>
           <label for="StateCode">State Code</label>
           <input class="entry" id="StateCode" type="text" maxlength="3" name="StateCode" size="3" required />
-        </p>
-        <p>
+        </div>
+        <div>
           <label for="ProvOrOther">Province</label>
           <input class="entry" id="ProvOrOther" type="text" maxlength="20" name="ProvOrOther" size="20"
             placeholder="Province" />
-        </p>
-        <p>
+        </div>
+        <div>
           <label for="CountryCode">Country Code</label>
           <input class="entry" id="CountryCode" type="text" maxlength="3" name="CountryCode" size="3" required />
           <input class="entry" id="CountryName" type="hidden" maxlength="3" name="CountryName" />
-        </p>
-        <p>
+        </div>
+        <div>
           <label for="PostalZip">Postal Code</label>
           <input class="entry" id="PostalZip" type="text" maxlength="12" name="PostalZip" size="12"
             autocomplete="postal-code" placeholder="Zip / Postal Code" pattern="^[A-Za-z0-9 -]{3,9}$"
             title="Please enter a valid postal code." required />
-        </p>
+        </div>
       </fieldset>
       <fieldset><!--  Rotary Questions -->
         <legend>Rotary Questions</legend>
-        <p>
+        <div>
           <label for="fkclubtype">Are you a </label>
           <select id="fkclubtype" name="fkclubtype" class="TxtIn" required>
             <option value="">Select</option>
@@ -97,59 +94,87 @@
             <option value="Non-Rotarian">Non-Rotarian / Peace Fellow</option>
           </select>
           <input id="fkmembertype" type="hidden" name="fkmembertype" value="Active" />
-        </p>
-        <p id="countryrow" style="display: none;">
-          <!--- FK reference in iMembersDB Region(Club) tab -->
+        </div>
+        <div id="countryrow" style="display: none;">
           <label for="fkcountry">Club Country</label>
           <select id="fkcountry" name="fkcountry" class="TxtIn CountryLookup" required></select>
-        </p>
-
-        <p id="staterow" style="display: none;">
+        </div>
+        <div id="staterow" style="display: none;">
           <label for="stateprov">State/Province</label>
           <select id="stateprov" name="stateprov" class="TxtIn StateProvLookup" required></select>
           <!--- FK reference in iMembersDB Region(Club) tab (not currently used) -->
           <input id="fkstateprov" type="hidden" name="fkstateprov" />
-        </p>
-        <p id="clubrow" style="display: none;">
+        </div>
+        <div id="clubrow" style="display: none;">
           <label for="clubname">Club Name</label>
-          <select id="clubname" type="text" name="clubname" class="TxtIn ClubLookupInZone" required></select>
-        <div id="ClubLocDiv"></div>
-        </p>
+          <select id="clubname" type="text" name="clubname" class="TxtIn ClubLookup" required></select>
+          <div id="ClubLocDiv"></div>
+        </div>
       </fieldset>
       <fieldset><!--  WASH Questions -->
         <legend>WASH Questions</legend>
         <h3>WASH Area of Interest (Select all that apply)</h3>
         <div class="membercategorywrap">
-          <input id="water" type="checkbox" name="mcidFields" value="386" onkeypress="return noEnter();" /> Water
+          <input id="water" type="checkbox" name="mcidFields" value="386" onkeypress="return noEnter();" /> <label for="water">Water</label>
         </div>
         <div class="membercategorywrap">
-          <input id="sanitation" type="checkbox" name="mcidFields" value="385" onkeypress="return noEnter();" />
-          Sanitation
+          <input id="sanitation" type="checkbox" name="mcidFields" value="385" onkeypress="return noEnter();" /> <label for="sanitation">Sanitation</label>
         </div>
         <div class="membercategorywrap">
-          <input id="hygiene" type="checkbox" name="mcidFields" value="384" onkeypress="return noEnter();" /> Hygiene
+          <input id="hygiene" type="checkbox" name="mcidFields" value="384" onkeypress="return noEnter();" /> <label for="hygiene">Hygiene</label>
         </div>
-        <p>Are you interested in becoming a WASH-RAG Ambassador?
-          <input type="checkbox" id="389" name="mcidFields" value="389">
-          <label for="389">Yes</label>
-        </p>
-        <p>Are you currently a member of the Rotary Cadre?
-          <input type="checkbox" id="UDF240" name="UDF240" value="YES">
-          <label for="UDF240">Yes</label>
-        </p>
+        <div class="membercategorywrap">
+          <input id="ambassador-interest" type="checkbox" name="mcidFields" value="389"
+            onkeypress="return noEnter();" />
+          <label for="ambassador-interest">I am interested in becoming a WASH-RAG Ambassador.</label>
+        </div>
+        <div class="membercategorywrap">
+          <input id="rotary-cadre" type="checkbox" name="UDF240" value="Yes" onkeypress="return noEnter();" />
+          <label for="rotary-cadre">I am currently a member of the Rotary Cadre.</label>
+        </div>
       </fieldset>
-      <fieldset><!--  WASH Questions -->
+      <fieldset> <!-- Membership Type -->
+      <fieldset> <!-- Membership Type -->
+        <legend>Membership Levels</legend>
+        <ul>
+          <li>Rotary</li>
+          <li>
+            <input type="radio" id="mcy_938" name="MCY" value="938|25|1" required>
+            <label for="mcy_938">1-Year Membership ($25.00 USD)</label>
+          </li>
+          <li>
+            <input type="radio" id="mcy_933" name="MCY" value="933|100|5">
+            <label for="mcy_933">5-Year Membership ($100.00 USD)</label>
+          </li>
+        </ul>
+        <ul>
+          <li>Rotaract</li>
+          <li>
+            <input type="radio" id="mcy_935" name="MCY" value="935|10|1">
+            <label for="mcy_935">1-Year Membership ($10.00 USD)</label>
+          </li>
+        </ul>
+      </fieldset>
+  
+</fieldset>
+      <fieldset> <!-- Login Information -->
         <legend>Login Information</legend>
         <p>Choose your own login name and password</p>
-        Username
-        <input class="entry" id="Username" maxlength="20" name="Username" onkeypress="return noEnter();" size="20"
-          type="text" value="" placeholder="Username" />
-        Password
-        <input class="entry pswd" id="Password" maxlength="16" name="Password" onkeypress="return noEnter();" required
-          size="16" type="text" required placeholder="Password" />
-        Confirm Password
-        <input class="entry pswd" id="Password2" maxlength="16" name="Password2" onkeypress="return noEnter();" required
-          size="16" type="text" required placeholder="" />
+        <div>
+          <label for="username">Username</label>
+          <input class="entry" id="Username" maxlength="20" name="Username" onkeypress="return noEnter();" size="20"
+            type="text" value="" placeholder="Username" />
+        </div>
+        <div>
+          <label for="password">Password</label>
+          <input class="entry pswd" id="Password" maxlength="16" name="Password" onkeypress="return noEnter();" required
+            size="16" type="text" required placeholder="Password" />
+        </div>
+        <div>
+          <label for="confirm_password">Confirm Password</label>
+          <input class="entry pswd" id="confirm_password" maxlength="16" name="confirm_password"
+          onkeypress="return noEnter();" required size="16" type="text" required placeholder="" />
+        </div>
       </fieldset>
       <fieldset><!-- Disclaimer and Consent -->
         <legend>Privacy and Disclosure</legend>
