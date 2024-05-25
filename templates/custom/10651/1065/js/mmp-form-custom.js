@@ -33,7 +33,6 @@ $(document).ready(function () {
       console.log("current mtid: " + $mtid);
   });
 
-  
   // WASH RAG wants to store member type to Member Category ID fields.
   // This will write the value to the appropriate categorty ID when the member type is selected.
   $("#fkclubtype").change(function () {
