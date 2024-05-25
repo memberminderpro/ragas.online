@@ -79,8 +79,8 @@ $(document).ready(function () {
     $('.StateProvLookup').on('select2:select', function (e) {
         var data = e.params.data;
         console.log(data);
-        $("#fkstateprov").val(data.statecode);      // Set hidden field value
-        $("#ProvOrOther").val(data.province);       // Province
+        $("#StateCode").val(data.id);      // Set hidden field value
+        $("#ProvOrOther").val(data.text);       // Province
         if (data.selected === true) {
             $("#clubrow").show();
             // Reinitialize ClubLookup on state selection
@@ -170,7 +170,8 @@ $(document).ready(function () {
                     var results = data.results.map(function (item) {
                         return {
                             id: item.id,
-                            text: item.text
+                            text: item.text,
+                            districtid: item.districtid // Add district ID
                         };
                     });
                     return {
@@ -198,12 +199,14 @@ $(document).ready(function () {
         var data = e.params.data;
         console.log(data);
 
+        // Assuming data.districtid contains the district ID
         $("#fkdistrict").val(data.districtid);      // DistrictID
-        $("#Region").val(data.region);              // Region
-        $("#RegionName").val(data.regionname);      // regionname
+        // Remove the following lines if region data is not needed
+        // $("#Region").val(data.region);              // Region
+        // $("#RegionName").val(data.regionname);      // regionname
         $("#ClubID").val(data.id);                  // iMembersDB ClubID
-        $("#fkclubname").val(data.text);            // fkclubNmae
-        $("#ClubLocDiv").html("District: " + data.districtid + "   ESRAG Region: " + data.regionname);
+        $("#fkclubname").val(data.text);            // fkclubName
+        $("#ClubLocDiv").html("Rotary District: " + data.districtid);
     });
 });
 /* !SECTION: Club Lookup */
