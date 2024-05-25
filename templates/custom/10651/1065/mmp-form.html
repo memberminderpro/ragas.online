@@ -11,7 +11,7 @@
     <form id="joinForm" name="form" action="https://www.emembersdb.com/nm/custom.cfm" method="Post">
       <!-- <input type="hidden" name="AccountEmail" value="wash-rag@rmoore.dev" id="AccountEMail" />
           <!-- SECTION: Form Fields -->
-          
+
       <fieldset><!-- Contact Information -->
         <legend>Contact Information</legend>
 
@@ -116,28 +116,56 @@
       </fieldset>
       <fieldset><!--  WASH Questions -->
         <legend>WASH Questions</legend>
+        <h3>WASH Area of Interest (Select all that apply)</h3>
+        <div class="membercategorywrap">
+          <input id="water" type="checkbox" name="mcidFields" value="386" onkeypress="return noEnter();" /> Water
+        </div>
+        <div class="membercategorywrap">
+          <input id="sanitation" type="checkbox" name="mcidFields" value="385" onkeypress="return noEnter();" />
+          Sanitation
+        </div>
+        <div class="membercategorywrap">
+          <input id="hygiene" type="checkbox" name="mcidFields" value="384" onkeypress="return noEnter();" /> Hygiene
+        </div>
+        <p>Are you interested in becoming a WASH-RAG Ambassador?
+          <input type="checkbox" id="389" name="mcidFields" value="389">
+          <label for="389">Yes</label>
+        </p>
+        <p>Are you currently a member of the Rotary Cadre?
+          <input type="checkbox" id="UDF240" name="UDF240" value="YES">
+          <label for="UDF240">Yes</label>
+        </p>
+      </fieldset>
+      <fieldset><!--  WASH Questions -->
+        <legend>Login Information</legend>
+        <p>Choose your own login name and password</p>
+        Username
+        <input class="entry" id="Username" maxlength="20" name="Username" onkeypress="return noEnter();" size="20"
+          type="text" value="" placeholder="Username" />
+        Password
+        <input class="entry pswd" id="Password" maxlength="16" name="Password" onkeypress="return noEnter();" required
+          size="16" type="text" required placeholder="Password" />
+        Confirm Password
+        <input class="entry pswd" id="Password2" maxlength="16" name="Password2" onkeypress="return noEnter();" required
+          size="16" type="text" required placeholder="" />
       </fieldset>
       <fieldset><!-- Disclaimer and Consent -->
         <legend>Privacy and Disclosure</legend>
         <div>
-          <P>This site and our membership management system vendor, Member Minder Pro, LLC <em>(dba iMembersDB)</em>, is collecting your personal information in order to process your online membership registration. Our organizations do not sell your personal information.</P>
+          <P>This site and our membership management system vendor, Member Minder Pro, LLC <em>(dba iMembersDB)</em>, is
+            collecting your personal information in order to process your online membership registration. Our
+            organizations do not sell your personal information.</P>
 
-				<p>The Registrant authorizes the collection and use personal information about the Registrant for the purpose of receiving communications and the purposes described in the policies relating to data privacy as stated in the privacy policy linked to in the site footer below.</p>
-				<p>Permission may be withdrawn at any time by contacting site's privacy officer at any time at the contact information listed in the posted privacy policy.  Please check the <em>"I Consent"</em> checkbox below to allow us to collect, use, and disclose your personal information as described above.</P>
+          <p>The Registrant authorizes the collection and use personal information about the Registrant for the purpose
+            of receiving communications and the purposes described in the policies relating to data privacy as stated in
+            the privacy policy linked to in the site footer below.</p>
 
-				<p><strong>Please check the "I Consent" checkbox below to allow us to collect, use, and disclose your personal information as described above.</strong></p>
+          <p>Permission may be withdrawn at any time by contacting site's privacy officer at any time at the contact
+            information listed in the posted privacy policy. Please check the <em>"I Consent"</em> checkbox below to
+            allow us to collect, use, and disclose your personal information as described above.</P>
 
-				<p><input id="Consent" type="checkbox" name="consent" value="1"> I Consent</p>
-          <p>RAGAS and our membership management system vendor, <a href="https://mmpro.llc" target="_blank"
-              rel="noopener external">Member Minder Pro, LLC</a>, <em>(dba <strong>iMembersDB</strong>)</em> is
-            collecting your personal information in order to process your online application for RAGAS membership. The
-            Registrant authorizes RAGAS to collect and use personal information about the Registrant for the purpose of
-            receiving communications and the purposes described in the RAGAS policies relating to data privacy -
-            RAGAS.online/privacy. Permission may be withdrawn at any time by contacting RAGAS’s Privacy Officer at <a
-              href="mailto:privacy@ragas.online?subject=RE%3A%20%27Join%20Us%20Form%27%20Privacy"
-              target="_blank">privacy@ragas.online</a>.</p>
-          <p>Please check the <code>I Consent</code> checkbox below to allow us to collect, use, and disclose your
-            personal information as described above.</p>
+          <p><strong>Please check the "I Consent" checkbox below to allow us to collect, use, and disclose your personal
+              information as described above.</strong></p>
           <p class="consent-affirmation">
             <input id="Consent" type="checkbox" name="Consent" value="1" disabled />
             <label for="Consent" class="disabled">I Consent</label>
@@ -151,11 +179,6 @@
       </fieldset>
       <!-- !SECTION: Form Fields -->
     </form>
-    <div class="print-link">
-      <p class="noprint">
-        <a href="#" id="prtapp">Click here</a> to print.
-      </p>
-    </div>
   </div>
   <!-- SECTION: Hidden Divs -->
   <div id="Step2">
