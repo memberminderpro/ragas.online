@@ -1,0 +1,198 @@
+@media print {
+  /* Hide all elements except the form */
+  body * {
+    visibility: hidden;
+  }
+
+  .mmp,
+  .mmp * {
+    visibility: visible;
+  }
+
+  /* Ensure the form occupies the full width of the page */
+  .mmp {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  .mmp h1 {
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .mmp fieldset {
+    margin-bottom: 1rem;
+    padding: 0;
+    border: none;
+    break-inside: avoid; /* Avoid breaking inside fieldsets */
+  }
+
+  .mmp legend {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 1rem;
+    width: 30%;
+    float: left;
+    clear: left;
+  }
+
+  .mmp label {
+    display: block;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    clear: both;
+  }
+
+  .mmp .entry {
+    width: 100%;
+    margin-bottom: 1rem;
+    border: none;
+    border-bottom: 2px solid #000;
+    box-sizing: border-box;
+  }
+
+  .mmp .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    clear: both;
+  }
+
+  .mmp .form-group {
+    padding: 0 10px;
+    box-sizing: border-box;
+    width: 70%;
+    float: right;
+  }
+
+  .mmp .one-column .form-group {
+    flex: 1 0 100%;
+  }
+
+  .mmp .two-column .form-group {
+    flex: 1 0 50%;
+  }
+
+  .mmp .three-column .form-group {
+    flex: 1 0 33.33%;
+  }
+
+  .mmp .four-column .form-group {
+    flex: 1 0 25%;
+  }
+
+  .mmp .checkbox-group, 
+  .mmp .radio-group {
+    width: 100%;
+  }
+
+  .mmp .checkbox-group label, 
+  .mmp .radio-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: normal;
+  }
+
+  .mmp .checkbox-group input[type="checkbox"],
+  .mmp .radio-group input[type="radio"] {
+    margin-right: 0.5rem;
+  }
+
+  .mmp .signature-block {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+  }
+
+  .mmp .signature-block .signature-line,
+  .mmp .signature-block .date-line {
+    flex: 0 0 48%;
+    border-bottom: 2px solid #000;
+    margin-bottom: 2rem;
+    height: 2rem;
+  }
+
+  /* Hide dropdown menus and replace with text fields for printing */
+  .mmp select,
+  .mmp input[type="radio"] {
+    display: none;
+  }
+
+  /* Custom replacement for select menus */
+  .mmp select + .custom-checkbox,
+  .mmp input[type="radio"] + .custom-checkbox {
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  /* Custom replacement for radio buttons */
+  .mmp input[type="radio"] + label:before {
+    content: "☐";
+    display: inline-block;
+    margin-right: 0.5rem;
+    font-size: 1.2em;
+  }
+
+  /* Checked state for radio buttons */
+  .mmp input[type="radio"]:checked + label:before {
+    content: "☑";
+  }
+
+  /* Custom replacement for select menus with checkboxes */
+  .mmp select option:before {
+    content: "☐";
+    display: inline-block;
+    margin-right: 0.5rem;
+    font-size: 1.2em;
+  }
+
+  /* Checked state for checkboxes */
+  .mmp select option:checked:before {
+    content: "☑";
+  }
+
+  /* Ensure the select dropdowns print well */
+  .select2-container--default .select2-selection--single {
+    height: auto;
+    border: 1px solid #000;
+    box-sizing: border-box;
+  }
+
+  .select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #000;
+    line-height: normal;
+  }
+
+  .select2-container--default .select2-selection--single .select2-selection__arrow {
+    display: none;
+  }
+
+  .select2-container .select2-dropdown {
+    display: none;
+  }
+
+  /* Remove any specific styling that might not print well */
+  .mmp .error-message {
+    display: none;
+  }
+
+  /* Adjustments for smaller print sizes */
+  @media print and (max-width: 768px) {
+    .mmp .form-row {
+      flex-direction: column;
+    }
+    .mmp .form-group,
+    .mmp .half-width,
+    .mmp .three-column-50-25-25 .form-group {
+      flex: 1 0 100%;
+    }
+  }
+}
