@@ -48,7 +48,7 @@
           <div class="form-group">
             <label for="fkclubtype">I am a &hellip; ?</label>
             <select id="fkclubtype" name="fkclubtype" class="entry" required>
-              <option value="">Select</option>
+              <option>Select</option>
               <option value="Rotary Club">Rotarian</option>
               <option value="Rotaract Club">Rotaractor</option>
               <option value="Non-Rotarian">Non-Rotarian</option>
@@ -59,20 +59,20 @@
         <div id="countryrow" class="form-row one-column" style="display: none;">
           <div class="form-group">
             <label for="fkcountry">Where is your club located?</label>
-            <select id="fkcountry" name="fkcountry" class="entry CountryLookup" required></select>
+            <select id="fkcountry" name="fkcountry" class="entry CountryLookup"></select>
           </div>
         </div>
         <div id="staterow" class="form-row one-column" style="display: none;">
           <div class="form-group">
             <label for="stateprov">State/Province</label>
-            <select id="stateprov" name="stateprov" class="entry StateProvLookup" required></select>
+            <select id="stateprov" name="stateprov" class="entry StateProvLookup"></select>
             <input id="fkstateprov" type="hidden" name="fkstateprov" />
           </div>
         </div>
         <div id="clubrow" class="form-row one-column" style="display: none;">
           <div class="form-group">
             <label for="clubname">Club Name</label>
-            <select id="clubname" name="clubname" class="entry ClubLookup" required></select>
+            <select id="clubname" name="clubname" class="entry ClubLookup"></select>
             <span id="ClubLocDiv"></span>
           </div>
         </div>
@@ -119,7 +119,6 @@
         </div>
       </fieldset>
       
-
       <!-- WASH Questions -->
       <fieldset>
         <legend>WASH Questions</legend>
@@ -158,7 +157,7 @@
             <div class="form-group">
               <h3>Rotary</h3>
               <div class="input-group">
-                <input type="radio" id="mcy_938" name="MCY" value="938|25|1" required />
+                <input type="radio" id="mcy_938" name="MCY" value="938|25|1" />
                 <label for="mcy_938">1-Year Membership ($25.00 USD)</label>
               </div>
               <div class="input-group">
