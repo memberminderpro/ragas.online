@@ -75,6 +75,10 @@
   border-radius: 4px;
 }
 
+#Send {
+  display: none;
+}
+
 .mmp .form-row {
   display: flex;
   flex-wrap: wrap;

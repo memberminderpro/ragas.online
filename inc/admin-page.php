@@ -4,7 +4,7 @@ add_action('admin_menu', 'mmp_custom_form_add_admin_menu');
 add_action('admin_init', 'mmp_custom_form_settings_init');
 
 function mmp_custom_form_add_admin_menu() { 
-    add_menu_page('MMP Custom Form', 'MMP Custom Form', 'manage_options', 'mmp_custom_form', 'mmp_custom_form_options_page', 'https://plus.dacdb.org/wp-content/uploads/2024/05/round-icon-20.png', 110);
+    add_menu_page('MMP Custom Form Settings', 'MMP Custom Form', 'manage_options', 'mmp_custom_form', 'mmp_custom_form_options_page', 'https://plus.dacdb.org/wp-content/uploads/2024/05/round-icon-20.png', 110);
 }
 
 function mmp_custom_form_settings_init() { 
@@ -191,12 +191,11 @@ function mmp_custom_form_options_page() {
             <form action='options.php' method='post'>
                 <div class="mmp-masthead">
                     <div class="logo-container">
-                        <!-- Assuming you have an image for the logo -->
-                        <img src="https://plus.dacdb.org/wp-content/uploads/2023/07/mmp-icon_512.png" alt="Logo">
+                        <a href="https://memberminderpro.com" target="_blank"><img src="https://plus.dacdb.org/wp-content/uploads/2023/07/mmp-icon_512.png" title="Member Minder Pro — Powering DACdb and iMembersDB" alt="Logo"></a>
                     </div>
                     <div class="title-container">
-                        <h1>MMP Membership Registration Form </h1>
-                        <h2>Plugin Settings</h2>
+                        <h1>MMP Custom Form Settings</h1>
+                        <h2>Need help? Open a support ticket on <a href="https://www.dacdbsupport.com/new-ticket" title="Open a support ticket on DACdb" target="_blank"><strong>DAC</strong>db</a> or <a href="https://www.imemberssupport.com/new-ticket" title="Open a support ticket on iMembersDB" target="_blank">i<strong>Members</strong>db</a>.</h2>
                     </div>
                     <div class="save-container">
                         <p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes" style="width: 119px;"></p>
