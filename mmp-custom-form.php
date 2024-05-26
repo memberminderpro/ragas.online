@@ -80,6 +80,7 @@ function mmp_custom_form_script_shortcode()
 
     // Enqueue default styles and scripts
     wp_enqueue_style('mmp-form-style', plugin_dir_url(__FILE__) . "templates/assets/css/mmp-form.css");
+    wp_enqueue_style('mmp-form-print-style', plugin_dir_url(__FILE__) . "templates/assets/css/mmp-form-print.css", array(), null, 'print');
     wp_enqueue_script('mmp-form-script', plugin_dir_url(__FILE__) . "templates/assets/js/mmp-form.js", array('jquery'), null, true);
 
     // Enqueue club lookup script after the DOM is fully loaded
