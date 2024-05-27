@@ -59,9 +59,25 @@
   margin-bottom: 1rem;
 }
 
-.mmp .entry[required], .required-sample {
+.mmp .entry[required] {
   border-left: 5px solid var(--sky-blue);
   /* Blue left border for required fields */
+}
+
+
+.mmp .entry.invalid-field {
+  border-left: 5px solid var(--cardinal);
+  outline: 2px solid var(--mmp-red-dark);
+}
+
+.error-message {
+  display: none;
+  color: var(--cardinal);
+  margin-top: -10px;
+}
+
+.error-message.visible {
+  display: block;
 }
 
 /* Accessible focus style */
@@ -70,10 +86,6 @@
   /* Blue outline on focus */
 }
 
-.mmp .error-message {
-  color: var(--cardinal);
-  display: none;
-}
 
 .mmp .consent-affirmation {
   margin: 1rem 0;
