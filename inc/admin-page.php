@@ -203,7 +203,7 @@ function mmp_custom_form_options_page() {
                 </div>
                 <h2>Basic Usage</h2>
                 <p>To add the custom form to any WordPress page or post, edit the page or post where you want the form to appear. In the content area, type or paste the following shortcode:</p>
-                <pre id="mmp-custom-form-shortcode" style="cursor: pointer; background: #f4f4f4; padding: 10px; border: 1px solid #ddd; display: inline-block;">[mmp-custom-form]</pre>
+                <pre id="mmp-custom-form-shortcode" style="cursor: pointer; background: #f4f4f4; padding: 10px; border: 1px solid #ddd; display: inline-block;">[mmp_custom_form]</pre>
                 <p>Click the code above to copy it to your clipboard, then paste it into the editor. When you publish or update the page, the custom form will be displayed.</p>
                 <?php
                 settings_fields('mmpPlugin');
