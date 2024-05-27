@@ -21,16 +21,25 @@ Users with administrative access can edit following settings in the admin dashbo
 - AccountID
 - BID
 - Account Email address (The address that received submitted form data)
+- Default Member Type ID, Cost, and term.
 
 ## Examples
 
-### The `[RAGAS.online Join Us](https://ragas.online/join-us/)` form
+### The `[WASH-RAG Join Us](https://wash-rag.org/membership/)` form
 
-This form is used to sign up new members for RAGAS.online. It is a modified version of the ESRAG form located at https://esrag.org/subscriptions/?mtid=501
+This form is used to sign up new members for WASH-RAG.org. It is a modified version of the ESRAG form located at https://esrag.org/subscriptions/?mtid=501
 
 ## Change log
 
-### v1.0.1
+### v1.2.1
+
+- Refactored club lookup
+- Improved css grid layout for mcid fields
+- Added default MCY values to admin dashboard
+- Easier to customize for new clubs
+- Improved print style for paper version of form
+
+### v1.1
 
 - Added confirmation modal to prevent popup blocking.
 

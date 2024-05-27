@@ -13,16 +13,6 @@ require_once plugin_dir_path(__FILE__) . 'inc/admin-page.php';
 // Create shortcode for rendering the form
 function mmp_custom_form_script_shortcode()
 {
-    // Enqueue external libraries
-    wp_enqueue_style('mmp-custom-form-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/fontawesome.min.css');
-    wp_enqueue_style('mmp-custom-form-select2-css', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css');
-    wp_enqueue_script('jquery');
-    wp_enqueue_script('mmp-custom-form-select2-js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', array('jquery'), null, true);
-    wp_enqueue_script('mmp-custom-form-jquery-validate', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js', array('jquery'), null, true);
-
-    // Validate and verify captcha responses
-    require_once plugin_dir_path(__FILE__) . 'inc/captcha-verification.php';
-
     // Fetch settings
     $settings = get_option('mmp_custom_form_settings');
     $accountID = isset($settings['AccountID']) ? esc_attr($settings['AccountID']) : null;
@@ -78,6 +68,14 @@ function mmp_custom_form_script_shortcode()
         );
     }
 
+    // Enqueue external libraries
+    wp_enqueue_style('mmp-custom-form-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/fontawesome.min.css');
+    wp_enqueue_style('mmp-custom-form-select2-css', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css');
+    wp_enqueue_script('jquery');
+    wp_enqueue_script('mmp-custom-form-select2-js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', array('jquery'), null, true);
+    wp_enqueue_script('mmp-custom-form-jquery-validate', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js', array('jquery'), null, true);
+    wp_enqueue_script('google-recaptcha', 'https://www.google.com/recaptcha/api.js?render=' . $recaptcha_site_key, array(), null, true);
+
     // Enqueue default styles and scripts
     wp_enqueue_style('mmp-form-style', plugin_dir_url(__FILE__) . "templates/assets/css/mmp-form.css");
     wp_enqueue_style('mmp-form-print-style', plugin_dir_url(__FILE__) . "templates/assets/css/mmp-form-print.css", array(), null, 'print');
@@ -86,7 +84,8 @@ function mmp_custom_form_script_shortcode()
     // Enqueue club lookup script after the DOM is fully loaded
     wp_enqueue_script('mmp-club-lookup', plugin_dir_url(__FILE__) . "templates/assets/js/mmpClubLookup.js", array('jquery', 'mmp-form-script'), null, true);
 
-    // Build the base directory path for custom templates
+    // Validate and verify captcha responses
+    require_once plugin_dir_path(__FILE__) . 'inc/captcha-verification.php';    // Build the base directory path for custom templates
     $base_dir = plugin_dir_path(__FILE__) . "templates/custom/{$accountID}/{$bid}/";
 
     // Conditionally enqueue custom styles and scripts if they exist

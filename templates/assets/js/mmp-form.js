@@ -133,29 +133,37 @@ $(document).ready(function () {
       return;
     }
 
-    var postData = getPostData();
+    grecaptcha.ready(function () {
+      grecaptcha.execute(mmpFormOptions.recaptcha_site_key, { action: 'submit' }).then(function (token) {
+        console.log("reCAPTCHA token received:", token); // Debugging output
+        alert("reCAPTCHA token received: " + token); // Debugging output
 
-    if (debug) {
-      var formData = postData.reduce(function (acc, item) {
-        if (!acc[item.name]) {
-          acc[item.name] = item.value;
-        } else if (Array.isArray(acc[item.name])) {
-          acc[item.name].push(item.value);
+        var postData = getPostData();
+        postData.push({ name: 'g-recaptcha-response', value: token });
+
+        if (debug) {
+          var formData = postData.reduce(function (acc, item) {
+            if (!acc[item.name]) {
+              acc[item.name] = item.value;
+            } else if (Array.isArray(acc[item.name])) {
+              acc[item.name].push(item.value);
+            } else {
+              acc[item.name] = [acc[item.name], item.value];
+            }
+            return acc;
+          }, {});
+
+          console.log("Form Data:", formData);
+          alert("Form data logged to console. Debug mode is ON.");
         } else {
-          acc[item.name] = [acc[item.name], item.value];
+          $.post("YOUR_POST_ENDPOINT_HERE", postData, function (response) {
+            console.log("Form submitted successfully:", response);
+          }).fail(function (error) {
+            console.error("Form submission failed:", error);
+          });
         }
-        return acc;
-      }, {});
-
-      console.log("Form Data:", formData);
-      alert("Form data logged to console. Debug mode is ON.");
-    } else {
-      $.post("YOUR_POST_ENDPOINT_HERE", postData, function (response) {
-        console.log("Form submitted successfully:", response);
-      }).fail(function (error) {
-        console.error("Form submission failed:", error);
       });
-    }
+    });
   });
 
   $("form").on("submit", function (event) {
