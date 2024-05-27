@@ -1,10 +1,10 @@
 $(document).ready(function () {
-  var debug = true; // Set this to false in production
+  var debug = false; // Set this to false in production
   $("#Consent").prop("disabled", true);
   $("#Send").hide();
 
-  console.log("Form loaded. Consent checkbox disabled and send button hidden.");
-  console.log("Debug mode:", debug);
+  // console.log("Form loaded. Consent checkbox disabled and send button hidden.");
+  // console.log("Debug mode:", debug);
 
   function getPostData() {
     let postData = $("#mmp-form").serializeArray();
@@ -14,13 +14,13 @@ $(document).ready(function () {
       return item.name !== 'confirm_password' && item.name !== 'Consent' && item.name !== 'recaptcha_site_key';
     });
 
-    // Add values from mmpFormOptions or localized script data if available
+    // Add values from mmpFormOptions if available
     if (typeof mmpFormOptions !== 'undefined') {
       postData.push({ name: 'recaptcha_secret_key', value: mmpFormOptions.recaptcha_secret_key });
       postData.push({ name: 'account_ID', value: mmpFormOptions.account_ID });
       postData.push({ name: 'BID', value: mmpFormOptions.BID });
       postData.push({ name: 'account_email', value: mmpFormOptions.account_email });
-      console.log("Using values from WordPress localized script data.");
+      // console.log("Using values from WordPress localized script data.");
     }
 
     return postData;
@@ -37,14 +37,14 @@ $(document).ready(function () {
       if (field.validationMessage) {
         errorMsg += ` (${field.validationMessage})`;
       }
-      console.log(errorMsg);
+      // console.log(errorMsg);
       return false;
     } else {
       $(field).removeClass("invalid-field");
       if (errorElement) {
         $(errorElement).removeClass("visible");
       }
-      console.log(`Field is valid: ${field.name}`);
+      // console.log(`Field is valid: ${field.name}`);
       return true;
     }
   }
@@ -60,37 +60,37 @@ $(document).ready(function () {
   }
 
   $("#mmp-form input, #mmp-form select, #mmp-form textarea").on("focus", function () {
-    console.log(`${this.name} focus`);
+    // console.log(`${this.name} focus`);
   });
 
   $("#mmp-form input, #mmp-form select, #mmp-form textarea").on("blur", function () {
     const wasFieldValid = checkFieldValidity(this);
-    console.log(`${this.name} blur`);
+    // console.log(`${this.name} blur`);
 
     const isFormValid = checkFormValidity();
     if (isFormValid && $("#Consent").prop("disabled")) {
       $("#Consent").prop("disabled", false);
-      console.log("Form is valid. Consent checkbox enabled.");
+      // console.log("Form is valid. Consent checkbox enabled.");
     } else if (!isFormValid && !$("#Consent").prop("disabled")) {
       $("#Consent").prop("disabled", true);
       $("#Send").hide();
-      console.log("Form is invalid. Consent checkbox disabled and send button hidden.");
+      // console.log("Form is invalid. Consent checkbox disabled and send button hidden.");
     }
   });
 
   $("#Consent").on("change", function () {
     if (this.checked) {
       $("#Send").show();
-      console.log("Consent checkbox checked. Send button shown.");
+      // console.log("Consent checkbox checked. Send button shown.");
     } else {
       $("#Send").hide();
-      console.log("Consent checkbox unchecked. Send button hidden.");
+      // console.log("Consent checkbox unchecked. Send button hidden.");
     }
   });
 
   $("#Email").change(function () {
     if (this.checkValidity()) {
-      console.log("Handler for email .change() called.");
+      // console.log("Handler for email .change() called.");
       $.ajax({
         url: "https://www.emembersdb.com/Lookup/EMailCheck.cfm",
         type: "POST",
@@ -102,16 +102,16 @@ $(document).ready(function () {
         },
       })
       .done(function (data) {
-        console.log(data);
+        // console.log(data);
         if (data == 1) {
           $("#email-error").show().html(
             `This email is already associated with a membership. Please contact <a href="mailto:${mmpFormOptions.account_email}?subject=Duplicate%20Membership%20Email%20Address">${mmpFormOptions.account_email}</a> to change your membership type.`
           );
           $("#Send").hide();
-          console.log("Email found");
+          // console.log("Email found");
         } else {
           $("#email-error").hide();
-          console.log("Email NOT found");
+          // console.log("Email NOT found");
         }
       })
       .fail(function (jqXHR, textStatus, errorThrown) {
@@ -119,14 +119,14 @@ $(document).ready(function () {
         console.error("Email change AJAX request failed: " + textStatus, errorThrown);
       });
     } else {
-      console.log("Invalid email address");
+      // console.log("Invalid email address");
     }
   });
 
   $("#Send").click(function (event) {
     event.preventDefault();
 
-    console.log("Send button clicked. Checking form validity...");
+    // console.log("Send button clicked. Checking form validity...");
     if (!checkFormValidity()) {
       alert("Some required fields were not entered or are misformatted.");
       $("#Send").show();
@@ -135,8 +135,8 @@ $(document).ready(function () {
 
     grecaptcha.ready(function () {
       grecaptcha.execute(mmpFormOptions.recaptcha_site_key, { action: 'submit' }).then(function (token) {
-        console.log("reCAPTCHA token received:", token); // Debugging output
-        alert("reCAPTCHA token received: " + token); // Debugging output
+        // console.log("reCAPTCHA token received:", token); // Debugging output
+        // alert("reCAPTCHA token received: " + token); // Debugging output
 
         var postData = getPostData();
         postData.push({ name: 'g-recaptcha-response', value: token });
@@ -153,11 +153,11 @@ $(document).ready(function () {
             return acc;
           }, {});
 
-          console.log("Form Data:", formData);
-          alert("Form data logged to console. Debug mode is ON.");
+          // console.log("Form Data:", formData);
+          // alert("Form data logged to console. Debug mode is ON.");
         } else {
-          $.post("YOUR_POST_ENDPOINT_HERE", postData, function (response) {
-            console.log("Form submitted successfully:", response);
+          $.post("https://www.emembersdb.com/nm/custom.cfm", postData, function (response) {
+            // console.log("Form submitted successfully:", response);
           }).fail(function (error) {
             console.error("Form submission failed:", error);
           });
@@ -176,7 +176,7 @@ $(document).ready(function () {
       if (!isChecked) {
         allValid = false;
         radioGroup.forEach((r) => r.classList.add("invalid-radio"));
-        console.log("Invalid radio group:", name);
+        // console.log("Invalid radio group:", name);
       } else {
         radioGroup.forEach((r) => r.classList.remove("invalid-radio"));
       }
@@ -185,30 +185,30 @@ $(document).ready(function () {
     if (!allValid) {
       event.preventDefault();
       alert("Please select an option for each required field.");
-      console.log("Form submission prevented due to invalid radio groups.");
+      // console.log("Form submission prevented due to invalid radio groups.");
     }
   });
 
   $("form").on("keydown", function (event) {
     if (event.key === "Enter") {
       event.preventDefault();
-      console.log("Enter key pressed. Default form submission prevented.");
+      // console.log("Enter key pressed. Default form submission prevented.");
     }
   });
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("MMP Form Options:", mmpFormOptions);
+  // console.log("MMP Form Options:", mmpFormOptions);
 
   if (typeof $.fn.select2 !== "undefined") {
     $(".select2").select2();
-    console.log("select2 initialized.");
+    // console.log("select2 initialized.");
   }
 
   if (typeof $.fn.validate !== "undefined") {
     $("#mmp-form").validate({
       // Validation rules
     });
-    console.log("jQuery validation initialized.");
+    // console.log("jQuery validation initialized.");
   }
 });
