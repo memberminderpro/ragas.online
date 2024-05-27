@@ -70,7 +70,7 @@ $(document).ready(function () {
     $('.StateProvLookup').on('select2:select', function (e) {
       var data = e.params.data;
       $("#StateCode").val(data.id);
-      $("#ProvOrOther").val(data.text);
+      $("#fkstateprov").val(data.text);
       if (data.selected === true) {
         $("#clubrow").show();
         initializeClubLookup();

@@ -2,32 +2,32 @@ $(document).ready(function () {
   if (typeof mmpFormOptions !== 'undefined') {
     var urlParams = new URLSearchParams(window.location.search);
     var $mtid = urlParams.get('mtid');
-  
+
     if ($mtid) {
-        $mtid = parseInt($mtid, 10);
+      $mtid = parseInt($mtid, 10);
     } else {
-        $mtid = parseInt(mmpFormOptions.default_member_type_id, 10);
+      $mtid = parseInt(mmpFormOptions.default_member_type_id, 10);
     }
-  
+
     // Set the initial value of MCY based on $mtid
     switch ($mtid) {
-        case 933:
-            $("#mcy_933").prop("checked", true);
-            break;
-        case 935:
-            $("#mcy_935").prop("checked", true);
-            break;
-        case 938:
-        default:
-            $("#mcy_938").prop("checked", true);
-            break;
+      case 933:
+        $("#mcy_933").prop("checked", true);
+        break;
+      case 935:
+        $("#mcy_935").prop("checked", true);
+        break;
+      case 938:
+      default:
+        $("#mcy_938").prop("checked", true);
+        break;
     }
-  
+
     // Update the $mtid variable whenever the selection changes
     $("input[name='MCY']").change(function () {
-        var selectedValue = $(this).val();
-        $mtid = parseInt(selectedValue.split('|')[0], 10);
-        console.log("current mtid: " + $mtid);
+      var selectedValue = $(this).val();
+      $mtid = parseInt(selectedValue.split('|')[0], 10);
+      console.log("current mtid: " + $mtid);
     });
 
     // Handle changes to club type and update relevant fields
@@ -49,7 +49,7 @@ $(document).ready(function () {
       }
     });
   }
-  
+
   // Additional form validation logic
   const form = document.querySelector('form');
   const mcidFields = document.querySelectorAll('input[name="mcidFields"]');
@@ -57,12 +57,12 @@ $(document).ready(function () {
   const fkclubtype = document.getElementById('fkclubtype');
   const clubname = document.getElementById('clubname');
   const clubNameError = document.getElementById('ClubLocDiv');
-  
+
   form.addEventListener('submit', (event) => {
     let mcidValues = [];
     let isExperienceSelected = false;
     let isInterestSelected = false;
-    
+
     mcidFields.forEach((field) => {
       if (field.type === 'radio' && field.checked) {
         isExperienceSelected = true;
