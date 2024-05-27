@@ -27,7 +27,7 @@ $(document).ready(function () {
     $("input[name='MCY']").change(function () {
       var selectedValue = $(this).val();
       $mtid = parseInt(selectedValue.split('|')[0], 10);
-      console.log("current mtid: " + $mtid);
+      // console.log("current mtid: " + $mtid);
     });
 
     // Handle changes to club type and update relevant fields
