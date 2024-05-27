@@ -1,14 +1,18 @@
 :root {
-  --font-size-h1: 2em;   /* 2 times the base size */
-  --font-size-h2: 1.75em; /* 1.75 times the base size */
-  --font-size-h3: 1.5em;  /* 1.5 times the base size */
-  --font-size-label: 1em; /* Same as base size */
+  --font-size-h1: 2em;
+  /* 2 times the base size */
+  --font-size-h2: 1.75em;
+  /* 1.75 times the base size */
+  --font-size-h3: 1.5em;
+  /* 1.5 times the base size */
+  --font-size-label: 1em;
+  /* Same as base size */
 }
 
 .mmp {
   width: 100%;
   margin: 0 auto;
-  padding: 1rem;
+
   box-sizing: border-box;
 }
 
@@ -19,7 +23,7 @@
 
 .mmp fieldset {
   margin-bottom: 1rem;
-  padding: 1rem;
+  padding: 1rem 0;
 }
 
 .mmp legend {
@@ -55,8 +59,19 @@
   margin-bottom: 1rem;
 }
 
+.mmp .entry[required], .required-sample {
+  border-left: 5px solid var(--sky-blue);
+  /* Blue left border for required fields */
+}
+
+/* Accessible focus style */
+.mmp .entry:focus {
+  outline: 2px solid var(--rotary-blue);
+  /* Blue outline on focus */
+}
+
 .mmp .error-message {
-  color: red;
+  color: var(--cardinal);
   display: none;
 }
 
@@ -86,7 +101,7 @@
 }
 
 .mmp .form-group {
-  padding: 0 10px;
+  padding: 0 5px;
 }
 
 .mmp .one-column .form-group {
@@ -134,23 +149,15 @@
   color: #adadad;
 }
 
-@media (max-width: 768px) {
-  .mmp .form-row {
-    flex-direction: column;
-  }
-  .mmp .form-group,
-  .mmp .half-width,
-  .mmp .three-column-50-25-25 .form-group {
-    flex: 1 0 100%;
-  }
-}
 
 .input-group {
   display: flex;
-  align-items: center;  /* Align items vertically to the center */
+  align-items: center;
+  /* Align items vertically to the center */
   margin: 0.6rem 0;
 }
-.input-group label{
+
+.input-group label {
   margin: 0;
 }
 
@@ -206,12 +213,14 @@
 }
 
 /* Ensure correct display for dynamically generated rows */
-#countryrow, #staterow, #clubrow {
+#countryrow,
+#staterow,
+#clubrow {
   margin-bottom: 1rem;
 }
 
-#countryrow .select2-container, 
-#staterow .select2-container, 
+#countryrow .select2-container,
+#staterow .select2-container,
 #clubrow .select2-container {
   width: 100% !important;
 }
@@ -249,22 +258,86 @@
 }
 
 /* Responsive Grid for the first section of checkboxes */
-.mmp fieldset > section:nth-of-type(1) {
+.mmp fieldset>section:nth-of-type(1) {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 }
 
 /* Full width stacking for the second section of checkboxes */
-.mmp fieldset > section:nth-of-type(2) .membercategorywrap {
+.mmp fieldset>section:nth-of-type(2) .membercategorywrap {
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 100%;
 }
 
+/* Flexbox for equal height columns */
+.form-row.equal-height {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form-row.equal-height .form-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin: 0 10px;
+}
+
+.form-row.equal-height .form-group .input-group {
+  display: flex;
+  align-items: center;
+  /* Align items vertically */
+}
+
+.form-row.equal-height .form-group .input-group input[type="radio"],
+.form-row.equal-height .form-group .input-group input[type="checkbox"] {
+  margin-right: 0.5rem;
+  /* Adjust spacing between input and label */
+}
+
+/* Ensure textarea fills the container */
+#comments {
+  flex: 1;
+  resize: none;
+  /* Optional: Disable resizing if desired */
+  padding: 0.5rem;
+  box-sizing: border-box;
+  height: 100%;
+  /* Make textarea fill the height of its container */
+}
+
+.invalid-field {
+  border: 2px solid red;
+}
+
+input[type="radio"].invalid-radio + label {
+  color: red;
+}
+
+/* Ensure full-width columns on small screens */
 @media (max-width: 768px) {
-  .mmp fieldset > section:nth-of-type(1) {
+  .form-row.equal-height {
+    flex-direction: column;
+  }
+
+  /* Ensure full-width columns on small screens */
+  .form-row.equal-height {
+    flex-direction: column;
+  }
+
+  .mmp .form-row {
+    flex-direction: column;
+  }
+
+  .mmp .form-group,
+  .mmp .half-width,
+  .mmp .three-column-50-25-25 .form-group {
+    flex: 1 0 100%;
+  }
+
+  .mmp fieldset>section:nth-of-type(1) {
     grid-template-columns: 1fr;
   }
 }
