@@ -1,8 +1,30 @@
 $(document).ready(function () {
+  var debug = true; // Set this to false in production
   $("#Consent").prop("disabled", true);
   $("#Send").hide();
 
   console.log("Form loaded. Consent checkbox disabled and send button hidden.");
+  console.log("Debug mode:", debug);
+
+  function getPostData() {
+    let postData = $("#mmp-form").serializeArray();
+
+    // Filter out the confirm_password, consent, and recaptcha_site_key fields
+    postData = postData.filter(function (item) {
+      return item.name !== 'confirm_password' && item.name !== 'Consent' && item.name !== 'recaptcha_site_key';
+    });
+
+    // Add values from mmpFormOptions or localized script data if available
+    if (typeof mmpFormOptions !== 'undefined') {
+      postData.push({ name: 'recaptcha_secret_key', value: mmpFormOptions.recaptcha_secret_key });
+      postData.push({ name: 'account_ID', value: mmpFormOptions.account_ID });
+      postData.push({ name: 'BID', value: mmpFormOptions.BID });
+      postData.push({ name: 'account_email', value: mmpFormOptions.account_email });
+      console.log("Using values from WordPress localized script data.");
+    }
+
+    return postData;
+  }
 
   function checkFieldValidity(field) {
     const errorElement = document.getElementById(`${field.id}Error`);
@@ -66,8 +88,40 @@ $(document).ready(function () {
     }
   });
 
-  var debug = true;
-  console.log("Debug mode:", debug);
+  $("#Email").change(function () {
+    if (this.checkValidity()) {
+      console.log("Handler for email .change() called.");
+      $.ajax({
+        url: "https://www.emembersdb.com/Lookup/EMailCheck.cfm",
+        type: "POST",
+        dataType: "json",
+        data: {
+          AccountID: mmpFormOptions.account_ID,
+          Email: $(this).val().trim(),
+          IsActive: "Y", // Search for active subscriptions
+        },
+      })
+      .done(function (data) {
+        console.log(data);
+        if (data == 1) {
+          $("#email-error").show().html(
+            `This email is already associated with a membership. Please contact <a href="mailto:${mmpFormOptions.account_email}?subject=Duplicate%20Membership%20Email%20Address">${mmpFormOptions.account_email}</a> to change your membership type.`
+          );
+          $("#Send").hide();
+          console.log("Email found");
+        } else {
+          $("#email-error").hide();
+          console.log("Email NOT found");
+        }
+      })
+      .fail(function (jqXHR, textStatus, errorThrown) {
+        $("#email-error").html("Error checking email. Please try again.").show();
+        console.error("Email change AJAX request failed: " + textStatus, errorThrown);
+      });
+    } else {
+      console.log("Invalid email address");
+    }
+  });
 
   $("#Send").click(function (event) {
     event.preventDefault();
@@ -79,44 +133,28 @@ $(document).ready(function () {
       return;
     }
 
-    var selectedCategories = [];
-    $('input[name="mcidFields"]:checked').each(function () {
-      selectedCategories.push($(this).val());
-    });
+    var postData = getPostData();
 
-    var selectedExperience = $("#experienceDropdown").val();
-    if (selectedExperience) {
-      selectedCategories.push(selectedExperience);
-    }
+    if (debug) {
+      var formData = postData.reduce(function (acc, item) {
+        if (!acc[item.name]) {
+          acc[item.name] = item.value;
+        } else if (Array.isArray(acc[item.name])) {
+          acc[item.name].push(item.value);
+        } else {
+          acc[item.name] = [acc[item.name], item.value];
+        }
+        return acc;
+      }, {});
 
-    $("#MemberCategoryIDs").val(selectedCategories.join(","));
-    console.log("Selected categories:", selectedCategories);
-
-    var f = $("#mmp-form").serialize();
-    try {
-      if (debug) {
-        var formData = decodeURIComponent(f)
-          .split("&")
-          .reduce(function (acc, pair) {
-            var [key, value] = pair.split("=");
-            if (!acc[key]) {
-              acc[key] = value;
-            } else if (Array.isArray(acc[key])) {
-              acc[key].push(value);
-            } else {
-              acc[key] = [acc[key], value];
-            }
-            return acc;
-          }, {});
-
-        console.log("Form Data:", formData);
-        console.log("captchaHash=", captchaHash);
-        console.log("captchaCode=", $("#captchaCode").val());
-        alert("Form data logged to console. Debug mode is ON.");
-      }
-    } catch (error) {
-      alert("Could not submit form.");
-      console.log("Form submission error:", error);
+      console.log("Form Data:", formData);
+      alert("Form data logged to console. Debug mode is ON.");
+    } else {
+      $.post("YOUR_POST_ENDPOINT_HERE", postData, function (response) {
+        console.log("Form submitted successfully:", response);
+      }).fail(function (error) {
+        console.error("Form submission failed:", error);
+      });
     }
   });
 
