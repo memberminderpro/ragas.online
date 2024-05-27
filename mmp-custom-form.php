@@ -3,12 +3,35 @@
 /**
  * Plugin Name: MMP Custom Form
  * Description: A custom HTML form with multi-vendor captcha integration support
- * Version: 1.2.2
+ * Version: 1.2.4
  * Author: Member Minder Pro, LLC
  */
 
 // Create a settings page for the plugin
-require_once plugin_dir_path(__FILE__) . 'inc/admin-page.php';
+function set_mmpcf_plugin_version()
+{
+    if (!function_exists('get_plugin_data')) {
+        require_once(ABSPATH . 'wp-admin/includes/plugin.php');
+    }
+
+    $plugin_data = get_plugin_data(__FILE__);
+    $version = $plugin_data['Version'];
+
+    define('MMPCF_PLUGIN_VERSION', $version);
+}
+
+$plugin = plugin_basename(__FILE__);
+// Ensure the plugin version is set.
+set_mmpcf_plugin_version();
+
+if (!defined('MMPCF_PLUGIN_URL')) {
+    define('MMPCF_PLUGIN_URL', plugin_dir_url(__FILE__));
+}
+if (!defined('MMPCF_PLUGIN_DIR')) {
+    define('MMPCF_PLUGIN_DIR', plugin_dir_path(__FILE__));
+}
+
+require_once MMPCF_PLUGIN_DIR . 'inc/admin-page.php';
 
 // Create shortcode for rendering the form
 function mmp_custom_form_script_shortcode()
@@ -36,7 +59,7 @@ function mmp_custom_form_script_shortcode()
 
     // Check if options exist, otherwise enqueue the development script
     if (!$recaptcha_site_key || !$accountID || !$bid || !$account_email || !$default_member_type_id) {
-        wp_enqueue_script('mmp-form-options', plugin_dir_url(__FILE__) . 'assets/js/mmpFormOptions.js', array(), null, true);
+        wp_enqueue_script('mmp-form-options', plugin_dir_url(__FILE__) . 'assets/js/mmpFormOptions.js', array(), MMPCF_PLUGIN_VERSION, true);
 
         // Add inline script to check if mmpFormOptions is defined
         wp_add_inline_script('mmp-form-options', '
@@ -78,11 +101,11 @@ function mmp_custom_form_script_shortcode()
 
     // Enqueue default styles and scripts
     wp_enqueue_style('mmp-form-style', plugin_dir_url(__FILE__) . "templates/assets/css/mmp-form.css");
-    wp_enqueue_style('mmp-form-print-style', plugin_dir_url(__FILE__) . "templates/assets/css/mmp-form-print.css", array(), null, 'print');
-    wp_enqueue_script('mmp-form-script', plugin_dir_url(__FILE__) . "templates/assets/js/mmp-form.js", array('jquery'), null, true);
+    wp_enqueue_style('mmp-form-print-style', plugin_dir_url(__FILE__) . "templates/assets/css/mmp-form-print.css", array(), MMPCF_PLUGIN_VERSION, 'print');
+    wp_enqueue_script('mmp-form-script', plugin_dir_url(__FILE__) . "templates/assets/js/mmp-form.js", array('jquery'), MMPCF_PLUGIN_VERSION, true);
 
     // Enqueue club lookup script after the DOM is fully loaded
-    wp_enqueue_script('mmp-club-lookup', plugin_dir_url(__FILE__) . "templates/assets/js/mmpClubLookup.js", array('jquery', 'mmp-form-script'), null, true);
+    wp_enqueue_script('mmp-club-lookup', plugin_dir_url(__FILE__) . "templates/assets/js/mmpClubLookup.js", array('jquery', 'mmp-form-script'), MMPCF_PLUGIN_VERSION, true);
 
     // Validate and verify captcha responses
     require_once plugin_dir_path(__FILE__) . 'inc/captcha-verification.php';    // Build the base directory path for custom templates
