@@ -1,51 +1,61 @@
-var captchaHash = "";
-
-// Prevent form submission on Enter key
-function noEnter(e) {
-  var keycode;
-  if (window.event) keycode = window.event.keyCode;
-  else if (e) keycode = e.which;
-  return !(keycode == 13);
-}
-
-var urlParms = getQueryParams(document.location.search);
-
 $(document).ready(function () {
   $("#Consent").prop("disabled", true);
   $("#Send").hide();
 
   console.log("Form loaded. Consent checkbox disabled and send button hidden.");
 
-  // Function to check form validity and add/remove invalid field indicators
+  function checkFieldValidity(field) {
+    const errorElement = document.getElementById(`${field.id}Error`);
+    if (!field.checkValidity()) {
+      $(field).addClass("invalid-field");
+      if (errorElement) {
+        $(errorElement).addClass("visible");
+      }
+      let errorMsg = `Invalid field detected: ${field.name}`;
+      if (field.validationMessage) {
+        errorMsg += ` (${field.validationMessage})`;
+      }
+      console.log(errorMsg);
+      return false;
+    } else {
+      $(field).removeClass("invalid-field");
+      if (errorElement) {
+        $(errorElement).removeClass("visible");
+      }
+      console.log(`Field is valid: ${field.name}`);
+      return true;
+    }
+  }
+
   function checkFormValidity() {
     let isValid = true;
     $("#mmp-form input, #mmp-form select, #mmp-form textarea").each(function () {
-      if (!this.checkValidity()) {
+      if (!this.checkValidity() && this.id !== "Consent") {
         isValid = false;
-        $(this).addClass("invalid-field"); // Add invalid field indicator
-        console.log("Invalid field detected:", this);
-      } else {
-        $(this).removeClass("invalid-field"); // Remove invalid field indicator
-        console.log("Field is valid:", this);
       }
     });
     return isValid;
   }
 
-  // Event listener for form input changes
-  $("#mmp-form input, #mmp-form select, #mmp-form textarea").on("input change", function () {
-    console.log("Input changed. Checking form validity...");
-    if (checkFormValidity()) {
+  $("#mmp-form input, #mmp-form select, #mmp-form textarea").on("focus", function () {
+    console.log(`${this.name} focus`);
+  });
+
+  $("#mmp-form input, #mmp-form select, #mmp-form textarea").on("blur", function () {
+    const wasFieldValid = checkFieldValidity(this);
+    console.log(`${this.name} blur`);
+
+    const isFormValid = checkFormValidity();
+    if (isFormValid && $("#Consent").prop("disabled")) {
       $("#Consent").prop("disabled", false);
       console.log("Form is valid. Consent checkbox enabled.");
-    } else {
+    } else if (!isFormValid && !$("#Consent").prop("disabled")) {
       $("#Consent").prop("disabled", true);
       $("#Send").hide();
       console.log("Form is invalid. Consent checkbox disabled and send button hidden.");
     }
   });
 
-  // Event listener for the consent checkbox
   $("#Consent").on("change", function () {
     if (this.checked) {
       $("#Send").show();
@@ -59,9 +69,8 @@ $(document).ready(function () {
   var debug = true;
   console.log("Debug mode:", debug);
 
-  // Prevent form submission and log data in debug mode
   $("#Send").click(function (event) {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault();
 
     console.log("Send button clicked. Checking form validity...");
     if (!checkFormValidity()) {
@@ -70,26 +79,22 @@ $(document).ready(function () {
       return;
     }
 
-    // Collect selected checkbox values
     var selectedCategories = [];
     $('input[name="mcidFields"]:checked').each(function () {
       selectedCategories.push($(this).val());
     });
 
-    // Get the selected dropdown value
     var selectedExperience = $("#experienceDropdown").val();
     if (selectedExperience) {
       selectedCategories.push(selectedExperience);
     }
 
-    // Set the hidden input value
     $("#MemberCategoryIDs").val(selectedCategories.join(","));
     console.log("Selected categories:", selectedCategories);
 
     var f = $("#mmp-form").serialize();
     try {
       if (debug) {
-        // Parse the serialized string into an object
         var formData = decodeURIComponent(f)
           .split("&")
           .reduce(function (acc, pair) {
@@ -104,7 +109,6 @@ $(document).ready(function () {
             return acc;
           }, {});
 
-        // Log the object in a readable format
         console.log("Form Data:", formData);
         console.log("captchaHash=", captchaHash);
         console.log("captchaCode=", $("#captchaCode").val());
@@ -116,7 +120,6 @@ $(document).ready(function () {
     }
   });
 
-  // Validate radio groups on form submit
   $("form").on("submit", function (event) {
     let allValid = true;
     $('input[type="radio"][required]').each(function () {
@@ -140,7 +143,6 @@ $(document).ready(function () {
     }
   });
 
-  // Prevent form submission on Enter key
   $("form").on("keydown", function (event) {
     if (event.key === "Enter") {
       event.preventDefault();
@@ -149,29 +151,14 @@ $(document).ready(function () {
   });
 });
 
-function getQueryParams(qs) {
-  qs = qs.split("+").join(" ");
-  var params = {},
-    tokens,
-    re = /[?&]?([^=]+)=([^&]*)/g;
-
-  while ((tokens = re.exec(qs))) {
-    params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
-  }
-  return params;
-}
-
 document.addEventListener("DOMContentLoaded", function () {
-  // Log the mmpFormOptions object to the console
   console.log("MMP Form Options:", mmpFormOptions);
 
-  // Example: Initialize select2
   if (typeof $.fn.select2 !== "undefined") {
     $(".select2").select2();
     console.log("select2 initialized.");
   }
 
-  // Example: Initialize jQuery validation
   if (typeof $.fn.validate !== "undefined") {
     $("#mmp-form").validate({
       // Validation rules
