@@ -24,7 +24,6 @@
               Your last name may only contain letters, spaces, hyphens, and apostrophes.
             </span>
           </div>
-
         </div>
         <div class="form-row two-column">
           <div class="form-group">
@@ -76,6 +75,8 @@
             </select>
             <span id="fkclubtypeError" class="error-message" aria-live="polite">Please select your current Rotary affiliation. If you are not a currrent Rotarian or Rotaractor, please select "Non-Rotarian."</span>
             <input id="fkmembertype" type="hidden" name="fkmembertype" value="Active" />
+            <input id="rotarian" type="checkbox" name="MemberCategoryIDs" value="390" hidden />
+            <input id="rotoractor" type="checkbox" name="MemberCategoryIDs" value="388" hidden />
           </div>
         </div>
         <div id="countryrow" class="form-row one-column" style="display: none;">
@@ -96,6 +97,8 @@
             <label for="clubname">Club Name</label>
             <select id="clubname" name="clubname" class="entry ClubLookup"></select>
             <span id="ClubLocDiv"></span>
+            <input id="fkdistrict" type="hidden" name="fkdistrict" />
+            <input id="fkclubname" type="hidden" name="fkclubname" />
           </div>
         </div>
       </fieldset>
@@ -144,22 +147,22 @@
           <div class="form-group">
             <h3>What is your WASH Experience?</h3>
             <div class="input-group">
-              <input type="radio" id="none" name="mcidFields" value="381" />
+              <input type="radio" id="none" name="MemberCategoryIDs" value="381" />
               <label for="none">None</label>
             </div>
 
             <div class="input-group">
-              <input type="radio" id="some" name="mcidFields" value="382" />
+              <input type="radio" id="some" name="MemberCategoryIDs" value="382" />
               <label for="some">Some</label>
             </div>
 
             <div class="input-group">
-              <input type="radio" id="extensive" name="mcidFields" value="383" />
+              <input type="radio" id="extensive" name="MemberCategoryIDs" value="383" />
               <label for="extensive">Extensive</label>
             </div>
 
             <div class="input-group">
-              <input id="volunteer-interest" type="checkbox" name="mcidFields" value="389" />
+              <input id="volunteer-interest" type="checkbox" name="MemberCategoryIDs" value="387" />
               <label for="volunteer-interest">I am willing to <a href="/operations-team/" target="_blank"
                   title="Click to learn more about the WASH Rotary Action Group Operations Team">volunteer</a>.</label>
             </div>
@@ -184,21 +187,21 @@
         <h3>Select all that apply</h3>
         <div class="form-row three-column">
           <div class="form-group input-group">
-            <input id="water" type="checkbox" name="mcidFields" value="386" />
+            <input id="water" type="checkbox" name="MemberCategoryIDs" value="386" />
             <label for="water">Water</label>
           </div>
           <div class="form-group input-group">
-            <input id="sanitation" type="checkbox" name="mcidFields" value="385" />
+            <input id="sanitation" type="checkbox" name="MemberCategoryIDs" value="385" />
             <label for="sanitation">Sanitation</label>
           </div>
           <div class="form-group input-group">
-            <input id="hygiene" type="checkbox" name="mcidFields" value="384" />
+            <input id="hygiene" type="checkbox" name="MemberCategoryIDs" value="384" />
             <label for="hygiene">Hygiene</label>
           </div>
         </div>
         <div class="form-row one-column">
           <div class="form-group input-group">
-            <input id="ambassador-interest" type="checkbox" name="mcidFields" value="389" />
+            <input id="ambassador-interest" type="checkbox" name="MemberCategoryIDs" value="389" />
             <label for="ambassador-interest">I am interested in becoming a <a href="/ambassadors/" target="_blank"
                 title="Click to learn more about WASH Rotary Action Group Ambassadors">WASH-RAG Ambassador</a>.</label>
           </div>
