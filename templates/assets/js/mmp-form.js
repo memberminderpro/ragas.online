@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  var debug = true; // Set this to false in production
+  var debug = false; // Set this to false in production
   $("#Consent").prop("disabled", true);
   $("#Send").hide();
 
