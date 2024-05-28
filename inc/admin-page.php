@@ -112,7 +112,7 @@ function mmp_custom_form_account_settings_section_callback() {
 }
 
 function mmp_custom_form_default_member_type_section_callback() { 
-    echo '<p>Specify the default new member type settings. These values will be used when a new member registers through the form.</p>';
+    echo '<p>These settings will set a default member type to load if the form is ever accessed without the mtid querystring in the URL. If necessary, users will still be able to change member types in the Membership Level section of the form.</p>';
 }
 
 function mmp_custom_form_spam_protection_section_callback() { 
@@ -206,7 +206,7 @@ function mmp_custom_form_options_page() {
     <div id="mmp-plugin-container" class="wrap">
         <div id="mmp-settings">
             <form action='options.php' method='post'>
-                <div class="mmp-masthead">
+                <header class="mmp-masthead">
                     <div class="logo-container">
                         <a href="https://memberminderpro.com" target="_blank"><img src="https://plus.dacdb.org/wp-content/uploads/2023/07/mmp-icon_512.png" title="Member Minder Pro — Powering DACdb and iMembersDB" alt="Logo"></a>
                     </div>
@@ -217,7 +217,8 @@ function mmp_custom_form_options_page() {
                     <div class="save-container">
                         <p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes" style="width: 119px;"></p>
                     </div>
-                </div>
+                </header>
+                <main style="width: 100%; max-width: 640px">
                 <h2>Basic Usage</h2>
                 <p>To add the custom form to any WordPress page or post, edit the page or post where you want the form to appear. In the content area, type or paste the following shortcode:</p>
                 <pre id="mmp-custom-form-shortcode" style="cursor: pointer; background: #f4f4f4; padding: 10px; border: 1px solid #ddd; display: inline-block;">[mmp_custom_form]</pre>
@@ -227,10 +228,12 @@ function mmp_custom_form_options_page() {
                 do_settings_sections('mmpPlugin');
                 submit_button();
                 ?>
+                </main>
+                <footer id="mmp-admin-footer" style="text-align: center; margin-top: 20px;">
+                    <p>Copyright © 2023-<?php echo date("Y"); ?> <a href="https://memberminderpro.com/" target="_blank"><strong>Member Minder Pro, LLC</strong></a> — Powering <a href="https://www.dacdbsupport.com/new-ticket" title="Open a support ticket on DACdb" target="_blank"><strong>DAC</strong>db</a> &amp; <a href="https://www.imemberssupport.com/new-ticket" title="Open a support ticket on iMembersDB" target="_blank">i<strong>Members</strong>db</a></p>
+            </footer>
             </form>
-            <div id="mmp-admin-footer" style="text-align: center; margin-top: 20px;">
-                <p>Copyright © 2023-<?php echo date("Y"); ?> <a href="https://memberminderpro.com/" target="_blank"><strong>Member Minder Pro, LLC</strong></a> — Powering <a href="https://www.dacdbsupport.com/new-ticket" title="Open a support ticket on DACdb" target="_blank"><strong>DAC</strong>db</a> &amp; <a href="https://www.imemberssupport.com/new-ticket" title="Open a support ticket on iMembersDB" target="_blank">i<strong>Members</strong>db</a></p>
-            </div>
+            
         </div>
     </div>
     <script>
