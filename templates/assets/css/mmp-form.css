@@ -1,0 +1,355 @@
+:root {
+  --font-size-h1: 2em;
+  /* 2 times the base size */
+  --font-size-h2: 1.75em;
+  /* 1.75 times the base size */
+  --font-size-h3: 1.5em;
+  /* 1.5 times the base size */
+  --font-size-label: 1em;
+  /* Same as base size */
+}
+
+.mmp {
+  width: 100%;
+  margin: 0 auto;
+
+  box-sizing: border-box;
+}
+
+.mmp form {
+  display: flex;
+  flex-direction: column;
+}
+
+.mmp fieldset {
+  margin-bottom: 1rem;
+  padding: 1rem 0;
+}
+
+.mmp legend {
+  font-size: var(--font-size-h2);
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.mmp h1 {
+  font-size: var(--font-size-h1);
+  margin-bottom: 1rem;
+}
+
+.mmp h2 {
+  font-size: var(--font-size-h2);
+  margin-bottom: 0.75rem;
+}
+
+.mmp h3 {
+  font-size: var(--font-size-h3);
+  margin-bottom: 0.5rem;
+}
+
+.mmp label {
+  font-size: var(--font-size-label);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.mmp .entry {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.mmp .entry[required] {
+  border-left: 5px solid var(--sky-blue);
+  /* Blue left border for required fields */
+}
+
+
+.mmp .entry.invalid-field {
+  border-left: 5px solid var(--cardinal);
+  outline: 2px solid var(--mmp-red-dark);
+}
+
+.error-message {
+  display: none;
+  color: var(--cardinal);
+  margin-top: -10px;
+}
+
+.error-message.visible {
+  display: block;
+}
+
+/* Accessible focus style */
+.mmp .entry:focus {
+  outline: 2px solid var(--rotary-blue);
+  /* Blue outline on focus */
+}
+
+
+.mmp .consent-affirmation {
+  margin: 1rem 0;
+}
+
+.mmp .captcha-send {
+  text-align: center;
+}
+
+.mmp .btn {
+  border: none;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+#Send {
+  display: none;
+}
+
+.mmp .form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.mmp .form-group {
+  padding: 0 5px;
+}
+
+.mmp .one-column .form-group {
+  flex: 1 0 100%;
+}
+
+.mmp .two-column .form-group {
+  flex: 1 0 50%;
+}
+
+.mmp .three-column .form-group {
+  flex: 1 0 33.33%;
+}
+
+.mmp .four-column .form-group {
+  flex: 1 0 25%;
+}
+
+.mmp .two-column-66-34 .form-group:first-child {
+  flex: 0 0 66%;
+}
+
+.mmp .two-column-66-34 .form-group:last-child {
+  flex: 0 0 34%;
+}
+
+.mmp .three-column-50-25-25 .form-group:nth-child(1) {
+  flex: 0 0 50%;
+}
+
+.mmp .three-column-50-25-25 .form-group:nth-child(2),
+.mmp .three-column-50-25-25 .form-group:nth-child(3) {
+  flex: 0 0 25%;
+}
+
+.mmp .half-width {
+  flex: 0 0 50%;
+}
+
+#ClubLocDiv {
+  margin: .5em;
+  font-weight: 500;
+  font-size: .9em;
+  font-style: italic;
+  color: #adadad;
+}
+
+
+.input-group {
+  display: flex;
+  align-items: center;
+  /* Align items vertically to the center */
+  margin: 0.6rem 0;
+}
+
+.input-group label {
+  margin: 0;
+}
+
+.input-group input[type="radio"],
+.input-group input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+/* Select2 Styles */
+.select2-container--default .select2-selection--single {
+  height: 2.5rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  color: #333;
+  line-height: 1.5;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 100%;
+  right: 0.5rem;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+  border-color: #888 transparent transparent transparent;
+  border-width: 5px 4px 0 4px;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--single {
+  border-color: #aaa;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered[title] {
+  color: #333;
+}
+
+.select2-container .select2-dropdown {
+  border: 1px solid #ccc;
+
+}
+
+.select2-container .select2-dropdown .select2-results__option {
+  padding: 0.5rem;
+}
+
+.select2-container .select2-dropdown .select2-results__option--highlighted {
+  background-color: #ffcc00;
+  color: #333;
+}
+
+/* Ensure correct display for dynamically generated rows */
+#countryrow,
+#staterow,
+#clubrow {
+  margin-bottom: 1rem;
+}
+
+#countryrow .select2-container,
+#staterow .select2-container,
+#clubrow .select2-container {
+  width: 100% !important;
+}
+
+#countryrow .select2-selection__rendered,
+#staterow .select2-selection__rendered,
+#clubrow .select2-selection__rendered {
+  color: #333;
+  line-height: 1.5;
+}
+
+#countryrow .select2-selection__arrow,
+#staterow .select2-selection__arrow,
+#clubrow .select2-selection__arrow {
+  height: 100%;
+  right: 0.5rem;
+}
+
+#countryrow .select2-selection__arrow b,
+#staterow .select2-selection__arrow b,
+#clubrow .select2-selection__arrow b {
+  border-color: #888 transparent transparent transparent;
+  border-width: 5px 4px 0 4px;
+}
+
+/* Member Category Wrap Styles */
+.membercategorywrap {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.membercategorywrap input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+/* Responsive Grid for the first section of checkboxes */
+.mmp fieldset>section:nth-of-type(1) {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+/* Full width stacking for the second section of checkboxes */
+.mmp fieldset>section:nth-of-type(2) .membercategorywrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+/* Flexbox for equal height columns */
+.form-row.equal-height {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form-row.equal-height .form-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin: 0;
+}
+
+.form-row.equal-height .form-group .input-group {
+  display: flex;
+  align-items: center;
+  /* Align items vertically */
+}
+
+.form-row.equal-height .form-group .input-group input[type="radio"],
+.form-row.equal-height .form-group .input-group input[type="checkbox"] {
+  margin-right: 0.5rem;
+  /* Adjust spacing between input and label */
+}
+
+/* Ensure textarea fills the container */
+#comments {
+  flex: 1;
+  resize: none;
+  /* Optional: Disable resizing if desired */
+  padding: 0.5rem;
+  box-sizing: border-box;
+  height: 100%;
+  /* Make textarea fill the height of its container */
+}
+
+.invalid-field {
+  border: 2px solid red;
+}
+
+input[type="radio"].invalid-radio + label {
+  color: red;
+}
+
+/* Ensure full-width columns on small screens */
+@media (max-width: 768px) {
+  .form-row.equal-height {
+    flex-direction: column;
+  }
+
+  /* Ensure full-width columns on small screens */
+  .form-row.equal-height {
+    flex-direction: column;
+  }
+
+  .mmp .form-row {
+    flex-direction: column;
+  }
+
+  .mmp .form-group,
+  .mmp .half-width,
+  .mmp .three-column-50-25-25 .form-group {
+    flex: 1 0 100%;
+  }
+
+  .mmp fieldset>section:nth-of-type(1) {
+    grid-template-columns: 1fr;
+  }
+}

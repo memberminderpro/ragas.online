@@ -1,17 +1,59 @@
 # MMP Custom Form Plugin
 
-## The RAGAS.online `Join Us` form
+This plugin will create a shortcode that can be added to any code block to display a Member Minder Pro custom form that sends data to DACdb or iMembersDB. Some limited options can be managed in the admin dashboard.
 
-This form is used to sign up new members for RAGAS.online. It is a modified version of the ESRAG form located at https://esrag.org/subscriptions/?mtid=501
+## Usage
+
+### Display a form
+
+Add the following shortcode to any code block:
+
+```php
+[mmp-custom-form]
+```
+
+## Manage settings
+
+Users with administrative access can edit following settings in the admin dashboard:
+
+- Google reCaptcha site key
+- Google reCaptcha secret
+- AccountID
+- BID
+- Account Email address (The address that received submitted form data)
+- Default Member Type ID, Cost, and term.
+
+## Examples
+
+### The `[WASH-RAG Join Us](https://wash-rag.org/membership/)` form
+
+This form is used to sign up new members for WASH-RAG.org. It is a modified version of the ESRAG form located at https://esrag.org/subscriptions/?mtid=501
+
+## Change log
+
+### v1.2.1
+
+- Refactored club lookup
+- Improved css grid layout for mcid fields
+- Added default MCY values to admin dashboard
+- Easier to customize for new clubs
+- Improved print style for paper version of form
+
+### v1.1
+
+- Added confirmation modal to prevent popup blocking.
+
+### v1.0.0
+
+  - Converted static form to WordPress plugin
+  - replaced table layout with responsive html and css
+  - Moved all embeded javascript and inline css to js/scripts.js and css/sytles.css
+  - refactored custom javascript to support separate methods for custom forms vs. core functionality
+  - removed local third-party libraries and linked using CDN paths
+  - added support for Google Recaptcha3, with optional support for hcaptcha and Turnstile.
+
 
 ## Original Version history:
 
 - @version 04/18/2023 - Adapted from ESRAG
 - @version 04/21/2023 - MCY stores membertype,cost,years CSS fmting
-- @version 02/26/2024
-  - Converted to WordPress plugin
-  - replaced table layout with responsive html and css
-  - Moved all embeded javascript and inline css to js/scripts.js and css/sytles.css
-  - refactored custom javascript to support separate methods for custom forms vs. core functionality
-  - removed local third-party libraries and linked using CDN paths
-  - added support for GoogleRecaptcha3, with optional support for hcaptcha and turnstile

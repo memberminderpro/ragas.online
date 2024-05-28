@@ -1,0 +1,108 @@
+<html>
+<head>
+	<title>Problem</title>
+
+<style>
+body  {
+	margin-top: 0px; /* it's good practice to zero the margin and padding of the body element to account for differing browser defaults */
+	margin-bottom: 0px;
+	margin-left: 15px;
+	margin-right: 0px;
+	padding: 0px;
+	border-top: 1px;
+	text-align: center;  /* this centers the container in IE 5* browsers. The text is then set to the left aligned default in the #container selector */
+	color: #000000;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 100%;
+	background-color: #E8E8E8;
+}
+
+.Problem #container {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+	padding-top: 5px; /* At least 1px is needed to prevent margin collapse */
+	/* padding: 1px; This was to prevent margin collapse */
+	width: 100%;
+	background: #E8E8E8; /* #E8E8E8 */
+}
+.Problem #center_container {
+	background-color: #FFFFFF; /* #75A1D0 */
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	height: auto;
+	width: 700px;
+	text-align: center; /*This is really for IE6 - shouldnt make a difference to other browsers*/
+	overflow: hidden;
+}
+
+.Problem #content {
+	background-color: #FFFFFF; /* #75A1D0 */
+	margin-left: auto;
+	margin-right: auto;
+	width: 650px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-align: center; /*This is really for IE6 - shouldnt make a difference to other browsers*/
+	overflow: hidden;
+}
+
+.Problem #center_container b.rtop b, .Problem #center_container b.rbottom b{display:block;height: 1px; overflow: hidden; background: #FFFFFF} /* top background */
+.Problem #center_container b.rtop, b.rbottom{display:block;background: #E8E8E8} /* corner background - color of the containing div */
+.Problem #center_container b.r1{margin: 0 5px}
+.Problem #center_container b.r2{margin: 0 3px}
+.Problem #center_container b.r3{margin: 0 2px}
+.Problem #center_container b.rtop b.r4, b.rbottom b.r4{margin: 0 1px;height: 2px}
+
+.text {font-size: 12px; color: Black;  font-family:  Verdana, Geneva, Arial, Helvetica, sans-serif; }
+.Title {font-size: 26px;  color:#AF1E2D; text-align: left; font-weight: bold; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; margin-top: auto; margin-bottom: auto;  }
+
+H1 {
+	font-size: 26px;
+	margin-top: auto; margin-bottom: auto;
+	color: #AF1E2D;
+	text-align: center;
+	font-weight: bold; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	}
+
+P {font-size: 12px; color: Black;  font-family:  Arial, Helvetica, sans-serif; }
+</style>
+
+</head>
+<body class="Problem" >
+
+<BR>
+<div id="container">
+	<div id="center_container">
+		<b class="rtop"><b class="r1"></b><b class="r2"></b><b class="r3"></b><b class="r4"></b></b>
+			<div id="content">
+
+
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+	<tr>
+		<td width="75" rowspan="3" align="left" valign="top">
+			<img src="https://imembersdb.net/images/Problem.gif" border="0" height="50" width="50">
+		</td>
+		<td class="Title">Problem ...</td>
+	</tr>
+	<tr>
+		<td colspan="2">&nbsp;</td>
+	</tr>
+	<tr>
+		<td colspan="2" class="text" align="left">
+			Invalid AccountID 
+		</td>
+	</tr>
+</table>
+
+
+			<!-- end content --></div>
+			<br>
+		<b class="rbottom"><b class="r4"></b><b class="r3"></b><b class="r2"></b><b class="r1"></b></b>
+	<!-- end center_container --></div>
+<br>
+<!-- end container --></div>
+</body>
+</html>
