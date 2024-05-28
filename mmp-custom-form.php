@@ -3,7 +3,7 @@
 /**
  * Plugin Name: MMP Custom Form
  * Description: A custom HTML form with multi-vendor captcha integration support
- * Version: 1.2.7
+ * Version: 1.2.9
  * Author: Member Minder Pro, LLC
  */
 
@@ -104,7 +104,7 @@ function mmp_custom_form_script_shortcode()
     wp_enqueue_script('google-recaptcha', 'https://www.google.com/recaptcha/api.js?render=' . $recaptcha_site_key, array(), null, true);
 
     // Enqueue default styles and scripts
-    wp_enqueue_style('mmp-form-style', plugin_dir_url(__FILE__) . "templates/assets/css/mmp-form.css");
+    wp_enqueue_style('mmp-form-style', plugin_dir_url(__FILE__) . "templates/assets/css/mmp-form.css", array(), MMPCF_PLUGIN_VERSION);
     wp_enqueue_style('mmp-form-print-style', plugin_dir_url(__FILE__) . "templates/assets/css/mmp-form-print.css", array(), MMPCF_PLUGIN_VERSION, 'print');
     wp_enqueue_script('mmp-form-script', plugin_dir_url(__FILE__) . "templates/assets/js/mmp-form.js", array('jquery'), MMPCF_PLUGIN_VERSION, true);
 
@@ -120,10 +120,10 @@ function mmp_custom_form_script_shortcode()
     $custom_js_exists = file_exists($base_dir . 'js/mmp-form-custom.js');
 
     if ($custom_css_exists) {
-        wp_enqueue_style('mmp-form-custom-style', plugin_dir_url(__FILE__) . "templates/custom/{$accountID}/{$bid}/{$clubid}/css/mmp-form-custom.css");
+        wp_enqueue_style('mmp-form-custom-style', plugin_dir_url(__FILE__) . "templates/custom/{$accountID}/{$bid}/{$clubid}/css/mmp-form-custom.css", array(), MMPCF_PLUGIN_VERSION);
     }
     if ($custom_js_exists) {
-        wp_enqueue_script('mmp-form-custom-script', plugin_dir_url(__FILE__) . "templates/custom/{$accountID}/{$bid}/{$clubid}/js/mmp-form-custom.js", array('jquery'), null, true);
+        wp_enqueue_script('mmp-form-custom-script', plugin_dir_url(__FILE__) . "templates/custom/{$accountID}/{$bid}/{$clubid}/js/mmp-form-custom.js", array('jquery'), MMPCF_PLUGIN_VERSION, true);
     }
 
     // Add inline script to log the inclusion of custom files
