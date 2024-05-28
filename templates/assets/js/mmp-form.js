@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  var debug = false; // Set this to false in production
+  var debug = true; // Set this to false in production
   $("#Consent").prop("disabled", true);
   $("#Send").hide();
 
@@ -16,10 +16,10 @@ $(document).ready(function () {
 
     // Add values from mmpFormOptions if available
     if (typeof mmpFormOptions !== 'undefined') {
-      postData.push({ name: 'recaptcha_secret_key', value: mmpFormOptions.recaptcha_secret_key });
-      postData.push({ name: 'account_ID', value: mmpFormOptions.account_ID });
-      postData.push({ name: 'BID', value: mmpFormOptions.BID });
-      postData.push({ name: 'account_email', value: mmpFormOptions.account_email });
+      postData.push({ name: 'accountID', value: Number(mmpFormOptions.account_ID) });
+      postData.push({ name: 'BID', value: Number(mmpFormOptions.BID) });
+      postData.push({ name: 'ClubID', value: Number(mmpFormOptions.ClubID) });
+      postData.push({ name: 'accountemail', value: mmpFormOptions.account_email });
       console.log("Using values from WordPress localized script data.");
     }
 
@@ -96,7 +96,7 @@ $(document).ready(function () {
         type: "POST",
         dataType: "json",
         data: {
-          AccountID: mmpFormOptions.account_ID,
+          AccountID: Number(mmpFormOptions.account_ID),
           Email: $(this).val().trim(),
           IsActive: "Y", // Search for active subscriptions
         },
@@ -139,7 +139,8 @@ $(document).ready(function () {
         // alert("reCAPTCHA token received: " + token); // Debugging output
 
         var postData = getPostData();
-        postData.push({ name: 'g-recaptcha-response', value: token });
+        // Rename g-recaptcha-response to g_recaptcha_response
+        postData.push({ name: 'g_recaptcha_response', value: token });
 
         if (debug) {
           var formData = postData.reduce(function (acc, item) {
@@ -156,11 +157,21 @@ $(document).ready(function () {
           console.log("Form Data:", formData);
           // alert("Form data logged to console. Debug mode is ON.");
         } else {
-          $.post("https://www.emembersdb.com/nm/custom.cfm", postData, function (response) {
-            console.log("Form submitted successfully:", response);
-          }).fail(function (error) {
-            console.error("Form submission failed:", error);
+          // Use a form to submit data to custom.cfm and perform redirection
+          var $form = $("<form>", {
+            action: "https://www.emembersdb.com/nm/custom.cfm",
+            method: "post",
+          }).appendTo('body');
+
+          $.each(postData, function (i, item) {
+            $("<input>", {
+              type: "hidden",
+              name: item.name,
+              value: item.value
+            }).appendTo($form);
           });
+
+          $form.submit();
         }
       });
     });

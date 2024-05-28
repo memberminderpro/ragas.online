@@ -35,6 +35,14 @@ function mmp_custom_form_settings_init() {
     );
 
     add_settings_field( 
+        'mmp_custom_form_clubid', 
+        __('Club ID', 'mmp'), 
+        'mmp_custom_form_clubid_render', 
+        'mmpPlugin', 
+        'mmp_custom_form_mmpPlugin_account_section' 
+    );
+
+    add_settings_field( 
         'mmp_custom_form_account_email', 
         __('Account Email', 'mmp'), 
         'mmp_custom_form_account_email_render', 
@@ -131,7 +139,7 @@ function mmp_custom_form_account_id_render() {
     $options = get_option('mmp_custom_form_settings');
     $value = isset($options['AccountID']) ? esc_attr($options['AccountID']) : '';
     ?>
-    <input type='text' name='mmp_custom_form_settings[AccountID]' value='<?php echo $value; ?>' placeholder="Enter Account ID">
+    <input type='text' name='mmp_custom_form_settings[AccountID]' value='<?php echo $value; ?>' placeholder="e.g., 12345">
     <?php
 }
 
@@ -139,7 +147,15 @@ function mmp_custom_form_bid_render() {
     $options = get_option('mmp_custom_form_settings');
     $value = isset($options['BID']) ? esc_attr($options['BID']) : '';
     ?>
-    <input type='text' name='mmp_custom_form_settings[BID]' value='<?php echo $value; ?>' placeholder="Enter BID">
+    <input type='text' name='mmp_custom_form_settings[BID]' value='<?php echo $value; ?>' placeholder="e.g., 1234">
+    <?php
+}
+function mmp_custom_form_clubid_render() { 
+    $options = get_option('mmp_custom_form_settings');
+    $value = isset($options['ClubID']) ? esc_attr($options['ClubID']) : '';
+    ?>
+    <input type='text' name='mmp_custom_form_settings[ClubID]' value='<?php echo $value; ?>' placeholder="e.g., 12345">
+    <p class="description">Enter the Club ID for the club or group where the new member will be added.</p>
     <?php
 }
 
@@ -148,6 +164,7 @@ function mmp_custom_form_account_email_render() {
     $value = isset($options['AccountEmail']) ? esc_attr($options['AccountEmail']) : get_option('admin_email');
     ?>
     <input type='email' name='mmp_custom_form_settings[AccountEmail]' value='<?php echo $value; ?>' placeholder="Example: user@domain.sample">
+    <p class="description">Enter the email address that should receive the submissions.</p>
     <?php
 }
 
@@ -245,6 +262,9 @@ function mmp_custom_form_settings_sanitize($input) {
     }
     if (isset($input['BID'])) {
         $sanitized_input['BID'] = sanitize_text_field($input['BID']);
+    }
+    if (isset($input['ClubID'])) {
+        $sanitized_input['ClubID'] = sanitize_text_field($input['ClubID']);
     }
     if (isset($input['AccountEmail'])) {
         $sanitized_input['AccountEmail'] = sanitize_email($input['AccountEmail']);

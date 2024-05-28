@@ -5,14 +5,14 @@ $(document).ready(function () {
         case 'Rotary Club':
           $("#countryrow").show();
           $("#fkmembertype").val("Active");
-          $('input[name="mcidFields"][value="390"]').prop('checked', true);
-          $('input[name="mcidFields"][value="388"]').prop('checked', false);
+          $('input[name="MemberCategoryIDs"][value="390"]').prop('checked', true);
+          $('input[name="MemberCategoryIDs"][value="388"]').prop('checked', false);
           break;
         case 'Rotaract Club':
           $("#countryrow").show();
           $("#fkmembertype").val("Rotaractor");
-          $('input[name="mcidFields"][value="388"]').prop('checked', true);
-          $('input[name="mcidFields"][value="390"]').prop('checked', false);
+          $('input[name="MemberCategoryIDs"][value="388"]').prop('checked', true);
+          $('input[name="MemberCategoryIDs"][value="390"]').prop('checked', false);
           break;
         case 'Non-Rotarian':
           $("#countryrow").hide();
@@ -175,7 +175,7 @@ $(document).ready(function () {
       $("#fkdistrict").val(data.districtid);
       $("#ClubID").val(data.id);
       $("#fkclubname").val(data.text);
-      $("#ClubLocDiv").html("Rotary District: " + data.districtid);
+      $("#ClubLocDiv").html("Rotary District: "+ data.districtid);
     });
   });
   

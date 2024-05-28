@@ -35,16 +35,16 @@ $(document).ready(function () {
       var mt = $(this).val();
       switch (mt) {
         case "Rotary Club":
-          $('input[name="mcidFields"][value="390"]').prop("checked", true);
-          $('input[name="mcidFields"][value="388"]').prop("checked", false);
+          $('input[name="MemberCategoryIDs"][value="390"]').prop("checked", true);
+          $('input[name="MemberCategoryIDs"][value="388"]').prop("checked", false);
           break;
         case "Rotaract Club":
-          $('input[name="mcidFields"][value="388"]').prop("checked", true);
-          $('input[name="mcidFields"][value="390"]').prop("checked", false);
+          $('input[name="MemberCategoryIDs"][value="388"]').prop("checked", true);
+          $('input[name="MemberCategoryIDs"][value="390"]').prop("checked", false);
           break;
         case "Non-Rotarian":
-          $('input[name="mcidFields"][value="388"]').prop("checked", false);
-          $('input[name="mcidFields"][value="390"]').prop("checked", false);
+          $('input[name="MemberCategoryIDs"][value="388"]').prop("checked", false);
+          $('input[name="MemberCategoryIDs"][value="390"]').prop("checked", false);
           break;
       }
     });
@@ -52,8 +52,8 @@ $(document).ready(function () {
 
   // Additional form validation logic
   const form = document.querySelector('form');
-  const mcidFields = document.querySelectorAll('input[name="mcidFields"]');
-  const interestsCheckboxes = document.querySelectorAll('#interests input[name="mcidFields"]');
+  const MemberCategoryIDs = document.querySelectorAll('input[name="MemberCategoryIDs"]');
+  const interestsCheckboxes = document.querySelectorAll('#interests input[name="MemberCategoryIDs"]');
   const fkclubtype = document.getElementById('fkclubtype');
   const clubname = document.getElementById('clubname');
   const clubNameError = document.getElementById('ClubLocDiv');
@@ -63,7 +63,7 @@ $(document).ready(function () {
     let isExperienceSelected = false;
     let isInterestSelected = false;
 
-    mcidFields.forEach((field) => {
+    MemberCategoryIDs.forEach((field) => {
       if (field.type === 'radio' && field.checked) {
         isExperienceSelected = true;
       }

@@ -40,6 +40,7 @@ function mmp_custom_form_script_shortcode()
     $settings = get_option('mmp_custom_form_settings');
     $accountID = isset($settings['AccountID']) ? esc_attr($settings['AccountID']) : null;
     $bid = isset($settings['BID']) ? esc_attr($settings['BID']) : null;
+    $clubid = isset($settings['ClubID']) ? esc_attr($settings['ClubID']) : null;
     $recaptcha_site_key = isset($settings['mmp_custom_form_recaptcha_site_key']) ? $settings['mmp_custom_form_recaptcha_site_key'] : null;
     $account_email = isset($settings['AccountEmail']) ? $settings['AccountEmail'] : null;
     $default_member_type_id = isset($settings['DefaultMemberTypeID']) ? esc_attr($settings['DefaultMemberTypeID']) : null;
@@ -51,6 +52,7 @@ function mmp_custom_form_script_shortcode()
         'recaptcha_site_key' => $recaptcha_site_key,
         'account_ID' => $accountID,
         'BID' => $bid,
+        'ClubID' => $clubid,
         'account_email' => $account_email,
         'default_member_type_id' => $default_member_type_id,
         'membership_cost' => $membership_cost,
@@ -58,7 +60,7 @@ function mmp_custom_form_script_shortcode()
     );
 
     // Check if options exist, otherwise enqueue the development script
-    if (!$recaptcha_site_key || !$accountID || !$bid || !$account_email || !$default_member_type_id) {
+    if (!$recaptcha_site_key || !$accountID || !$bid || !$clubid || !$account_email || !$default_member_type_id) {
         wp_enqueue_script('mmp-form-options', plugin_dir_url(__FILE__) . 'assets/js/mmpFormOptions.js', array(), MMPCF_PLUGIN_VERSION, true);
 
         // Add inline script to check if mmpFormOptions is defined
@@ -68,6 +70,7 @@ function mmp_custom_form_script_shortcode()
                     recaptcha_site_key: mmpFormOptions.recaptcha_site_key,
                     account_ID: mmpFormOptions.account_ID,
                     BID: mmpFormOptions.BID,
+                    ClubID: mmpFormOptions.ClubID,
                     account_email: mmpFormOptions.account_email,
                     default_member_type_id: mmpFormOptions.default_member_type_id,
                     membership_cost: mmpFormOptions.membership_cost,
@@ -84,6 +87,7 @@ function mmp_custom_form_script_shortcode()
             'recaptcha_site_key' => '<script>document.write(mmpFormOptions.recaptcha_site_key);</script>',
             'account_ID' => '<script>document.write(mmpFormOptions.account_ID);</script>',
             'BID' => '<script>document.write(mmpFormOptions.BID);</script>',
+            'ClubID' => '<script>document.write(mmpFormOptions.ClubID);</script>',
             'account_email' => '<script>document.write(mmpFormOptions.account_email);</script>',
             'default_member_type_id' => '<script>document.write(mmpFormOptions.default_member_type_id);</script>',
             'membership_cost' => '<script>document.write(mmpFormOptions.membership_cost);</script>',
@@ -109,17 +113,17 @@ function mmp_custom_form_script_shortcode()
 
     // Validate and verify captcha responses
     require_once plugin_dir_path(__FILE__) . 'inc/captcha-verification.php';    // Build the base directory path for custom templates
-    $base_dir = plugin_dir_path(__FILE__) . "templates/custom/{$accountID}/{$bid}/";
+    $base_dir = plugin_dir_path(__FILE__) . "templates/custom/{$accountID}/{$bid}/{$clubid}/";
 
     // Conditionally enqueue custom styles and scripts if they exist
     $custom_css_exists = file_exists($base_dir . 'css/mmp-form-custom.css');
     $custom_js_exists = file_exists($base_dir . 'js/mmp-form-custom.js');
 
     if ($custom_css_exists) {
-        wp_enqueue_style('mmp-form-custom-style', plugin_dir_url(__FILE__) . "templates/custom/{$accountID}/{$bid}/css/mmp-form-custom.css");
+        wp_enqueue_style('mmp-form-custom-style', plugin_dir_url(__FILE__) . "templates/custom/{$accountID}/{$bid}/{$clubid}/css/mmp-form-custom.css");
     }
     if ($custom_js_exists) {
-        wp_enqueue_script('mmp-form-custom-script', plugin_dir_url(__FILE__) . "templates/custom/{$accountID}/{$bid}/js/mmp-form-custom.js", array('jquery'), null, true);
+        wp_enqueue_script('mmp-form-custom-script', plugin_dir_url(__FILE__) . "templates/custom/{$accountID}/{$bid}/{$clubid}/js/mmp-form-custom.js", array('jquery'), null, true);
     }
 
     // Add inline script to log the inclusion of custom files
@@ -139,7 +143,7 @@ function mmp_custom_form_script_shortcode()
     if (file_exists($form_html_path)) {
         $form_html = file_get_contents($form_html_path);
     } else {
-        $form_html = '<p>Form template not found. Please check the account ID and BID settings.</p>';
+        $form_html = '<p>Form template not found. Please check the account ID, BID, and ClubID settings.</p>';
     }
 
     return $form_html;
