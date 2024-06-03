@@ -149,3 +149,13 @@ function mmp_custom_form_script_shortcode()
     return $form_html;
 }
 add_shortcode('mmp_custom_form', 'mmp_custom_form_script_shortcode');
+
+// Add support for custom form builder plugins
+require_once MMPCF_PLUGIN_DIR . 'inc/standard-hidden-fields.php'; 
+require_once MMPCF_PLUGIN_DIR . 'inc/builders/gravity-forms.php';
+// require_once MMPCF_PLUGIN_DIR . 'inc/builders/wpforms.php';
+
+function mmp_custom_form_enqueue_scripts() {
+    wp_enqueue_script('mmp-form-builder-support', plugin_dir_url(__FILE__) . 'templates/assets/js/mmp-form-builder-support.js', array('jquery'), null, true);
+}
+add_action('wp_enqueue_scripts', 'mmp_custom_form_enqueue_scripts');
