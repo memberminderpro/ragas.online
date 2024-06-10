@@ -1,0 +1,317 @@
+<!-- PATH: templates/custom/10651/1065/mmp-form.html -->
+<!-- SECTION: MMP-Custom-Forms Distributable Form -->
+<div class="mmp">
+  <div id="Step1">
+    <form id="mmp-form" name="registration" action="https://www.emembersdb.com/nm/custom.cfm" method="POST">
+      
+      <!-- SECTION: Contact Information -->
+      <fieldset>
+        <legend>Contact Information</legend>
+        <div class="form-row two-column">
+          <div class="form-group">
+            <label for="FirstName">First Name</label>
+            <input class="entry" id="FirstName" type="text" name="FirstName" placeholder="e.g., Riley" required
+              aria-required="true" maxlength="50" pattern="[A-Za-z\s'\-]+" />
+            <span id="FirstNameError" class="error-message" aria-live="polite">
+              Please enter your first name.
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="LastName">Last Name</label>
+            <input class="entry" id="LastName" type="text" name="LastName" placeholder="e.g., Smith" required
+              aria-required="true" maxlength="50" pattern="[A-Za-z\s'\-]+" /><span id="LastNameError"
+              class="error-message" aria-live="polite">
+              Your last name may only contain letters, spaces, hyphens, and apostrophes.
+            </span>
+          </div>
+        </div>
+        <div class="form-row two-column">
+          <div class="form-group">
+            <label for="Email">Email Address</label>
+            <input class="entry" id="Email" type="email" name="email" placeholder="e.g., rsmith@example.dom" required
+              aria-required="true" />
+            <span id="EmailError" class="error-message" aria-live="polite">
+              Please enter a valid email address.
+            </span>
+            <span id="EmailDuplicate" class="error-message" aria-live="polite">
+              This email is already in the system. Please contact customer support to make changes to your membership.
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="CellPhone">Primary Phone Number</label>
+            <input class="entry" id="CellPhone" name="CellPhone" type="tel" placeholder="e.g., (555) 555-5555"
+              pattern="\+?[0-9\s\-\(\)]+" />
+            <span id="CellPhoneError" class="error-message" aria-live="polite">
+              Please enter a valid phone number.
+            </span>
+          </div>
+        </div>
+        <div class="form-row two-column">
+          <div class="form-group half-width">
+            <label for="Gender">Gender</label>
+            <select id="Gender" name="Gender" class="entry">
+              <option value="">Select One</option>
+              <option value="M">Male</option>
+              <option value="F">Female</option>
+              <option value="">Unknown</option>
+            </select>
+            <span id="GenderError" class="error-message" aria-live="polite"></span>
+          </div>
+        </div>
+      </fieldset>
+      <!-- !SECTION: Contact Information -->
+
+      <!-- SECTION: Rotary Questions -->
+      <fieldset>
+        <legend>Do you have a current Rotary affiliation?</legend>
+        <div class="form-row one-column">
+          <div class="form-group">
+            <label for="fkclubtype">I am a &hellip; ?</label>
+            <select id="fkclubtype" name="fkclubtype" class="entry" required aria-required="true">
+              <option value="">Select</option>
+              <option value="Rotary Club">Rotarian</option>
+              <option value="Rotaract Club">Rotaractor</option>
+              <option value="Non-Rotarian">Non-Rotarian</option>
+            </select>
+            <span id="fkclubtypeError" class="error-message" aria-live="polite">Please select your current Rotary affiliation. If you are not a currrent Rotarian or Rotaractor, please select "Non-Rotarian."</span>
+            <input id="fkmembertype" type="hidden" name="fkmembertype" value="Active" />
+            <input id="rotarian" type="checkbox" name="MemberCategoryIDs" value="390" hidden />
+            <input id="rotoractor" type="checkbox" name="MemberCategoryIDs" value="388" hidden />
+          </div>
+        </div>
+        <div id="countryrow" class="form-row one-column" style="display: none;">
+          <div class="form-group">
+            <label for="fkcountry">Where is your club located?</label>
+            <select id="fkcountry" name="fkcountry" class="entry CountryLookup"></select>
+          </div>
+        </div>
+        <div id="staterow" class="form-row one-column" style="display: none;">
+          <div class="form-group">
+            <label for="stateprov">State/Province</label>
+            <select id="stateprov" name="stateprov" class="entry StateProvLookup"></select>
+            <input id="fkstateprov" type="hidden" name="fkstateprov" />
+          </div>
+        </div>
+        <div id="clubrow" class="form-row one-column" style="display: none;">
+          <div class="form-group">
+            <label for="clubname">Club Name</label>
+            <select id="clubname" name="clubname" class="entry ClubLookup"></select>
+            <span id="ClubLocDiv"></span>
+            <input id="fkdistrict" type="hidden" name="fkdistrict" />
+            <input id="fkclubname" type="hidden" name="fkclubname" />
+          </div>
+        </div>
+      </fieldset>
+      <!-- !SECTION: Rotary Questions -->
+
+
+      <!-- SECTION: Address Information -->
+      <fieldset>
+        <legend>Address Information</legend>
+        <div class="form-row two-column">
+          <div class="form-group">
+            <label for="Address1">Street Address</label>
+            <input class="entry" id="Address1" type="text" name="Address1" placeholder="Street Address" required
+              aria-required="true" />
+          </div>
+          <div class="form-group">
+            <label for="Address2">Address Line 2</label>
+            <input class="entry" id="Address2" type="text" name="Address2" placeholder="Ste / Suite" />
+          </div>
+        </div>
+        <div class="form-row three-column-50-25-25">
+          <div class="form-group">
+            <label for="City">City</label>
+            <input class="entry" id="City" type="text" name="City" placeholder="City" required aria-required="true"
+              pattern="[A-Za-z\s'\-]+" />
+          </div>
+          <div class="form-group">
+            <label for="StateCode">State/Province</label>
+            <input class="entry" id="StateCode" type="text" name="StateCode" placeholder="State Code" required
+              aria-required="true" pattern="[A-Za-z\s'\-]+" />
+          </div>
+          <div class="form-group">
+            <label for="PostalZip">Postal Code</label>
+            <input class="entry" id="PostalZip" type="text" name="PostalZip" placeholder="Zip / Postal Code"
+              pattern="^[A-Za-z0-9\s\-]{3,9}$" required aria-required="true" />
+          </div>
+        </div>
+      </fieldset>
+      <!-- !SECTION: Address Information -->
+
+      <!--SECTION: WASH Questions -->
+      <fieldset>
+        <legend>WASH Questions</legend>
+        <div class="form-row two-column equal-height">
+
+          <div class="form-group">
+            <h3>What is your WASH Experience?</h3>
+            <div class="input-group">
+              <input type="radio" id="none" name="MemberCategoryIDs" value="381" />
+              <label for="none">None</label>
+            </div>
+
+            <div class="input-group">
+              <input type="radio" id="some" name="MemberCategoryIDs" value="382" />
+              <label for="some">Some</label>
+            </div>
+
+            <div class="input-group">
+              <input type="radio" id="extensive" name="MemberCategoryIDs" value="383" />
+              <label for="extensive">Extensive</label>
+            </div>
+
+            <div class="input-group">
+              <input id="volunteer-interest" type="checkbox" name="MemberCategoryIDs" value="387" />
+              <label for="volunteer-interest">I am willing to <a href="/operations-team/" target="_blank"
+                  title="Click to learn more about the WASH Rotary Action Group Operations Team">volunteer</a>.</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <h3>Comments?</h3>
+            <div class="input-group">
+              <label for="comments" hidden>Comments</label>
+              <textarea class="entry" id="comments" name="UDF242"
+                placeholder="Please tell us more about your interest or experience. (Optional)"></textarea>
+            </div>
+          </div>
+
+        </div>
+      </fieldset>
+      <!--!SECTION: WASH Questions -->
+
+      <!-- SECTION: WASH Area of Interest -->
+      <fieldset>
+        <legend>WASH Area of Interest</legend>
+        <h3>Select all that apply</h3>
+        <div class="form-row three-column">
+          <div class="form-group input-group">
+            <input id="water" type="checkbox" name="MemberCategoryIDs" value="386" />
+            <label for="water">Water</label>
+          </div>
+          <div class="form-group input-group">
+            <input id="sanitation" type="checkbox" name="MemberCategoryIDs" value="385" />
+            <label for="sanitation">Sanitation</label>
+          </div>
+          <div class="form-group input-group">
+            <input id="hygiene" type="checkbox" name="MemberCategoryIDs" value="384" />
+            <label for="hygiene">Hygiene</label>
+          </div>
+        </div>
+        <div class="form-row one-column">
+          <div class="form-group input-group">
+            <input id="ambassador-interest" type="checkbox" name="MemberCategoryIDs" value="389" />
+            <label for="ambassador-interest">I am interested in becoming a <a href="/ambassadors/" target="_blank"
+                title="Click to learn more about WASH Rotary Action Group Ambassadors">WASH-RAG Ambassador</a>.</label>
+          </div>
+          <div class="form-group input-group">
+            <input id="rotary-cadre" type="checkbox" name="UDF240" value="Yes" />
+            <label for="rotary-cadre">I am currently a member of the <a
+                href="https://my.rotary.org/en/take-action/apply-grants/cadre-technical-advisers" target="_blank"
+                title="Click to learn more about The Rotary Foundation Cadre of Technical Advisers">Rotary
+                Cadre</a>.</label>
+          </div>
+        </div>
+      </fieldset>
+      <!-- !SECTION: WASH Area of Interest -->
+
+      <!-- SECTION: Membership Type -->
+      <fieldset>
+        <legend>Membership Levels</legend>
+        <div class="form-row two-column">
+          <div class="form-group">
+            <h3>Rotary</h3>
+            <div class="input-group">
+              <input type="radio" id="mcy_938" name="MCY" value="938|25|1" />
+              <label for="mcy_938">1-Year Membership ($25.00 USD)</label>
+            </div>
+            <div class="input-group">
+              <input type="radio" id="mcy_933" name="MCY" value="933|100|5" />
+              <label for="mcy_933">5-Year Membership ($100.00 USD)</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <h3>Rotaract</h3>
+            <div class="input-group">
+              <input type="radio" id="mcy_935" name="MCY" value="935|25|1" />
+              <label for="mcy_935">1-Year Membership ($25.00 USD)</label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <!-- !SECTION: Membership Type -->
+
+      <!-- SECTION: Login Information -->
+      <fieldset>
+        <legend>Login Information</legend>
+        <p>Choose your own login name and password</p>
+        <div class="form-row one-column">
+          <div class="form-group">
+            <label for="Username">Username</label>
+            <input class="entry" id="Username" type="text" name="Username" placeholder="Username" required
+              aria-required="true" />
+          </div>
+        </div>
+        <div class="form-row two-column">
+          <div class="form-group">
+            <label for="Password">Password</label>
+            <input class="entry pswd" id="Password" type="password" name="Password" placeholder="Password" required
+              aria-required="true" minlength="8" />
+          </div>
+          <div class="form-group">
+            <label for="confirm_password">Confirm Password</label>
+            <input class="entry pswd" id="confirm_password" type="password" name="confirm_password"
+              placeholder="Confirm Password" required aria-required="true" minlength="8" />
+          </div>
+        </div>
+        <div id="passwordMismatch" class="error-message" aria-live="polite"></div>
+      </fieldset>
+      <!-- !SECTION: Login Information -->
+
+      <!-- SECTION: Privacy and Disclosure -->
+      <fieldset>
+        <legend>Privacy and Disclosure</legend>
+        <div class="form-row one-column">
+          <div class="form-group">
+            <p>This site and our membership management system vendor, Member Minder Pro, LLC <em>(dba iMembersDB)</em>,
+              is collecting your personal information in order to process your online membership registration. Our
+              organizations do not sell your personal information.</p>
+            <p>The Registrant authorizes the collection and use personal information about the Registrant for the
+              purpose of receiving communications and the purposes described in the policies relating to data privacy as
+              stated in the privacy policy linked to in the site footer below.</p>
+            <p>Permission may be withdrawn at any time by contacting the site's privacy officer at any time at the
+              contact information listed in the posted privacy policy. Please check the <em>"I Consent"</em> checkbox
+              below to allow us to collect, use, and disclose your personal information as described above.</p>
+            <div class="consent-affirmation input-group">
+              <input id="Consent" type="checkbox" name="Consent" value="1" required aria-required="true" />
+              <label for="Consent">I Consent</label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <!-- !SECTION: Privacy and Disclosure -->
+
+      <div class="captcha-send">
+        <button id="Send" name="send" type="submit" class="btn btn-warning">Submit Registration</button>
+      </div>
+
+    </form>
+  </div>
+  <!-- SECTION: Hidden Divs -->
+  <div id="Step2" hidden>
+    <h3>Problem!</h3>
+    <p>There was a system error creating your new membership. Please contact support to resolve this issue.</p>
+    <div id="ErrorDiv"></div>
+  </div>
+  <div id="wait" hidden>
+    <div>
+      <img src="https://www.emembersdb.com/Portal/images/tm.png" height="50" />
+      <h4>Redirecting to payment processor...</h4>
+      <img src="https://www.emembersdb.com/images/loading.gif" height="30" />
+    </div>
+  </div>
+  <!-- !SECTION: Hidden Divs -->
+</div>
+<!-- SECTION: MMP-Custom-Forms Distributable Form -->
+<!-- !Path: templates/custom/10651/1065/mmp-form.html -->
