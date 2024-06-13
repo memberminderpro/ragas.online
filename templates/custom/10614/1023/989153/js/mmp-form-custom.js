@@ -1,3 +1,4 @@
+(function($) {
 $(document).ready(function () {
   if (typeof mmpFormOptions !== 'undefined') {
     var urlParams = new URLSearchParams(window.location.search);
@@ -11,15 +12,24 @@ $(document).ready(function () {
 
     // Set the initial value of MCY based on $mtid
     switch ($mtid) {
-      case 933:
-        $("#mcy_933").prop("checked", true);
+      case 499:
+        $("#mcy_499").prop("checked", true);
         break;
-      case 935:
-        $("#mcy_935").prop("checked", true);
+      case 501:
+        $("#mcy_501").prop("checked", true);
         break;
-      case 938:
+      case 502:
+        $("#mcy_502").prop("checked", true);
+        break;
+      case 503:
+        $("#mcy_503").prop("checked", true);
+        break;
+      case 546:
+        $("#mcy_546").prop("checked", true);
+        break;
+      case 500:
       default:
-        $("#mcy_938").prop("checked", true);
+        $("#mcy_500").prop("checked", true);
         break;
     }
 
@@ -30,73 +40,29 @@ $(document).ready(function () {
       console.log("current mtid: " + $mtid);
     });
 
-    // Handle changes to club type and update relevant fields
-    $("#fkclubtype").change(function () {
-      var mt = $(this).val();
-      switch (mt) {
-        case "Rotary Club":
-          $('input[name="MemberCategoryIDs"][value="390"]').prop("checked", true);
-          $('input[name="MemberCategoryIDs"][value="388"]').prop("checked", false);
-          break;
-        case "Rotaract Club":
-          $('input[name="MemberCategoryIDs"][value="388"]').prop("checked", true);
-          $('input[name="MemberCategoryIDs"][value="390"]').prop("checked", false);
-          break;
-        case "Non-Rotarian":
-          $('input[name="MemberCategoryIDs"][value="388"]').prop("checked", false);
-          $('input[name="MemberCategoryIDs"][value="390"]').prop("checked", false);
-          break;
-      }
-    });
   }
+
+      // Show region and district based on club selection
+      $(".ClubLookup").on("select2:select", function (e) {
+        console.log("ClubLookup change");
+        var data = e.params.data;
+        console.log(data);
+  
+        $("#fkdistrict").val(data.districtid);
+        $("#fkclubname").val(data.text);
+        $("#ClubID").val(data.id);
+        $("#Region").val(data.region);
+        $("#RegionName").val(data.regionname);
+        $("#ClubLocDiv").html(
+          "District: " + data.districtid + " ESRAG Region: " + data.regionname
+        );
+      });
 
   // Additional form validation logic
   const form = document.querySelector('form');
-  const MemberCategoryIDs = document.querySelectorAll('input[name="MemberCategoryIDs"]');
-  const interestsCheckboxes = document.querySelectorAll('#interests input[name="MemberCategoryIDs"]');
   const fkclubtype = document.getElementById('fkclubtype');
   const clubname = document.getElementById('clubname');
   const clubNameError = document.getElementById('ClubLocDiv');
-
-  form.addEventListener('submit', (event) => {
-    let mcidValues = [];
-    let isExperienceSelected = false;
-    let isInterestSelected = false;
-
-    MemberCategoryIDs.forEach((field) => {
-      if (field.type === 'radio' && field.checked) {
-        isExperienceSelected = true;
-      }
-      if (field.checked) {
-        mcidValues.push(field.value);
-      }
-    });
-
-    interestsCheckboxes.forEach((checkbox) => {
-      if (checkbox.checked) {
-        isInterestSelected = true;
-      }
-    });
-
-    if (!isExperienceSelected) {
-      alert('Please select your WASH Experience.');
-      event.preventDefault();
-      return;
-    }
-
-    if (!isInterestSelected) {
-      alert('Please select at least one area of interest.');
-      event.preventDefault();
-      return;
-    }
-
-    const mcidString = mcidValues.join(', ');
-    const mcidHiddenInput = document.createElement('input');
-    mcidHiddenInput.type = 'hidden';
-    mcidHiddenInput.name = 'mcid';
-    mcidHiddenInput.value = mcidString;
-    form.appendChild(mcidHiddenInput);
-  });
 
   fkclubtype.addEventListener('change', function () {
     if (this.value === 'Rotary Club' || this.value === 'Rotaract Club') {
@@ -108,3 +74,4 @@ $(document).ready(function () {
     }
   });
 });
+})(jQuery);
