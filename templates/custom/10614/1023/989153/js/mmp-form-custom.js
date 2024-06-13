@@ -42,22 +42,6 @@ $(document).ready(function () {
 
   }
 
-      // Show region and district based on club selection
-      $(".ClubLookup").on("select2:select", function (e) {
-        console.log("ClubLookup change");
-        var data = e.params.data;
-        console.log(data);
-  
-        $("#fkdistrict").val(data.districtid);
-        $("#fkclubname").val(data.text);
-        $("#ClubID").val(data.id);
-        $("#Region").val(data.region);
-        $("#RegionName").val(data.regionname);
-        $("#ClubLocDiv").html(
-          "District: " + data.districtid + " ESRAG Region: " + data.regionname
-        );
-      });
-
   // Additional form validation logic
   const form = document.querySelector('form');
   const fkclubtype = document.getElementById('fkclubtype');

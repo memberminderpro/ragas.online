@@ -48,6 +48,8 @@ function mmp_custom_form_shortcode()
     $default_member_type_id = isset($settings['DefaultMemberTypeID']) ? esc_attr($settings['DefaultMemberTypeID']) : null;
     $membership_cost = isset($settings['MembershipCost']) ? esc_attr($settings['MembershipCost']) : 100;
     $term = isset($settings['Term']) ? esc_attr($settings['Term']) : 1;
+    $show_region = isset($settings['show_region']) ? esc_attr($settings['show_region']) : 0;
+    $region_label = isset($settings['region_label']) ? esc_attr($settings['region_label']) : 'Region';
 
     // Localize script with configuration options
     $localization_array = array(
@@ -58,7 +60,9 @@ function mmp_custom_form_shortcode()
         'account_email' => $account_email,
         'default_member_type_id' => $default_member_type_id,
         'membership_cost' => $membership_cost,
-        'term' => $term
+        'term' => $term,
+        'show_region' => $show_region,
+        'region_label' => $region_label
     );
 
     // Check if options exist, otherwise enqueue the development script
@@ -76,7 +80,9 @@ function mmp_custom_form_shortcode()
                     account_email: mmpFormOptions.account_email,
                     default_member_type_id: mmpFormOptions.default_member_type_id,
                     membership_cost: mmpFormOptions.membership_cost,
-                    term: mmpFormOptions.term
+                    term: mmpFormOptions.term,
+                    show_region: mmpFormOptions.show_region,
+                    region_label: mmpFormOptions.region_label
                 };
             } else {
                 window.location.href = "' . admin_url('admin.php?page=mmp_custom_form') . '";
@@ -93,7 +99,9 @@ function mmp_custom_form_shortcode()
             'account_email' => '<script>document.write(mmpFormOptions.account_email);</script>',
             'default_member_type_id' => '<script>document.write(mmpFormOptions.default_member_type_id);</script>',
             'membership_cost' => '<script>document.write(mmpFormOptions.membership_cost);</script>',
-            'term' => '<script>document.write(mmpFormOptions.term);</script>'
+            'term' => '<script>document.write(mmpFormOptions.term);</script>',
+            'show_region' => '<script>document.write(mmpFormOptions.show_region);</script>',
+            'region_label' => '<script>document.write(mmpFormOptions.region_label);</script>'
         );
     }
 
@@ -110,7 +118,11 @@ function mmp_custom_form_shortcode()
     wp_enqueue_script('mmp-form-script', plugin_dir_url(__FILE__) . "templates/assets/js/mmp-form.js", array('jquery'), MMPCF_PLUGIN_VERSION, true);
 
     // Enqueue club lookup script after the DOM is fully loaded
-    wp_enqueue_script('mmp-club-lookup', plugin_dir_url(__FILE__) . "templates/assets/js/mmpClubRegionLookup.js", array('jquery', 'mmp-form-script'), MMPCF_PLUGIN_VERSION, true);
+    if ($show_region == 1) {
+        wp_enqueue_script('mmp-club-lookup', plugin_dir_url(__FILE__) . "templates/assets/js/mmpClubRegionLookup.js", array('jquery', 'mmp-form-script'), MMPCF_PLUGIN_VERSION, true);
+    } else {
+        wp_enqueue_script('mmp-club-lookup', plugin_dir_url(__FILE__) . "templates/assets/js/mmpClubLookup.js", array('jquery', 'mmp-form-script'), MMPCF_PLUGIN_VERSION, true);
+    }
 
     // Validate and verify captcha responses
     require_once plugin_dir_path(__FILE__) . 'inc/captcha-verification.php';    // Build the base directory path for custom templates
