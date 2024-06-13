@@ -195,15 +195,21 @@
       var data = e.params.data;
       console.log(data);
 
+      // Assign values to form fields
       $("#fkdistrict").val(data.districtid);
       $("#fkclubname").val(data.text);
       $("#ClubID").val(data.id);
       $("#Region").val(data.region);
       $("#RegionName").val(data.regionname);
+
+      // Check if region_label is empty or null and set default value
+      var regionLabel = mmpFormOptions.region_label ? mmpFormOptions.region_label : "Region";
+
+      // Update the HTML with the district and region
       $("#ClubLocDiv").html(
-        // "District: " + data.districtid + " ESRAG Region: " + data.regionname
-        "District: " + data.districtid + " Region: " + data.regionname
+        "District: " + data.districtid + "  " + regionLabel + ": " + data.regionname
       );
     });
+
   });
 })(jQuery);

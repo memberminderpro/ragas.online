@@ -126,7 +126,7 @@
           .done(function (data) {
             console.log(data);
             if (data == 1) {
-              $("#email-error")
+              $("#EmailDuplicate")
                 .show()
                 .html(
                   `This email is already associated with a membership. Please contact <a href="mailto:${mmpFormOptions.account_email}?subject=Duplicate%20Membership%20Email%20Address">${mmpFormOptions.account_email}</a> to change your membership type.`
@@ -134,12 +134,12 @@
               $("#Send").hide();
               console.log("Email found");
             } else {
-              $("#email-error").hide();
+              $("#EmailDuplicate").hide();
               console.log("Email NOT found");
             }
           })
           .fail(function (jqXHR, textStatus, errorThrown) {
-            $("#email-error")
+            $("#EmailDuplicate")
               .html("Error checking email. Please try again.")
               .show();
             console.error(
@@ -151,6 +151,7 @@
         console.log("Invalid email address");
       }
     });
+    
 
     $("#Send").click(function (event) {
       event.preventDefault();
