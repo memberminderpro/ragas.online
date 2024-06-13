@@ -3,11 +3,10 @@
 /**
  * Plugin Name: MMP Custom Form
  * Description: A custom HTML form with multi-vendor captcha integration support
- * Version: 1.2.10
+ * Version: 1.2.12
  * Author: Member Minder Pro, LLC
  */
 
-// Create a settings page for the plugin
 function set_mmpcf_plugin_version()
 {
     if (!function_exists('get_plugin_data')) {
@@ -31,10 +30,13 @@ if (!defined('MMPCF_PLUGIN_DIR')) {
     define('MMPCF_PLUGIN_DIR', plugin_dir_path(__FILE__));
 }
 
+wp_enqueue_script("jquery");
+
+// Create a settings page for the plugin
 require_once MMPCF_PLUGIN_DIR . 'inc/admin-page.php';
 
 // Create shortcode for rendering the form
-function mmp_custom_form_script_shortcode()
+function mmp_custom_form_shortcode()
 {
     // Fetch settings
     $settings = get_option('mmp_custom_form_settings');
@@ -61,7 +63,7 @@ function mmp_custom_form_script_shortcode()
 
     // Check if options exist, otherwise enqueue the development script
     if (!$recaptcha_site_key || !$accountID || !$bid || !$clubid || !$account_email || !$default_member_type_id) {
-        wp_enqueue_script('mmp-form-options', plugin_dir_url(__FILE__) . 'assets/js/mmpFormOptions.js', array(), MMPCF_PLUGIN_VERSION, true);
+        wp_enqueue_script('mmp-form-options', plugin_dir_url(__FILE__) . 'assets/js/mmpFormOptions.js', array('jquery'), MMPCF_PLUGIN_VERSION, true);
 
         // Add inline script to check if mmpFormOptions is defined
         wp_add_inline_script('mmp-form-options', '
@@ -98,7 +100,6 @@ function mmp_custom_form_script_shortcode()
     // Enqueue external libraries
     wp_enqueue_style('mmp-custom-form-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/fontawesome.min.css');
     wp_enqueue_style('mmp-custom-form-select2-css', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css');
-    wp_enqueue_script('jquery');
     wp_enqueue_script('mmp-custom-form-select2-js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', array('jquery'), null, true);
     wp_enqueue_script('mmp-custom-form-jquery-validate', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js', array('jquery'), null, true);
     wp_enqueue_script('google-recaptcha', 'https://www.google.com/recaptcha/api.js?render=' . $recaptcha_site_key, array(), null, true);
@@ -109,7 +110,7 @@ function mmp_custom_form_script_shortcode()
     wp_enqueue_script('mmp-form-script', plugin_dir_url(__FILE__) . "templates/assets/js/mmp-form.js", array('jquery'), MMPCF_PLUGIN_VERSION, true);
 
     // Enqueue club lookup script after the DOM is fully loaded
-    wp_enqueue_script('mmp-club-lookup', plugin_dir_url(__FILE__) . "templates/assets/js/mmpClubLookup.js", array('jquery', 'mmp-form-script'), MMPCF_PLUGIN_VERSION, true);
+    wp_enqueue_script('mmp-club-lookup', plugin_dir_url(__FILE__) . "templates/assets/js/mmpClubRegionLookup.js", array('jquery', 'mmp-form-script'), MMPCF_PLUGIN_VERSION, true);
 
     // Validate and verify captcha responses
     require_once plugin_dir_path(__FILE__) . 'inc/captcha-verification.php';    // Build the base directory path for custom templates
@@ -123,7 +124,7 @@ function mmp_custom_form_script_shortcode()
         wp_enqueue_style('mmp-form-custom-style', plugin_dir_url(__FILE__) . "templates/custom/{$accountID}/{$bid}/{$clubid}/css/mmp-form-custom.css", array(), MMPCF_PLUGIN_VERSION);
     }
     if ($custom_js_exists) {
-        wp_enqueue_script('mmp-form-custom-script', plugin_dir_url(__FILE__) . "templates/custom/{$accountID}/{$bid}/{$clubid}/js/mmp-form-custom.js", array('jquery'), MMPCF_PLUGIN_VERSION, true);
+        wp_enqueue_script('mmp-form-custom-script', plugin_dir_url(__FILE__) . "templates/custom/{$accountID}/{$bid}/{$clubid}/js/mmp-form-custom.js", array('jquery', 'mmp-form-script'), MMPCF_PLUGIN_VERSION, true);
     }
 
     // Add inline script to log the inclusion of custom files
@@ -148,4 +149,4 @@ function mmp_custom_form_script_shortcode()
 
     return $form_html;
 }
-add_shortcode('mmp_custom_form', 'mmp_custom_form_script_shortcode');
+add_shortcode('mmp_custom_form', 'mmp_custom_form_shortcode');

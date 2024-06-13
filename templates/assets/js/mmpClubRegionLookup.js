@@ -139,23 +139,24 @@
         placeholder: "Rotary Club",
         tags: true,
         ajax: {
-          url: "https://www.emembersdb.com/Lookup/FKRotaryClubNoRegion.cfm",
+          url: "https://www.emembersdb.com/Lookup/FKRotaryClub.cfm",
           type: "POST",
           dataType: "json",
           quietMillis: 100,
           data: function (params) {
-            var countrycode = $("#CountryCode").val();
-            var statecode = $("#stateprov").val();
+            var accountID = Number(mmpFormOptions.account_ID); // from mmpFormOptions 
+            var countrycode = $(".CountryLookup option:selected").val();
+				    var statecode = $("#stateprov").val();
             var orgtype = $("#fkclubtype").val();
-
-            console.log ("countrycode="+countrycode+ " statecode="+statecode+" orgtype="+orgtype);
-          
+            console.log ("accountID=" + accountID + " countrycode="+countrycode+ " statecode="+statecode+" orgtype="+orgtype);
+            
             var query = {
-              CountryCode: countrycode,
-              StateCode: statecode,
-              OrgType: orgtype,
-              term: params.term,
-            };
+              AccountID: accountID,
+              countrycode: countrycode,
+              statecode: statecode,
+              orgtype: orgtype,
+              term: 	params.term
+            }
             return query;
           },
           processResults: function (data) {
@@ -188,12 +189,21 @@
 
     initializeClubLookup();
 
+    // Show region and district based on club selection
     $(".ClubLookup").on("select2:select", function (e) {
+      console.log("ClubLookup change");
       var data = e.params.data;
+      console.log(data);
+
       $("#fkdistrict").val(data.districtid);
       $("#fkclubname").val(data.text);
       $("#ClubID").val(data.id);
-      $("#ClubLocDiv").html("Rotary District: " + data.districtid);
+      $("#Region").val(data.region);
+      $("#RegionName").val(data.regionname);
+      $("#ClubLocDiv").html(
+        // "District: " + data.districtid + " ESRAG Region: " + data.regionname
+        "District: " + data.districtid + " Region: " + data.regionname
+      );
     });
   });
 })(jQuery);
