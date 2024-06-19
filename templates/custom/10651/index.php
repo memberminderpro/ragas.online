@@ -1,1 +1,1 @@
-<?php //silence is golden
+<?php // WASH-RAG.org
