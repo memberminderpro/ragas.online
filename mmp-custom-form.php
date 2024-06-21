@@ -66,7 +66,15 @@ function mmp_custom_form_shortcode()
     );
 
     // Check if options exist, otherwise enqueue the development script
-    if (!$recaptcha_site_key || !$accountID || !$bid || !$clubid || !$account_email || !$default_member_type_id) {
+    // Check if options exist, otherwise enqueue the development script
+    if (
+        !$recaptcha_site_key ||
+        !$accountID ||
+        (!($bid || $formtype)) ||
+        ($clubid === null) ||
+        ($account_email === null) ||
+        !$default_member_type_id
+    ) {
         wp_enqueue_script('mmp-form-options', plugin_dir_url(__FILE__) . 'assets/js/mmpFormOptions.js', array('jquery'), MMPCF_PLUGIN_VERSION, true);
 
         // Add inline script to check if mmpFormOptions is defined
