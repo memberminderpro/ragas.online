@@ -266,10 +266,10 @@ function mmp_custom_form_options_page() {
             </form>
             
         </div>
-    </div>
+    </div> 
     <script>
         document.getElementById('mmp-custom-form-shortcode').addEventListener('click', function() {
-            var code = '[mmp-custom-form]';
+            var code = '[mmp_custom_form]';
             var textarea = document.createElement('textarea');
             textarea.value = code;
             document.body.appendChild(textarea);
