@@ -140,6 +140,15 @@
   flex: 0 0 34%;
 }
 
+.mmp .three-column-25-25-50 .form-group:nth-child(1),
+.mmp .three-column-25-25-50 .form-group:nth-child(2) {
+  flex: 25% 0 0;
+}
+
+.mmp .three-column-25-25-50 .form-group:nth-child(3) {
+  flex: 50% 0 0;
+}
+
 .mmp .three-column-50-25-25 .form-group:nth-child(1) {
   flex: 0 0 50%;
 }
