@@ -1,5 +1,4 @@
-<!-- PATH: templates/custom/10651/1065/mmp-form.html -->
-<!-- SECTION: MMP-Custom-Forms Distributable Form -->
+<!-- SECTION: MMP-Custom-Form Distributable Form -->
 <div class="mmp">
   <div id="Step1">
     <form id="mmp-form" name="registration" action="https://www.emembersdb.com/nm/custom.cfm" method="POST">
@@ -64,17 +63,17 @@
             </span>
           </div>
         </div>
-        <div class="form-row two-column">
+        <div class="form-row  three-column-25-25-50">
           <div class="form-group">
-            <label for="CellPhone">Birthday</label>
+            <label for="BirthMon">Birthday</label>
             <input class="entry" id="BirthMon" name="BirthMon" size="2" maxlength="2" min="1" max="12" type="number"
-              placeholder="mm" />/
+              placeholder="mm" />
+          </div>
+          <div class="form-group"><label for="BirthDay">&nbsp;</label>
             <input class="entry" type="number" id="BirthDay" name="BirthDay" maxlength="2" type="number"
               placeholder="dd" min="1" max="31">
             <input class="entry BirthDate" id="BirthDate" name="BirthDate" type="hidden" value="" />
           </div>
-        </div>
-        <div class="form-row two-column">
           <div class="form-group">
             <label for="MemPic">Please attach a current picture for the member roster:</label>
             <input class="entry" id="MemPic" maxlength="60" name="Image" size="5" type="file" value="" />
@@ -123,7 +122,6 @@
         <input id="CoMember" type="checkbox" name="CoMember" value="">
         <label>Check this box to enter co-member information. Your membership fee includes your spouse, partner, or
           sibling.</label>
-
         <div id="CoMemberDiv">
           <div class="form-row three-column">
             <div class="form-group">
@@ -148,11 +146,23 @@
               </span>
             </div>
           </div>
-          <div class="form-row two-column">
+          <div class="form-row  three-column-50-25-25">
             <div class="form-group">
               <label for="PartnerNickName">Nickname</label>
               <input class="entry" id="PartnerNickName" type="text" name="PartnerNickName" />
             </div>
+            <div class="form-group">
+              <label for="PartnerBirthMon">Birthday</label>
+              <input class="entry" id="PartnerBirthMon" name="PartnerBirthMon" size="2" maxlength="2" min="1" max="12"
+                type="number" placeholder="mm" />
+            </div>
+            <div class="form-group"><label for="BirthDay">&nbsp;</label>
+              <input class="entry" type="number" id="PartnerBirthDay" name="PartnerBirthDay" maxlength="2" type="number"
+                placeholder="dd" min="1" max="31">
+              <input class="entry BirthDate" id="PartnerBirthDate" name="PartnerBirthDate" type="hidden" value="" />
+            </div>
+          </div>
+          <div class="form-row two-column">
             <div class="form-group">
               <label for="PartnerEmail">Email Address</label>
               <input class="entry" id="PartnerEmail" type="email" name="PartnerEmail"
@@ -161,8 +171,6 @@
                 Please enter a valid email address.
               </span>
             </div>
-          </div>
-          <div class="form-row two-column">
             <div class="form-group">
               <label for="PartnerCellPhone">Mobile Phone</label>
               <input class="entry" id="PartnerCellPhone" name="PartnerCellPhone" type="tel"
@@ -172,16 +180,6 @@
               </span>
             </div>
           </div>
-          <div class="form-row two-column">
-            <div class="form-group">
-              <label for="PartnerBirthMon">Birthday</label>
-              <input class="entry" id="PartnerBirthMon" name="PartnerBirthMon" size="2" maxlength="2" min="1" max="12"
-                type="number" placeholder="mm" />/
-              <input class="entry" type="number" id="PartnerBirthDay" name="PartnerBirthDay" maxlength="2" type="number"
-                placeholder="dd" min="1" max="31">
-              <input class="entry BirthDate" id="PartnerBirthDate" name="PartnerBirthDate" type="hidden" value="" />
-            </div>
-          </div>
         </div>
       </fieldset>
       <!-- !SECTION: Co-Member Information -->
@@ -189,24 +187,6 @@
       <!-- SECTION: Boat Information -->
       <fieldset>
         <legend>Boat Information</legend>
-        <!-- ANCHOR: Boat Type -->
-        <div class="form-row three-column equal-height">
-          <div class="form-group">
-            <h3>Boat Type:</h3>
-            <div class="input-group">
-              <input type="radio" id="Power" name="UDF83" value="Power" />
-              <label for="Power">Power</label>
-            </div>
-            <div class="input-group">
-              <input type="radio" id="Sail" name="UDF83" value="Sail" />
-              <label for="Sail">Sail</label>
-            </div>
-            <div class="input-group">
-              <input type="radio" id="None" name="UDF83" value="None" />
-              <label for="None">None</label>
-            </div>
-          </div>
-        </div>
         <!-- ANCHOR: Boat Name and Kind -->
         <div class="form-row one-column">
           <div class="form-group">
@@ -249,53 +229,66 @@
             <input class="entry" id="mmsi" type="text" name="UDF89" />
           </div>
         </div>
-        <!-- ANCHOR: Power -->
-        <div class="form-row one-column equal-height">
+        <!-- ANCHOR: Boat Details Radio Inputs -->
+        <div class="form-row three-column equal-height">
+          <!-- ANCHOR: Boat Type -->
+          <div class="form-group">
+            <h3>Boat Type:</h3>
+            <div class="input-group">
+              <input type="radio" id="boat-type-Power" name="UDF83" value="Power" />
+              <label for="boat-type-Power">Power</label>
+            </div>
+            <div class="input-group">
+              <input type="radio" id="boat-type-Sail" name="UDF83" value="Sail" />
+              <label for="boat-type-Sail">Sail</label>
+            </div>
+            <div class="input-group">
+              <input type="radio" id="boat-type-None" name="UDF83" value="None" />
+              <label for="boat-type-None">None</label>
+            </div>
+          </div>
+          <!-- ANCHOR: Power -->
           <div class="form-group">
             <h3>Power:</h3>
             <div class="input-group">
-              <input type="radio" id="30AMP" name="UDF90" value="30 AMP" />
-              <label for="30AMP">30 AMP</label>
+              <input type="radio" id="power-30AMP" name="UDF90" value="30 AMP" />
+              <label for="power-30AMP">30 AMP</label>
             </div>
             <div class="input-group">
-              <input type="radio" id="50AMP" name="UDF90" value="50 AMP" />
-              <label for="50AMP">50 AMP</label>
+              <input type="radio" id="power-50AMP" name="UDF90" value="50 AMP" />
+              <label for="power-50AMP">50 AMP</label>
             </div>
             <div class="input-group">
-              <input type="radio" id="Either" name="UDF90" value="Either" />
-              <label for="Either">Either</label>
+              <input type="radio" id="power-Either" name="UDF90" value="Either" />
+              <label for="power-Either">Either</label>
             </div>
           </div>
-        </div>
-        <!-- ANCHOR: Preferred Docking -->
-        <div class="form-row one-column equal-height">
+          <!-- ANCHOR: Preferred Docking -->
           <div class="form-group">
             <h3>Preferred Docking:</h3>
             <div class="input-group">
-              <input type="radio" id="Bow-In" name="UDF91" value="Bow In" />
-              <label for="Bow-In">Bow In</label>
+              <input type="radio" id="docking-Bow-In" name="UDF91" value="Bow In" />
+              <label for="docking-Bow-In">Bow In</label>
             </div>
             <div class="input-group">
-              <input type="radio" id="Stern-In" name="UDF91" value="Stern In" />
-              <label for="Stern-In">Stern In</label>
+              <input type="radio" id="docking-Stern-In" name="UDF91" value="Stern In" />
+              <label for="docking-Stern-In">Stern In</label>
             </div>
           </div>
-        </div>
-        <!-- ANCHOR: Tie Side -->
-        <div class="form-row one-column equal-height">
+          <!-- ANCHOR: Tie Side -->
           <div class="form-group">
             <h3>Tie Side:</h3>
             <div class="input-group">
-              <input type="radio" id="Starboard" name="UDF92" value="Starboard" />
-              <label for="Starboard">Starboard Tie</label>
+              <input type="radio" id="tie-side-Starboard" name="UDF92" value="Starboard" />
+              <label for="tie-side-Starboard">Starboard Tie</label>
             </div>
             <div class="input-group">
-              <input type="radio" id="Port" name="UDF92" value="Port" />
-              <label for="Port">Port Tie</label>
+              <input type="radio" id="tie-side-Port" name="UDF92" value="Port" />
+              <label for="tie-side-Port">Port Tie</label>
             </div>
             <div class="input-group">
-              <input type="radio" id="Either" name="UDF92" value="Either" />
-              <label for="Either">Either</label>
+              <input type="radio" id="tie-side-Either" name="UDF92" value="Either" />
+              <label for="tie-side-Either">Either</label>
             </div>
           </div>
         </div>
@@ -331,9 +324,9 @@
       <!-- !SECTION: Boat Information -->
 
       <!-- SECTION: Areas of Interest and Additional Information -->
-      <!-- ANCHOR: Biography -->
       <fieldset>
         <legend>Additional Information </legend>
+        <!-- ANCHOR: Biography -->
         <div class="form-row one-column">
           <div class="form-group">
             <label for="Description" hidden>Biography</label>
@@ -341,6 +334,7 @@
             <textarea class="entry" id="Description" required name="Description"></textarea>
           </div>
         </div>
+        <!-- ANCHOR: Member Category Options -->
         <h3>How would you like to participate in the club?</h3>
         <div class="form-row three-column">
           <div class="form-group input-group">
@@ -441,10 +435,12 @@
             <label for="RVing">RVing</label>
           </div>
         </div>
+        <!-- ANCHOR: Sponsor Name(s) -->
         <div class="form-row one-column">
           <div class="form-group">
             <label for="Description">Sponsor</label>
-            <p>If you know of a member who will sponsor you, please enter their name here. If not, please enter ‘no’ and we will find a sponsor for you</p>
+            <p>If you know of a member who will sponsor you, please enter their name here. If not, please enter ‘no’ and
+              we will find a sponsor for you</p>
             <textarea class="entry" id="SponsorName" required name="SponsorName"></textarea>
           </div>
         </div>
@@ -495,5 +491,9 @@
   </div>
   <!-- !SECTION: Hidden Divs -->
 </div>
-<!-- SECTION: MMP-Custom-Forms Distributable Form -->
-<!-- !Path: templates/custom/10651/1065/mmp-form.html -->
+<!-- NOTE:  This custom form was created exclusively for 
+            Eagle Harbor Yacht Club by Member Minder Pro, LLC.
+            https://www.eagleharboryachtclub.com/apply-for-membership/
+            Relative Path: templates/custom/10617/1027/0/mmp-form.html
+-->
+<!-- SECTION: MMP-Custom-Form Distributable Form -->
