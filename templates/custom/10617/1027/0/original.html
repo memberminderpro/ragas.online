@@ -1,0 +1,809 @@
+<!---
+	NewMember-Signup - Eagle
+	Version
+		02/10/2022 - Version
+--->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js" defer></script>
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+	integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+<script src="https://www.imembersdb.com/jQuery/PrintThis/PrintThis.js" type="text/javascript" defer></script>
+
+<style>
+	.error {
+		color: red
+	}
+
+	.TDData {
+		font-size: 13px;
+		margin: 0px;
+		padding: 0px;
+	}
+
+	.thc {
+		text-align: center;
+	}
+
+	.tdc {
+		text-align: center;
+	}
+
+	input,
+	select {
+		border: 1px solid #444;
+		border-radius: 4px;
+		height: 22px;
+	}
+
+	input.error {
+		border: 2px solid red;
+	}
+
+	.error {
+		padding-left: 10px;
+		color: red;
+		font-size: 11px;
+		font-family: Tahoma, Geneva, sans-serif;
+		font-weight: bold;
+	}
+
+	.membercategorywrap {
+		min-width: 200px;
+		float: left;
+		padding-bottom: 3px;
+		white-space: nowrap;
+		margin-right: 10px;
+	}
+
+	.star {
+		color: red;
+		font-weight: bold;
+	}
+</style>
+<script type="text/javascript">
+	$(document).ready(function () {
+		//alert("ready");
+	});
+</script>
+
+<div id="Step1">
+	<h3>Membership SignUp</h3>
+
+	<form id="form" name="form" action="https://www.emembersdb.com/nm/custom.cfm" method="Post"
+		enctype="multipart/form-data" Target="New">
+		<!-- These parameters MUST be changed for each account membership application -->
+		<input type="hidden" name="AccountID" value="10617" id="AccountID" /> <!-- Account -->
+		<input type="hidden" name="APIKey" value="8b7f8c20a3734ca8b0ad1a8087dc2bfc" id="APIKey" /> <!-- APIKey -->
+		<input type="hidden" name="BID" value="1027" id="BID" /> <!-- Account -->
+		<input type="hidden" name="MemberID" value="0" /> <!-- Default memberide -->
+		<input type="hidden" name="ClubID" value="0" /> <!-- Default memberide -->
+
+		<input type="hidden" name="UserID" value="0" id="UserID" /> <!-- UserID -->
+		<input type="hidden" name="UDFList"
+			value="UDF82,UDF83,UDF84,UDF85,UDF86,UDF87,UDF88,UDF89,UDF90,UDF91,UDF92,UDF104,UDF106,UDF107" <!--
+			Enumerate UDFs defined below -->
+		<input type="hidden" name="IsPartnerMember" value="Y" id="IsPartnerMember" /> <!-- IsPartnerMember -->
+
+		<input type="hidden" name="AddressTypeID" value="1" <!-- Default Address type -->
+		<input type="hidden" name="EmailTypeID" value="1" <!-- Default Email type -->
+		<input type="hidden" name="UserStatusCode" value="P" /> <!-- DefaultUser Status -->
+		<input type="hidden" name="MCY" value="558|150|1" id="MCY" /> <!-- MemberTypeID, Cost, No Years  -->
+		<input type="hidden" name="MemberTypeID" value="558" id="MemberTypeID" /> <!-- Default MemberTypeID -->
+		<input type="hidden" name="AccountEmail" value="EHYC.Membership@gmail.com" id="AccountEMail" />
+		<!-- Who gets the application -->
+		<input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+
+		<div id="PrintContent">
+			<table border="0" cellpadding="0" cellspacing="0" width="100%">
+				<tbody>
+					<tr>
+						<td align="left" width="25%"><img src="https://www.emembersdb.com/Portal/Eagle/images/logo.png"
+								height="75"></td>
+						<td align="left" width="75%">
+							<!---  1/6/22 JSS changed from	<td align="center" width="75%"> --->
+							<span
+								style="font-size:14px; font-family:Tahoma, Geneva, sans-serif; font-weight:bold;">Application
+								for Membership</span><br />
+							<span style="font-size:13px; font-family:Tahoma, Geneva, sans-serif;font-weight:normal;">
+								Thank you for your interest in joining the Eagle Harbor Yacht Club. Membership is
+								available to persons 18 years of age or older who wish to
+								participate in our Club activities, including social events and cruises throughout the
+								year. A current EHYC member is required as a sponsor for
+								membership. If you need a sponsor referral or have any questions, please email
+								EHYCprograms@gmail.com.<br />
+								<br>
+								One-time initiation fee: $150. Annual dues: $150 per calendar year (couple, family, or
+								individual), pro-rated based on your joining date.
+								<br />
+								<br>
+								After completing the form, click the “I Consent” box and then the ‘“Submit Application”
+								button. Starred items(*) are required.
+								A confirmation of submitting this application will be emailed to you. Or, you can print
+								the form and mail it to the membership chair at
+								EHYC, PO Box 10905, Bainbridge Island, WA 98110.</span><br />
+
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<br />
+			<table border="0" cellpadding="0" cellspacing="0" style="padding-top:12px">
+				<tbody>
+					<tr>
+						<td align="left"><span
+								style="font-size:14px; font-family:Tahoma, Geneva, sans-serif; font-weight:bold;">Primary
+								Member Information: </span></td>
+					</tr>
+				</tbody>
+			</table>
+
+			<table border="0" cellpadding="3" cellspacing="0" width="100%">
+				<tbody>
+					<tr>
+						<td class="TDData">
+							<span class="star">*</span> First Name: <input class="entry" id="FirstName" maxlength="50"
+								name="FirstName" onkeypress="return noEnter(event)" required size="24" type="text"
+								value="" placeholder="First Name" />
+							  Middle: <input class="entry" id="MidName" maxlength="32" name="MidName"
+								onkeypress="return noEnter(event)" size="20" type="text" value=""
+								placeholder="Middle Name" />
+							  Last Name<span class="star">*</span>: <input class="entry" id="LastName" maxlength="50"
+								name="LastName" onkeypress="return noEnter(event)" required size="24" type="text"
+								value="" placeholder="Last Name" />
+						</td>
+					</tr>
+					<tr>
+						<td class="TDData">Nickname: <input class="entry" id="NickName" maxlength="20" name="NickName"
+								onkeypress="return noEnter(event)" size="20" type="text" value=""
+								placeholder="Nick Name" />
+						</td>
+					</tr>
+					<tr>
+						<td class="TDData">
+							<span class="star">*</span> Email: <input class="entry email" id="Email" maxlength="32"
+								name="Email" onkeypress="return noEnter(event)" required size="32" type="text"
+								placeholder="EMail Address">
+							<div id="EMailDiv" style="display: none; color: red">/div>
+						</td>
+					</tr>
+					<tr>
+						<td class="TDData">
+							<span class="star">*</span> Mobile Phone: <input class="entry" id="CellPhone" maxlength="20"
+								name="CellPhone" onkeypress="return noEnter(event)" size="20" type="text" value=""
+								placeholder="Cell Phone" required />
+							  Land line Phone: <input class="entry" id="HomePhone" maxlength="20" name="HomePhone"
+								onkeypress="return noEnter(event)" size="20" type="text" value=""
+								placeholder="Land line Phone" />
+						</td>
+					</tr>
+					<tr>
+						<td class="TDData">
+							<span class="star">*</span> Birthday:
+							<input class="entry BirthMon" id="BirthMon" maxlength="3" name="BirthMon"
+								onkeypress="return noEnter(event)" size="2" maxlength="2" type="text" value="" required
+								style="width: 25px;" placeholder="mm" /> /
+							<input class="entry BirthDay" id="BirthDay" maxlength="5" name="BirthDay"
+								onkeypress="return noEnter(event)" size="2" maxlength="2" type="text" value="" required
+								style="width: 25px;" placeholder="dd" /> (mm/dd)<BR>
+							<input class="entry BirthDate" id="BirthDate" name="BirthDate" type="hidden" value="" />
+						</td>
+					</tr>
+					<tr>
+						<td class="TDData">
+							Please attach a current picture for the member roster:
+							<input class="entry" id="MemPic" maxlength="60" name="Image" size="5" type="file"
+								value="" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+
+			<table border="0" cellpadding="0" cellspacing="0" style="padding-top:12px">
+				<tbody>
+					<tr>
+						<td align="left"><span
+								style="font-size:14px; font-family:Tahoma, Geneva, sans-serif; font-weight:bold;">
+								Address Information: </span></td>
+					</tr>
+				</tbody>
+			</table>
+
+			<table border="0" cellpadding="0" cellspacing="0">
+				<tbody>
+					<tr>
+						<td class="TDData"><span class="star">*</span> Address1: <input class="entry" id="Address1"
+								maxlength="32" name="Address1" onkeypress="return noEnter(event)" size="32" type="text"
+								value="" required placeholder="Address 1" /> (Address)</td>
+					</tr>
+					<tr>
+						<td class="TDData">Address2: <input class="entry" id="Address2" maxlength="32" name="Address2"
+								onkeypress="return noEnter(event)" size="32" type="text" value=""
+								placeholder="Ste or Suite" /> (Ste/Suite)</td>
+					</tr>
+					<tr>
+						<td class="TDData">
+							<span class="star">*</span> City: <input class="entry" id="City" maxlength="32" name="City"
+								onkeypress="return noEnter(event)" size="32" type="text" value="" required
+								placeholder="City" "/>
+					<span class=" star">*</span> State: <input class="entry" id="StateCode" maxlength="2" name="StateCode"
+								onkeypress="return noEnter(event)" size="2" type="text" value="" placeholder="" />
+							<span class="star">*</span> Zip: <input class="entry" id="PostalZip" maxlength="12"
+								name="PostalZip" onkeypress="return noEnter(event)" size="12" type="text" value=""
+								required placeholder="Postal Code" />
+							<input class="entry" id="CountryCode" maxlength="3" name="CountryCode" size="3"
+								type="hidden" value="USA" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<table border="0" cellpadding="0" cellspacing="0" style="padding-top:12px">
+				<tbody>
+					<tr>
+						<td align="left">
+							<input id="CoMember" type="checkbox" name="CoMember" value="">
+							<span
+								style="font-size:14px; font-family:Tahoma, Geneva, sans-serif; font-weight:bold;">Check
+								this box to enter co-member information. Your membership fee includes your spouse,
+								partner, or sibling. </span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div id="CoMemberDiv" style="display: none;">
+				<table border="0" cellpadding="0" cellspacing="0" width="100%">
+					<tbody>
+						<tr>
+							<td class="TDData">
+								<span class="star">*</span> First Name: <input class="entry " id="PartnerFirstName"
+									maxlength="32" name="PartnerFirstName" onkeypress="return noEnter(event)" size="32"
+									type="text" value="" placeholder="First Name" />
+								  Middle: <input class="entry" id="PartnerMidName" maxlength="32" name="PartnerMidName"
+									onkeypress="return noEnter(event)" size="20" type="text" value=""
+									placeholder="Middle Name" />
+								  <span class="star">*</span> Last Name: <input class="entry" id="PartnerLastName"
+									maxlength="32" name="PartnerLastName" onkeypress="return noEnter(event)" size="32"
+									type="text" value="" placeholder="Last Name" />
+							</td>
+						</tr>
+						<tr>
+							<td class="TDData">Nickname: <input class="entry" id="PartnerNickName" maxlength="20"
+									name="PartnerNickName" onkeypress="return noEnter(event)" size="20" type="text"
+									value="" placeholder="Partner Nick Name" />
+							</td>
+						</tr>
+						<tr>
+							<td class="TDData">
+								Email: <input class="entry email" id="PartnerEmail" maxlength="32" name="PartnerEmail"
+									onkeypress="return noEnter(event)" size="32" type="text" required
+									placeholder="EMail Address">
+								<div id="EMailDiv" style="display: none; color: red">/div>
+							</td>
+						</tr>
+						<tr>
+							<td class="TDData">
+								Mobile Phone: <input class="entry" id="PartnerCellPhone" maxlength="20"
+									name="PartnerCellPhone" onkeypress="return noEnter(event)" size="20" type="text"
+									value="" placeholder="Cell Phone" />
+							</td>
+						</tr>
+						<tr>
+							<td class="TDData">
+								<span class="star">*</span> Birthday:
+								<input class="entry BirthMon" id="PartnerBirthMon" maxlength="3" name="PartnerBirthMon"
+									onkeypress="return noEnter(event)" size="2" maxlength="2" type="text" value=""
+									required style="width: 25px;" placeholder="mm" /> /
+								<input class="entry BirthDay" id="PartnerBirthDay" maxlength="5" name="PartnerBirthDay"
+									onkeypress="return noEnter(event)" size="2" maxlength="2" type="text" value=""
+									required style="width: 25px;" placeholder="dd" /> (mm/dd)<BR>
+								<input class="entry BirthDate" id="PartnerBirthDate" name="PartnerBirthDate"
+									type="hidden" value="" />
+
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<table border="0" cellpadding="0" cellspacing="0" style="padding-top:12px">
+				<tbody>
+					<tr>
+						<td align="left"><span
+								style="font-size:14px; font-family:Tahoma, Geneva, sans-serif; font-weight:bold;">Boat
+								Information:</span></td>
+					</tr>
+				</tbody>
+			</table>
+
+			<table border="0" cellpadding="0" cellspacing="0">
+				<tbody>
+					<tr>
+						<td class="TDData"><span class="star">*</span> Boat Type:
+							<input class="entry BoatType" id="UDF83" name="UDF83" type="radio" value="Power" required />
+							Power  
+							<input class="entry BoatType" id="UDF83" name="UDF83" type="radio" value="Sail" required />
+							Sail  
+							<input class="entry BoatType" id="UDF83" name="UDF83" type="radio" value="None" required />
+							None  
+						</td>
+					</tr>
+					<tr class="BoatDiv">
+						<td class="TDData"><span class="star">*</span> Boat Name: <input class="entry" id="UDF82"
+								maxlength="50" name="UDF82" onkeypress="return noEnter(event)" size="50" type="text"
+								value="" placeholder="Boat Name" /></td>
+					</tr>
+					<tr class="BoatDiv">
+						<td class="TDData"> Make & Model/Style/Rig: <input class="entry" id="UDF84" name="UDF84"
+								size="50" type="text" placeholder="Make Model & style" /> </td>
+					</tr>
+					<tr class="BoatDiv">
+						<td class="TDData"> Length: <input class="entry" id="UDF85" name="UDF85" size="3" type="text"
+								placeholder="" /> </td>
+					</tr>
+					<tr class="BoatDiv">
+						<td class="TDData"> Beam: <input class="entry" id="UDF106" name="UDF106" size="3" type="text"
+								placeholder="" /> </td>
+					</tr>
+					<tr class="BoatDiv">
+						<td class="TDData"> Draft: <input class="entry" id="UDF107" name="UDF107" size="3" type="text"
+								placeholder="" /> </td>
+					</tr>
+					<tr class="BoatDiv">
+						<td class="TDData"> Home Moorage Location : <input class="entry" id="UDF86" name="UDF86"
+								size="50" type="text" placeholder="Home Moorage Location " /> </td>
+					</tr>
+					<tr class="BoatDiv">
+						<td class="TDData"> MMSI #: <input class="entry" id="UDF89" name="UDF89" size="50" type="text"
+								placeholder="MMSI" /> </td>
+					</tr>
+					<tr class="BoatDiv">
+						<td class="TDData">Power:
+							<input class="entry" id="UDF90" name="UDF90" type="radio" value="30 AMP" /> 30 AMP  
+							<input class="entry" id="UDF90" name="UDF90" type="radio" value="50 AMP" /> 50 AMP  
+							<input class="entry" id="UDF90" name="UDF90" type="radio" value="Either" /> Either  
+						</td>
+					</tr>
+					<tr class="BoatDiv">
+						<td class="TDData">Preferred Docking:
+							<input class="entry" id="UDF91" name="UDF91" type="radio" value="Starboard" /> Bow In  
+							<input class="entry" id="UDF91" name="UDF91" type="radio" value="Port" /> Stern In  
+						</td>
+					</tr>
+					<tr class="BoatDiv">
+						<td class="TDData">Tie Side:
+							<input class="entry" id="UDF92" name="UDF92" type="radio" value="Starboard" /> Starboard Tie
+							 
+							<input class="entry" id="UDF92" name="UDF92" type="radio" value="Port" /> Port Tie  
+							<input class="entry" id="UDF92" name="UDF92" type="radio" value="Either" /> Either  
+						</td>
+					</tr>
+					</tr>
+					<tr class="BoatDiv">
+						<td class="TDData"> Rig: <input class="entry" id="UDF88" name="UDF104" size="50" type="text"
+								placeholder="Rig" /> </td>
+					</tr>
+					<tr class="BoatDiv">
+						<td class="TDData"> Radio Call Sign: <input class="entry" id="UDF88" name="UDF88" size="50"
+								type="text" placeholder="Radio Call Sign" /> </td>
+					</tr>
+					<tr class="BoatDiv">
+						<td class="TDData"> Registration (USCG number): <input class="entry" id="UDF87" name="UDF87"
+								size="50" type="text" placeholder="Registration" /> </td>
+					</tr>
+					<tr>
+						<td class="TDData"><span class="star">*</span> Briefly state your boating experience, interests
+							and any shareable skills that you believe would benefit the club: <BR>
+							<textarea class="entry" id="Notes" name="Notes" required cols="80" row="5"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td class="TDData"><span class="star">*</span> Briefly tell us something about yourself (bio):
+							<BR>
+							<textarea class="entry" id="Description" name="Description" required cols="80"
+								row="5"></textarea>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+
+			<table border="0" cellpadding="0" cellspacing="0" style="padding-top:12px">
+				<tbody>
+					<tr>
+						<td align="Left"><span
+								style="font-size:14px; font-family:Tahoma, Geneva, sans-serif; font-weight:bold;">How
+								would you like to participate in the club? </span></td>
+					</tr>
+				</tbody>
+			</table>
+			<table border="0" cellpadding="0" cellspacing="0">
+				<tbody>
+					<tr>
+						<td class="TDData">
+							<div class="membercategorywrap">
+								<input id="MemberCategoryIDs" type="checkbox" name="MemberCategoryIDs" value="315"
+									onkeypress="return noEnter(event)" /> Cruising
+							</div>
+							<div class="membercategorywrap">
+								<input id="MemberCategoryIDs" type="checkbox" name="MemberCategoryIDs" value="317"
+									onkeypress="return noEnter(event)" /> Social Events
+							</div>
+							<div class="membercategorywrap">
+								<input id="MemberCategoryIDs" type="checkbox" name="MemberCategoryIDs" value="319"
+									onkeypress="return noEnter(event)" /> Reciprocals
+							</div>
+							<div class="membercategorywrap">
+								<input id="MemberCategoryIDs" type="checkbox" name="MemberCategoryIDs" value="318"
+									onkeypress="return noEnter(event)" /> Committees
+							</div>
+							<div class="membercategorywrap">
+								<input id="MemberCategoryIDs" type="checkbox" name="MemberCategoryIDs" value="323"
+									onkeypress="return noEnter(event)" /> Education
+							</div>
+							<div class="membercategorywrap">
+								<input id="MemberCategoryIDs" type="checkbox" name="MemberCategoryIDs" value="324"
+									onkeypress="return noEnter(event)" /> Volunteer
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+
+			<table border="0" cellpadding="0" cellspacing="0" style="padding-top:12px">
+				<tbody>
+					<tr>
+						<td align="Left"><span
+								style="font-size:14px; font-family:Tahoma, Geneva, sans-serif; font-weight:bold;">Activity
+								and Other Interests: </span></td>
+					</tr>
+				</tbody>
+			</table>
+			<table border="0" cellpadding="0" cellspacing="0">
+				<tbody>
+					<tr>
+						<td class="TDData">
+							<div class="membercategorywrap">
+								<input id="MemberCategoryIDs" type="checkbox" name="MemberCategoryIDs" value="326"
+									onkeypress="return noEnter(event)" /> Fishing
+							</div>
+							<div class="membercategorywrap">
+								<input id="MemberCategoryIDs" type="checkbox" name="MemberCategoryIDs" value="327"
+									onkeypress="return noEnter(event)" /> Crabbing
+							</div>
+							<div class="membercategorywrap">
+								<input id="MemberCategoryIDs" type="checkbox" name="MemberCategoryIDs" value="328"
+									onkeypress="return noEnter(event)" /> Sail boat racing
+							</div>
+							<div class="membercategorywrap">
+								<input id="MemberCategoryIDs" type="checkbox" name="MemberCategoryIDs" value="329"
+									onkeypress="return noEnter(event)" /> Cooking
+							</div>
+							<div class="membercategorywrap">
+								<input id="MemberCategoryIDs" type="checkbox" name="MemberCategoryIDs" value="330"
+									onkeypress="return noEnter(event)" /> Biking
+							</div>
+							<div class="membercategorywrap">
+								<input id="MemberCategoryIDs" type="checkbox" name="MemberCategoryIDs" value="331"
+									onkeypress="return noEnter(event)" /> Skin/Scuba diving
+							</div>
+							<div class="membercategorywrap">
+								<input id="MemberCategoryIDs" type="checkbox" name="MemberCategoryIDs" value="332"
+									onkeypress="return noEnter(event)" /> Swimming
+							</div>
+							<div class="membercategorywrap">
+								<input id="MemberCategoryIDs" type="checkbox" name="MemberCategoryIDs" value="336"
+									onkeypress="return noEnter(event)" /> Art
+							</div>
+							<div class="membercategorywrap">
+								<input id="MemberCategoryIDs" type="checkbox" name="MemberCategoryIDs" value="337"
+									onkeypress="return noEnter(event)" /> Shopping
+							</div>
+							<div class="membercategorywrap">
+								<input id="MemberCategoryIDs" type="checkbox" name="MemberCategoryIDs" value="338"
+									onkeypress="return noEnter(event)" /> Theatre
+							</div>
+							<div class="membercategorywrap">
+								<input id="MemberCategoryIDs" type="checkbox" name="MemberCategoryIDs" value="339"
+									onkeypress="return noEnter(event)" /> Sports
+							</div>
+							<div class="membercategorywrap">
+								<input id="MemberCategoryIDs" type="checkbox" name="MemberCategoryIDs" value="340"
+									onkeypress="return noEnter(event)" /> Golf
+							</div>
+							<div class="membercategorywrap">
+								<input id="MemberCategoryIDs" type="checkbox" name="MemberCategoryIDs" value="341"
+									onkeypress="return noEnter(event)" /> Antiques
+							</div>
+							<div class="membercategorywrap">
+								<input id="MemberCategoryIDs" type="checkbox" name="MemberCategoryIDs" value="342"
+									onkeypress="return noEnter(event)" /> Wineries
+							</div>
+							<div class="membercategorywrap">
+								<input id="MemberCategoryIDs" type="checkbox" name="MemberCategoryIDs" value="343"
+									onkeypress="return noEnter(event)" /> RVing
+							</div>
+
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<table border="0" cellpadding="0" cellspacing="0" style="padding-top:12px">
+				<tbody>
+					<tr>
+						<td align="left"><span
+								style="font-size:14px; font-family:Tahoma, Geneva, sans-serif; font-weight:bold;">Sponsor:
+							</span></td>
+					</tr>
+				</tbody>
+			</table>
+			<table border="0" cellpadding="0" cellspacing="0" style="padding-top:12px">
+				<tbody>
+					<tr>
+						<td class="TDData"><span class="star">*</span> If you know of a member who will sponsor you,
+							please enter their name here. If not, please enter ‘no’ and we will find a sponsor for you:
+							<BR>
+							<textarea class="entry" id="SponsorName" name="SponsorName" required cols="80"
+								row="2"></textarea>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div>
+
+				<P>By checking the "I Consent" box below, I confirm my understanding of the <a
+						href="https://eagleharboryac.wpengine.com/terms-and-conditions/" target="_blank" rel="noopener">
+						membership terms and conditions</a>
+					and that the Eagle Harbor Yacht Club operates by and for the participation of its members. Also,
+					upon acceptance into the Club,
+					I expect to involve myself in the Club’s activities.<BR><br>
+				</P>
+
+				<table border="0" cellpadding="1" cellspacing="0">
+					<TR>
+						<TD width="145">
+							<input id="Consent" type="checkbox" name="consent" value="1" style="vertical-align: middle">
+							I Consent<br />
+						</TD>
+					</TR>
+
+				</table>
+
+				<br />
+
+				<P class="noprint">If you are paying by check, please <a href="" id="prtapp">click here</a> to print the
+					completed application.<br>
+					<br>
+					<input id="Send" type="button" name="Send" value="Submit Application"
+						class="btn btn-warning noprint" style="display: none;">
+	</form>
+	<BR><BR><BR><BR>
+</div>
+
+<div id="Step2" style="display:none;">
+	<h3>Problem!</h3>
+	<P>There was a system error creating your new membership. Please contact support to resolve this issue.</P>
+	<P><BR />
+	<div id="ErrorDiv"></div>
+	</P>
+</div>
+
+
+<script>
+	var captchaHash = '';
+	var d = new Date();
+
+	function noEnter(e) {		// Do not allow Enter Key to cause submission
+		var keycode;
+		if (window.event)
+			keycode = window.event.keyCode;
+		else if (e)
+			keycode = e.which;
+		return !(keycode == 13);
+	}
+
+	$(document).ready(function () {
+
+		DisplayCaptcha();
+
+		$("#redoCaptcha").click(function () {
+			console.log("redoCaptcha")
+			DisplayCaptcha()
+		});
+
+		$("#Consent").click(function () {
+			console.log("consent");
+			if ($(this).prop('checked')) {
+				$("#Send").show();
+				if ($("#signature").val() == '') {
+					$("#signature").val($("#FirstName").val() + ' ' + $("#MidName").val() + ' ' + $("#LastName").val());
+					$("#ipaddress").val(myIP());
+					$("#esaigdate").val(d.getMonth() + 1 + '/' + d.getDate() + '/' + d.getFullYear() + ' ' + d.getHours() + ':' + d.getMinutes());
+				}
+			}
+			else {
+				$("#Send").hide();
+			}
+		});
+
+		$("#prtapp").click(function () {
+			console.log("print")
+			$("#PrintContent").printThis();
+			return false;
+		});
+
+		$("#Send").click(function () {
+			$("#Send").hide();
+			var f = $("#form").serialize();
+			if ($("#form").valid()) {
+				try {
+					console.log(f);
+					console.log("captchaHash=" + captchaHash);
+					console.log("captchaCode=" + $('#captchaCode').val());
+					$.ajax({
+						type: "POST",
+						url: "https://www.emembersdb.com/CFC/Captcha.cfc",
+						data: {
+							method: 'chkCaptcha',
+							captchaHash: captchaHash,
+							captchaCode: $('#captchaCode').val(),
+							timeout: 8000
+						},
+						error: function () {
+							alert("error");
+						},
+						success: function (data) {
+							var rsp = JSON.parse(data);
+							if (rsp.SUCCESS == false) {
+								$('#captchaError').html(rsp.ERROR);
+								$('#captchaError').show();
+								$("#Send").show();
+							}
+							else {
+								$('#captcha').html('');
+								$('#captchaError').hide();
+								$("#Send").hide();
+								$("#form").submit();
+							}
+						}
+					});
+				}
+				catch (error) {
+					alert("Could not submit form.")
+					$("#Send").show();
+				}
+			}
+			else {
+				alert("Some required fields were not entered")
+				$("#Send").show();
+			}
+		});
+
+		$("#BirthMon, #PartnerBirthMon").change(function () {
+			var m = parseInt($(this).val());
+			var d = $(this).closest('tr').find(".BirthDay").val();
+			if (m > 0 & m < 13) {
+				m = $(this).closest('tr').find(".BirthMon").val();
+			} else {
+				alert("please enter 1 to 12")
+				m = 1;
+			}
+			var d = $(this).closest('tr').find(".BirthDay").val();
+			$(this).closest('tr').find(".BirthDate").val(m + '/' + d + '/1896');
+		});
+
+		$("#BirthDay, #PartnerBirthDay").change(function () {
+			var m = $(this).closest('tr').find(".BirthMon").val();
+			var d = parseInt($(this).val());
+			if (d > 0 & d < 32) {
+				d = $(this).closest('tr').find(".BirthDay").val();
+			} else {
+				alert("please enter 1 to 31")
+				d = 1;
+			}
+			$(this).closest('tr').find(".BirthDate").val(m + '/' + d + '/1896');
+		});
+
+		$("#Email").change(function () {
+			console.log("Handler for email .change() called.");
+			$.ajax({
+				url: 'https://www.emembersdb.com/Lookup/EMailCheck.cfm',
+				type: "POST",
+				dataType: 'json',
+				data: {
+					AccountID: $("#AccountID").val(),
+					Email: $(this).val(),
+					IsActive: 'Y'  // Search for active subscriptions
+				}
+			}).done(function (data) {
+				console.log(data)
+				if (data == 1) {
+					$("#EMailDiv").show();
+					$("#EMailDiv").html("This email is already in the system associated with a membership.<BR>Please email membership at " + $("#AccountEMail").val() + " to change your membership type.");
+					$("#Send").hide();
+					console.log("EMail found")
+				}
+				else {
+					$("#EMailDiv").hide();
+					$("#Send").show();
+					console.log("EMail NOT found")
+				}
+			});
+		});
+
+		$("#CoMember").click(function () {
+			if (this.checked)
+				$("#CoMemberDiv").show();
+			else
+				$("#CoMemberDiv").hide();
+		});
+
+		$(".BoatType").click(function () {
+			if (this.value == 'None')
+				$(".BoatDiv").hide();
+			else
+				$(".BoatDiv").show();
+		});
+	});
+
+
+	function DisplayCaptcha() {
+		$.ajax({
+			type: "POST",
+			url: "https://www.emembersdb.com/CFC/Captcha.cfc",
+			data: {
+				method: 'getCaptcha',
+				timeout: 16000,
+			},
+			error: function () {
+				alert("error");
+			},
+			success: function (data) {
+				var rsp = JSON.parse(data);
+				captchaHash = rsp.CAPTCHAHASH;
+				$('#captcha').html('<img src="data:image/png;base64,' + rsp.CAPTCHA + '"> <a href="#" onclick="return DisplayCaptcha();"> <i class="fa fa-redo-alt fa-lg" style="margin-left: 10px; vertical-align:12px; padding: 10px; border: 1px solid grey; background-color: ghostwhite;"></i></span><br/>');
+			}
+		});
+		return false;
+	}
+
+	function getQueryParams(qs) {	// Get URL params if passed in
+		qs = qs.split('+').join(' ');
+		var params = {},
+			tokens,
+			re = /[?&]?([^=]+)=([^&]*)/g;
+
+		while (tokens = re.exec(qs)) {
+			params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+		}
+		return params;
+	}
+
+	function myIP() {	// This is needed to get the user's IP address
+		if (window.XMLHttpRequest) xmlhttp = new XMLHttpRequest();
+		else xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+		xmlhttp.open("GET", "https://api.hostip.info/get_html.php", false);
+		xmlhttp.send();
+
+		hostipInfo = xmlhttp.responseText.split("\n");
+
+		for (i = 0; hostipInfo.length >= i; i++) {
+			ipAddress = hostipInfo[i].split(":");
+			if (ipAddress[0] == "IP") return ipAddress[1];
+		}
+		return false;
+	}
+	function noEnter(e) {		// Do not allow Enter Key to cause submission
+		var keycode;
+		if (window.event)
+			keycode = window.event.keyCode;
+		else if (e)
+			keycode = e.which;
+		return !(keycode == 13);
+	}
+</script>

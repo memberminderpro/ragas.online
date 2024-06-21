@@ -1,0 +1,499 @@
+<!-- PATH: templates/custom/10651/1065/mmp-form.html -->
+<!-- SECTION: MMP-Custom-Forms Distributable Form -->
+<div class="mmp">
+  <div id="Step1">
+    <form id="mmp-form" name="registration" action="https://www.emembersdb.com/nm/custom.cfm" method="POST">
+
+      <!-- SECTION: Contact Information -->
+      <fieldset>
+        <legend>Contact Information</legend>
+        <div class="form-row three-column">
+          <div class="form-group">
+            <label for="FirstName">First Name</label>
+            <input class="entry" id="FirstName" type="text" name="FirstName" placeholder="e.g., Riley" required
+              aria-required="true" maxlength="50" pattern="[A-Za-z\s'\-]+" />
+            <span id="FirstNameError" class="error-message" aria-live="polite">
+              Please enter your first name.
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="MidName">Middle Name</label>
+            <input class="entry" id="MidName" type="text" name="MidName" placeholder="Optional" maxlength="50" />
+          </div>
+          <div class="form-group">
+            <label for="LastName">Last Name</label>
+            <input class="entry" id="LastName" type="text" name="LastName" placeholder="e.g., Smith" required
+              aria-required="true" maxlength="50" pattern="[A-Za-z\s'\-]+" /><span id="LastNameError"
+              class="error-message" aria-live="polite">
+              Your last name may only contain letters, spaces, hyphens, and apostrophes.
+            </span>
+          </div>
+        </div>
+        <div class="form-row two-column">
+          <div class="form-group">
+            <label for="NickName">Nickname</label>
+            <input class="entry" id="NickName" type="text" name="NickName" />
+          </div>
+          <div class="form-group">
+            <label for="Email">Email Address</label>
+            <input class="entry" id="Email" type="email" name="email" placeholder="e.g., rsmith@example.dom" required
+              aria-required="true" />
+            <span id="EmailError" class="error-message" aria-live="polite">
+              Please enter a valid email address.
+            </span>
+            <span id="EmailDuplicate" class="error-message" aria-live="polite">
+              This email is already in the system. Please contact customer support to make changes to your membership.
+            </span>
+          </div>
+        </div>
+        <div class="form-row two-column">
+          <div class="form-group">
+            <label for="CellPhone">Mobile Phone</label>
+            <input class="entry" id="CellPhone" name="CellPhone" type="tel" placeholder="e.g., (555) 555-5555"
+              pattern="\+?[0-9\s\-\(\)]+" />
+            <span id="CellPhoneError" class="error-message" aria-live="polite">
+              Please enter a valid phone number.
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="CellPhone">Land line</label>
+            <input class="entry" id="HomePhone" name="HomePhone" type="tel" placeholder="e.g., (555) 555-5555"
+              pattern="\+?[0-9\s\-\(\)]+" />
+            <span id="HomePhoneError" class="error-message" aria-live="polite">
+              Please enter a valid phone number.
+            </span>
+          </div>
+        </div>
+        <div class="form-row two-column">
+          <div class="form-group">
+            <label for="CellPhone">Birthday</label>
+            <input class="entry" id="BirthMon" name="BirthMon" size="2" maxlength="2" min="1" max="12" type="number"
+              placeholder="mm" />/
+            <input class="entry" type="number" id="BirthDay" name="BirthDay" maxlength="2" type="number"
+              placeholder="dd" min="1" max="31">
+            <input class="entry BirthDate" id="BirthDate" name="BirthDate" type="hidden" value="" />
+          </div>
+        </div>
+        <div class="form-row two-column">
+          <div class="form-group">
+            <label for="MemPic">Please attach a current picture for the member roster:</label>
+            <input class="entry" id="MemPic" maxlength="60" name="Image" size="5" type="file" value="" />
+          </div>
+        </div>
+      </fieldset>
+      <!-- !SECTION: Contact Information -->
+
+      <!-- SECTION: Address Information -->
+      <fieldset>
+        <legend>Address Information</legend>
+        <div class="form-row two-column">
+          <div class="form-group">
+            <label for="Address1">Street Address</label>
+            <input class="entry" id="Address1" type="text" name="Address1" placeholder="Street Address" required
+              aria-required="true" />
+          </div>
+          <div class="form-group">
+            <label for="Address2">Address Line 2</label>
+            <input class="entry" id="Address2" type="text" name="Address2" placeholder="Ste / Suite" />
+          </div>
+        </div>
+        <div class="form-row three-column-50-25-25">
+          <div class="form-group">
+            <label for="City">City</label>
+            <input class="entry" id="City" type="text" name="City" placeholder="City" required aria-required="true"
+              pattern="[A-Za-z\s'\-]+" />
+          </div>
+          <div class="form-group">
+            <label for="StateCode">State</label>
+            <input class="entry" id="StateCode" type="text" name="StateCode" placeholder="State Code" required
+              aria-required="true" pattern="[A-Za-z\s'\-]+" />
+          </div>
+          <div class="form-group">
+            <label for="PostalZip">Zip Code</label>
+            <input class="entry" id="PostalZip" type="text" name="PostalZip" placeholder="Zip / Postal Code"
+              pattern="^[A-Za-z0-9\s\-]{3,9}$" required aria-required="true" />
+          </div>
+        </div>
+      </fieldset>
+      <!-- !SECTION: Address Information -->
+
+      <!-- SECTION: Co-Member Information -->
+      <fieldset>
+        <legend>Co-Member Information</legend>
+        <input id="CoMember" type="checkbox" name="CoMember" value="">
+        <label>Check this box to enter co-member information. Your membership fee includes your spouse, partner, or
+          sibling.</label>
+
+        <div id="CoMemberDiv">
+          <div class="form-row three-column">
+            <div class="form-group">
+              <label for="PartnerFirstName">First Name</label>
+              <input class="entry" id="PartnerFirstName" type="text" name="PartnerFirstName" placeholder="e.g., Riley"
+                required aria-required="true" maxlength="50" pattern="[A-Za-z\s'\-]+" />
+              <span id="FirstNameError" class="error-message" aria-live="polite">
+                Please enter your co-member's first name.
+              </span>
+            </div>
+            <div class="form-group">
+              <label for="PartnerMidName">Middle Name</label>
+              <input class="entry" id="PartnerMidName" type="text" name="PartnerMidName" placeholder="Optional"
+                maxlength="50" />
+            </div>
+            <div class="form-group">
+              <label for="PartnerLastName">Last Name</label>
+              <input class="entry" id="PartnerLastName" type="text" name="PartnerLastName" placeholder="e.g., Smith"
+                required aria-required="true" maxlength="50" pattern="[A-Za-z\s'\-]+" /><span id="LastNameError"
+                class="error-message" aria-live="polite">
+                Your co-member's last name may only contain letters, spaces, hyphens, and apostrophes.
+              </span>
+            </div>
+          </div>
+          <div class="form-row two-column">
+            <div class="form-group">
+              <label for="PartnerNickName">Nickname</label>
+              <input class="entry" id="PartnerNickName" type="text" name="PartnerNickName" />
+            </div>
+            <div class="form-group">
+              <label for="PartnerEmail">Email Address</label>
+              <input class="entry" id="PartnerEmail" type="email" name="PartnerEmail"
+                placeholder="e.g., rsmith@example.dom" required aria-required="true" />
+              <span id="EmailError" class="error-message" aria-live="polite">
+                Please enter a valid email address.
+              </span>
+            </div>
+          </div>
+          <div class="form-row two-column">
+            <div class="form-group">
+              <label for="PartnerCellPhone">Mobile Phone</label>
+              <input class="entry" id="PartnerCellPhone" name="PartnerCellPhone" type="tel"
+                placeholder="e.g., (555) 555-5555" pattern="\+?[0-9\s\-\(\)]+" />
+              <span id="CellPhoneError" class="error-message" aria-live="polite">
+                Please enter a valid phone number.
+              </span>
+            </div>
+          </div>
+          <div class="form-row two-column">
+            <div class="form-group">
+              <label for="PartnerBirthMon">Birthday</label>
+              <input class="entry" id="PartnerBirthMon" name="PartnerBirthMon" size="2" maxlength="2" min="1" max="12"
+                type="number" placeholder="mm" />/
+              <input class="entry" type="number" id="PartnerBirthDay" name="PartnerBirthDay" maxlength="2" type="number"
+                placeholder="dd" min="1" max="31">
+              <input class="entry BirthDate" id="PartnerBirthDate" name="PartnerBirthDate" type="hidden" value="" />
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <!-- !SECTION: Co-Member Information -->
+
+      <!-- SECTION: Boat Information -->
+      <fieldset>
+        <legend>Boat Information</legend>
+        <!-- ANCHOR: Boat Type -->
+        <div class="form-row three-column equal-height">
+          <div class="form-group">
+            <h3>Boat Type:</h3>
+            <div class="input-group">
+              <input type="radio" id="Power" name="UDF83" value="Power" />
+              <label for="Power">Power</label>
+            </div>
+            <div class="input-group">
+              <input type="radio" id="Sail" name="UDF83" value="Sail" />
+              <label for="Sail">Sail</label>
+            </div>
+            <div class="input-group">
+              <input type="radio" id="None" name="UDF83" value="None" />
+              <label for="None">None</label>
+            </div>
+          </div>
+        </div>
+        <!-- ANCHOR: Boat Name and Kind -->
+        <div class="form-row one-column">
+          <div class="form-group">
+            <label for="boat-name">Boat Name</label>
+            <input class="entry" id="Length" type="text" name="UDF82" />
+          </div>
+        </div>
+        <div class="form-row one-column">
+          <div class="form-group">
+            <label for="kind">Make & Model/Style/Rig</label>
+            <input class="entry" id="kind" type="text" name="UDF84" />
+          </div>
+        </div>
+        <!-- ANCHOR: Boat Dimensions -->
+        <div class="form-row three-column">
+          <div class="form-group">
+            <label for="Length">Length</label>
+            <input class="entry" id="Length" type="text" name="UDF85" />
+          </div>
+          <div class="form-group">
+            <label for="Beam">Beam</label>
+            <input class="entry" id="Beam" type="text" name="UDF106" />
+          </div>
+          <div class="form-group">
+            <label for="Draft">Draft</label>
+            <input class="entry" id="Draft" type="text" name="UDF107" />
+          </div>
+        </div>
+        <!-- ANCHOR: Home Moorage Location -->
+        <div class="form-row one-column">
+          <div class="form-group">
+            <label for="Moorage">Home Moorage Location</label>
+            <input class="entry" id="Moorage" type="text" name="UDF86" />
+          </div>
+        </div>
+        <!-- ANCHOR: MMSI -->
+        <div class="form-row one-column">
+          <div class="form-group">
+            <label for="mmsi">MMSI #</label>
+            <input class="entry" id="mmsi" type="text" name="UDF89" />
+          </div>
+        </div>
+        <!-- ANCHOR: Power -->
+        <div class="form-row one-column equal-height">
+          <div class="form-group">
+            <h3>Power:</h3>
+            <div class="input-group">
+              <input type="radio" id="30AMP" name="UDF90" value="30 AMP" />
+              <label for="30AMP">30 AMP</label>
+            </div>
+            <div class="input-group">
+              <input type="radio" id="50AMP" name="UDF90" value="50 AMP" />
+              <label for="50AMP">50 AMP</label>
+            </div>
+            <div class="input-group">
+              <input type="radio" id="Either" name="UDF90" value="Either" />
+              <label for="Either">Either</label>
+            </div>
+          </div>
+        </div>
+        <!-- ANCHOR: Preferred Docking -->
+        <div class="form-row one-column equal-height">
+          <div class="form-group">
+            <h3>Preferred Docking:</h3>
+            <div class="input-group">
+              <input type="radio" id="Bow-In" name="UDF91" value="Bow In" />
+              <label for="Bow-In">Bow In</label>
+            </div>
+            <div class="input-group">
+              <input type="radio" id="Stern-In" name="UDF91" value="Stern In" />
+              <label for="Stern-In">Stern In</label>
+            </div>
+          </div>
+        </div>
+        <!-- ANCHOR: Tie Side -->
+        <div class="form-row one-column equal-height">
+          <div class="form-group">
+            <h3>Tie Side:</h3>
+            <div class="input-group">
+              <input type="radio" id="Starboard" name="UDF92" value="Starboard" />
+              <label for="Starboard">Starboard Tie</label>
+            </div>
+            <div class="input-group">
+              <input type="radio" id="Port" name="UDF92" value="Port" />
+              <label for="Port">Port Tie</label>
+            </div>
+            <div class="input-group">
+              <input type="radio" id="Either" name="UDF92" value="Either" />
+              <label for="Either">Either</label>
+            </div>
+          </div>
+        </div>
+        <!-- ANCHOR: Rig, Radio Call Sign and USCG ID -->
+        <div class="form-row one-column">
+          <div class="form-group">
+            <label for="Rig">Rig</label>
+            <input class="entry" id="Rig" type="text" name="UDF104" />
+          </div>
+        </div>
+        <div class="form-row one-column">
+          <div class="form-group">
+            <label for="callsign">Radio Call Sign</label>
+            <input class="entry" id="callsign" type="text" name="UDF88" />
+          </div>
+        </div>
+        <div class="form-row one-column">
+          <div class="form-group">
+            <label for="USCG">Registration (USCG number)</label>
+            <input class="entry" id="USCG" type="text" name="UDF87" />
+          </div>
+        </div>
+        <!-- ANCHOR: Boating Experience -->
+        <div class="form-row one-column">
+          <div class="form-group">
+            <label for="experience" hidden>Boating Experience</label>
+            <p>Briefly state your boating experience, interests and any shareable skills that you believe would benefit
+              the club</p>
+            <textarea class="entry" id="experience" required name="Notes"></textarea>
+          </div>
+        </div>
+      </fieldset>
+      <!-- !SECTION: Boat Information -->
+
+      <!-- SECTION: Areas of Interest and Additional Information -->
+      <!-- ANCHOR: Biography -->
+      <fieldset>
+        <legend>Additional Information </legend>
+        <div class="form-row one-column">
+          <div class="form-group">
+            <label for="Description" hidden>Biography</label>
+            <p>Briefly tell us something about yourself (bio)</p>
+            <textarea class="entry" id="Description" required name="Description"></textarea>
+          </div>
+        </div>
+        <h3>How would you like to participate in the club?</h3>
+        <div class="form-row three-column">
+          <div class="form-group input-group">
+            <input id="Cruising" type="checkbox" name="MemberCategoryIDs" value="315" />
+            <label for="Cruising">Cruising</label>
+          </div>
+          <div class="form-group input-group">
+            <input id="Social-Events" type="checkbox" name="MemberCategoryIDs" value="317" />
+            <label for="Social-Events">Social Events</label>
+          </div>
+          <div class="form-group input-group">
+            <input id="Reciprocals" type="checkbox" name="MemberCategoryIDs" value="319" />
+            <label for="Reciprocals">Reciprocals</label>
+          </div>
+        </div>
+        <div class="form-row three-column">
+          <div class="form-group input-group">
+            <input id="Committees" type="checkbox" name="MemberCategoryIDs" value="318" />
+            <label for="Committees">Committees</label>
+          </div>
+          <div class="form-group input-group">
+            <input id="Education" type="checkbox" name="MemberCategoryIDs" value="323" />
+            <label for="Education">Education</label>
+          </div>
+          <div class="form-group input-group">
+            <input id="Volunteer" type="checkbox" name="MemberCategoryIDs" value="324" />
+            <label for="Volunteer">Volunteer</label>
+          </div>
+        </div>
+        <h3>Activity and Other Interests:</h3>
+        <div class="form-row three-column">
+          <div class="form-group input-group">
+            <input id="Fishing" type="checkbox" name="MemberCategoryIDs" value="326" />
+            <label for="Fishing">Fishing</label>
+          </div>
+          <div class="form-group input-group">
+            <input id="Crabbing" type="checkbox" name="MemberCategoryIDs" value="327" />
+            <label for="Crabbing">Crabbing</label>
+          </div>
+          <div class="form-group input-group">
+            <input id="racing" type="checkbox" name="MemberCategoryIDs" value="328" />
+            <label for="racing">Sail boat racing</label>
+          </div>
+        </div>
+        <div class="form-row three-column">
+          <div class="form-group input-group">
+            <input id="Cooking" type="checkbox" name="MemberCategoryIDs" value="329" />
+            <label for="Cooking">Cooking</label>
+          </div>
+          <div class="form-group input-group">
+            <input id="Biking" type="checkbox" name="MemberCategoryIDs" value="330" />
+            <label for="chaBikingnge">Biking</label>
+          </div>
+          <div class="form-group input-group">
+            <input id="diving" type="checkbox" name="MemberCategoryIDs" value="331" />
+            <label for="diving">Skin/Scuba diving</label>
+          </div>
+        </div>
+        <div class="form-row three-column">
+          <div class="form-group input-group">
+            <input id="Swimming" type="checkbox" name="MemberCategoryIDs" value="332" />
+            <label for="Swimming">Swimming</label>
+          </div>
+          <div class="form-group input-group">
+            <input id="Art" type="checkbox" name="MemberCategoryIDs" value="336" />
+            <label for="Art">Art</label>
+          </div>
+          <div class="form-group input-group">
+            <input id="Shopping" type="checkbox" name="MemberCategoryIDs" value="337" />
+            <label for="Shopping">Shopping</label>
+          </div>
+        </div>
+        <div class="form-row three-column">
+          <div class="form-group input-group">
+            <input id="Theatre" type="checkbox" name="MemberCategoryIDs" value="338" />
+            <label for="Theatre">Theatre</label>
+          </div>
+          <div class="form-group input-group">
+            <input id="Sports" type="checkbox" name="MemberCategoryIDs" value="339" />
+            <label for="Sports">Sports</label>
+          </div>
+          <div class="form-group input-group">
+            <input id="Golf" type="checkbox" name="MemberCategoryIDs" value="340" />
+            <label for="Golf">Golf</label>
+          </div>
+        </div>
+        <div class="form-row three-column">
+          <div class="form-group input-group">
+            <input id="Antiques" type="checkbox" name="MemberCategoryIDs" value="341" />
+            <label for="Antiques">Antiques</label>
+          </div>
+          <div class="form-group input-group">
+            <input id="Wineries" type="checkbox" name="MemberCategoryIDs" value="342" />
+            <label for="Wineries">Wineries</label>
+          </div>
+          <div class="form-group input-group">
+            <input id="RVing" type="checkbox" name="MemberCategoryIDs" value="343" />
+            <label for="RVing">RVing</label>
+          </div>
+        </div>
+        <div class="form-row one-column">
+          <div class="form-group">
+            <label for="Description">Sponsor</label>
+            <p>If you know of a member who will sponsor you, please enter their name here. If not, please enter ‘no’ and we will find a sponsor for you</p>
+            <textarea class="entry" id="SponsorName" required name="SponsorName"></textarea>
+          </div>
+        </div>
+      </fieldset>
+      <!-- !SECTION: Areas of Interest and Additional Information -->
+
+      <!-- SECTION: Privacy and Disclosure -->
+      <fieldset>
+        <legend>Privacy and Disclosure</legend>
+        <div class="form-row one-column">
+          <div class="form-group">
+            <p>This site and our membership management system vendor, Member Minder Pro, LLC <em>(dba iMembersDB)</em>,
+              is collecting your personal information in order to process your online membership registration. Our
+              organizations do not sell your personal information.</p>
+            <p>The Registrant authorizes the collection and use personal information about the Registrant for the
+              purpose of receiving communications and the purposes described in the policies relating to data privacy as
+              stated in the privacy policy linked to in the site footer below.</p>
+            <p>Permission may be withdrawn at any time by contacting the site's privacy officer at any time at the
+              contact information listed in the posted privacy policy. Please check the <em>"I Consent"</em> checkbox
+              below to allow us to collect, use, and disclose your personal information as described above.</p>
+            <div class="consent-affirmation input-group">
+              <input id="Consent" type="checkbox" name="Consent" value="1" required aria-required="true" />
+              <label for="Consent">I Consent</label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <!-- !SECTION: Privacy and Disclosure -->
+
+      <div class="captcha-send">
+        <button id="Send" name="send" type="submit" class="btn btn-warning">Submit Registration</button>
+      </div>
+
+    </form>
+  </div>
+  <!-- SECTION: Hidden Divs -->
+  <div id="Step2" hidden>
+    <h3>Problem!</h3>
+    <p>There was a system error creating your new membership. Please contact support to resolve this issue.</p>
+    <div id="ErrorDiv"></div>
+  </div>
+  <div id="wait" hidden>
+    <div>
+      <img src="https://www.emembersdb.com/Portal/images/tm.png" height="50" />
+      <h4>Redirecting to payment processor...</h4>
+      <img src="https://www.emembersdb.com/images/loading.gif" height="30" />
+    </div>
+  </div>
+  <!-- !SECTION: Hidden Divs -->
+</div>
+<!-- SECTION: MMP-Custom-Forms Distributable Form -->
+<!-- !Path: templates/custom/10651/1065/mmp-form.html -->
