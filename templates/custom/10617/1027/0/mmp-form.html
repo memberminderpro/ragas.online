@@ -119,9 +119,11 @@
       <!-- SECTION: Co-Member Information -->
       <fieldset>
         <legend>Co-Member Information</legend>
-        <input id="CoMember" type="checkbox" name="CoMember" value="">
-        <label>Check this box to enter co-member information. Your membership fee includes your spouse, partner, or
-          sibling.</label>
+        <label class="switch">
+          <input id="CoMember" type="checkbox" name="CoMember" value="">
+          <span class="slider"></span>
+        </label>
+        <label for="CoMember">Check this box to enter co-member information. Your membership fee includes your spouse, partner, or sibling.</label>
         <div id="CoMemberDiv">
           <div class="form-row three-column">
             <div class="form-group">
@@ -140,13 +142,13 @@
             <div class="form-group">
               <label for="PartnerLastName">Last Name</label>
               <input class="entry" id="PartnerLastName" type="text" name="PartnerLastName" placeholder="e.g., Smith"
-                required aria-required="true" maxlength="50" pattern="[A-Za-z\s'\-]+" /><span id="LastNameError"
-                class="error-message" aria-live="polite">
+                required aria-required="true" maxlength="50" pattern="[A-Za-z\s'\-]+" />
+              <span id="LastNameError" class="error-message" aria-live="polite">
                 Your co-member's last name may only contain letters, spaces, hyphens, and apostrophes.
               </span>
             </div>
           </div>
-          <div class="form-row  three-column-50-25-25">
+          <div class="form-row three-column-50-25-25">
             <div class="form-group">
               <label for="PartnerNickName">Nickname</label>
               <input class="entry" id="PartnerNickName" type="text" name="PartnerNickName" />
@@ -156,9 +158,10 @@
               <input class="entry" id="PartnerBirthMon" name="PartnerBirthMon" size="2" maxlength="2" min="1" max="12"
                 type="number" placeholder="mm" />
             </div>
-            <div class="form-group"><label for="BirthDay">&nbsp;</label>
-              <input class="entry" type="number" id="PartnerBirthDay" name="PartnerBirthDay" maxlength="2" type="number"
-                placeholder="dd" min="1" max="31">
+            <div class="form-group">
+              <label for="BirthDay">&nbsp;</label>
+              <input class="entry" type="number" id="PartnerBirthDay" name="PartnerBirthDay" maxlength="2" placeholder="dd"
+                min="1" max="31">
               <input class="entry BirthDate" id="PartnerBirthDate" name="PartnerBirthDate" type="hidden" value="" />
             </div>
           </div>
@@ -202,18 +205,27 @@
         </div>
         <!-- ANCHOR: Boat Dimensions -->
         <div class="form-row three-column">
+          <!-- Length -->
           <div class="form-group">
-            <label for="Length">Length</label>
-            <input class="entry" id="Length" type="text" name="UDF85" />
+            <label for="UDF85">Length (ft):</label>
+            <input class="entry" id="UDF85" name="UDF85" type="number" min="1" max="100" step="1" required placeholder="e.g., 30">
+            <span class="error-message" id="LengthError" style="display: none;">Please enter a valid length between 1 and 100 feet.</span>
           </div>
+
+          <!-- Beam -->
           <div class="form-group">
-            <label for="Beam">Beam</label>
-            <input class="entry" id="Beam" type="text" name="UDF106" />
+            <label for="UDF106">Beam (ft):</label>
+            <input class="entry" id="UDF106" name="UDF106" type="number" min="1" max="30" step="0.5" required placeholder="e.g., 10.5">
+            <span class="error-message" id="BeamError" style="display: none;">Please enter a valid beam between 1 and 30 feet.</span>
           </div>
+
+          <!-- Draft -->
           <div class="form-group">
-            <label for="Draft">Draft</label>
-            <input class="entry" id="Draft" type="text" name="UDF107" />
+            <label for="UDF107">Draft (ft):</label>
+            <input class="entry" id="UDF107" name="UDF107" type="number" min="1" max="20" step="0.5" required placeholder="e.g., 5.5">
+            <span class="error-message" id="DraftError" style="display: none;">Please enter a valid draft between 1 and 20 feet.</span>
           </div>
+
         </div>
         <!-- ANCHOR: Home Moorage Location -->
         <div class="form-row one-column">
@@ -225,7 +237,7 @@
         <!-- ANCHOR: MMSI -->
         <div class="form-row one-column">
           <div class="form-group">
-            <label for="mmsi">MMSI #</label>
+            <label for="mmsi">Maritime Mobile Service Identities (MMSI) Number</label>
             <input class="entry" id="mmsi" type="text" name="UDF89" />
           </div>
         </div>
