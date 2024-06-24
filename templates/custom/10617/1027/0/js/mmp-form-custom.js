@@ -33,7 +33,7 @@ $(document).ready(function () {
   $("#partner_birthdate_fields #PartnerBirthMon, #partner_birthdate_fields #PartnerBirthDay").on("change", function () {
     updateBirthDate('#partner_birthdate_fields', '#PartnerBirthMon', '#PartnerBirthDay', '#PartnerBirthDate');
   });
-  
+
   $(".BoatType input").click(function () {
     if (this.value != "None") {
       $(".BoatDiv").show();
@@ -45,7 +45,9 @@ $(document).ready(function () {
   });
 
   $("#Consent").click(function () {
-    console.log("consent");
+        if (debug == true) {
+            console.log("consent");
+        }
     if ($(this).prop("checked")) {
       $("#Send").show();
       if ($("#signature").val() == "") {
@@ -77,7 +79,9 @@ $(document).ready(function () {
   });
 
   $("#prtapp").click(function () {
+    if (debug == true) {
     console.log("print");
+    }
     $("#PrintContent").printThis();
     return false;
   });
@@ -117,7 +121,9 @@ $(document).ready(function () {
     const udf83Selected = document.querySelector('input[name="UDF83"]:checked');
     if (!udf83Selected) {
       $('input[name="UDF83"]').addClass("invalid-radio");
+      if (debug == true) {
       console.log("Invalid UDF83 selection (Boat Type)");
+      }
       isValid = false;
     } else {
       $('input[name="UDF83"]').removeClass("invalid-radio");
@@ -170,5 +176,3 @@ function noEnter(e) {
   else if (e) keycode = e.which;
   return !(keycode == 13);
 }
-
-

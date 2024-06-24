@@ -40,6 +40,26 @@ $(document).ready(function () {
       console.log("current mtid: " + $mtid);
     });
 
+       // Function to update the CSS variables
+       function updateCSSVariables() {
+        const root = document.documentElement;
+  
+        if (mmpFormOptions.color_required_highlight) {
+          root.style.setProperty('--custom-required-highlight', mmpFormOptions.color_required_highlight);
+        }
+        if (mmpFormOptions.color_invalid_field_highlight) {
+          root.style.setProperty('--custom-invalid-field-highlight', mmpFormOptions.color_invalid_field_highlight);
+        }
+        if (mmpFormOptions.color_invalid_field_outline) {
+          root.style.setProperty('--custom-invalid-field-outline', mmpFormOptions.color_invalid_field_outline);
+        }
+        if (mmpFormOptions.color_field_focus_outline) {
+          root.style.setProperty('--custom-field-focus-outline', mmpFormOptions.color_field_focus_outline);
+        }
+      }
+  
+      // Call the function to update the CSS variables
+      updateCSSVariables();
   }
 
   // Additional form validation logic
