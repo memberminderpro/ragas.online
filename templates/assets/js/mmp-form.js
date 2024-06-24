@@ -16,7 +16,10 @@
       postData = postData.filter(function (item) {
         return (
           item.name !== "confirm_password" &&
+          item.name !== "g_recaptcha_response" &&
+          item.name !== "CoMember" &&
           item.name !== "Consent" &&
+          item.name !== "g_recaptcha_response" &&
           item.name !== "recaptcha_site_key"
         );
       });
@@ -33,12 +36,16 @@
           name: "accountemail",
           value: mmpFormOptions.account_email,
         });
+        postData.push({
+          name: "MCY", 
+          value: `${mmpFormOptions.default_member_type_id}|${mmpFormOptions.membership_cost}|${mmpFormOptions.term}`
+        });
+  
         console.log("Using values from WordPress localized script data.");
       }
 
       return postData;
     }
-
     function checkFieldValidity(field) {
       const errorElement = document.getElementById(`${field.id}Error`);
       if (!field.checkValidity()) {
@@ -61,15 +68,17 @@
         return true;
       }
     }
+
     function checkFormValidity() {
       let isValid = true;
-      $("#mmp-form input, #mmp-form select, #mmp-form textarea").each(
-        function () {
-          if (!this.checkValidity() && this.id !== "Consent") {
-            isValid = false;
-          }
+      $("#mmp-form input, #mmp-form select, #mmp-form textarea").each(function () {
+        const fieldValid = this.checkValidity();
+        console.log(`Checking field: ${this.name}, Valid: ${fieldValid}`);
+        if (!fieldValid && this.id !== "Consent") {
+          isValid = false;
         }
-      );
+      });
+      console.log(`Form valid: ${isValid}`);
       return isValid;
     }
 
