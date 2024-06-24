@@ -1,3 +1,12 @@
+.BoatDiv {
+    display: none;
+}
+.radio-group ::has(input[required]) {
+  border-left: 5px solid var(--sky-blue);
+  padding-left: .5em;
+  /* Blue left border for required fields */
+}
+
 /* Toggle switch styling */
 .switch {
     position: relative;
