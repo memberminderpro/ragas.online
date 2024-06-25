@@ -1,1 +1,0 @@
-<?php // WASH-RAG.org

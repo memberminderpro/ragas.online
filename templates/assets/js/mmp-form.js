@@ -1,5 +1,5 @@
 (function ($) {
-  const debug = false; // Set this to false in production
+  const debug = true; // Set this to false in production
   $(document).ready(function () {
     $("#Consent").prop("disabled", true);
     $("#Send").hide();
@@ -20,6 +20,7 @@
           item.name !== "g_recaptcha_response" &&
           item.name !== "CoMember" &&
           item.name !== "Consent" &&
+          item.name !== "MCY" &&
           item.name !== "g_recaptcha_response" &&
           item.name !== "recaptcha_site_key"
         );

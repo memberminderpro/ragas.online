@@ -9,9 +9,9 @@
 --->
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js" defer></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/fontawesome.min.css" rel="stylesheet" crossorigin="anonymous"/>
-<script src="https://www.imembersdb.com/jQuery/PrintThis/PrintThis.js" type="text/javascript" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js" defer=""></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/fontawesome.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://www.imembersdb.com/jQuery/PrintThis/PrintThis.js" type="text/javascript" defer=""></script>
 <style>
 .error {color: red}
 .TDData {font-size: 13px; margin: 0px; padding: 0px;}
@@ -36,27 +36,27 @@ This form is customized for ESRAG
 <h3>Membership SignUp</h3>
 <!--- <form id="form" name="form" Action="http://emdb.com/Portal/ESRAG/NewMember.cfm" method="Post"> --->
 <!--- <form id="form" name="form" Action="https://www.emembersdb.com/nmPortal/ESRAG/NewMember.cfm" method="Post"> --->
-<form id="form" name="form" Action="https://www.emembersdb.com/nm/custom.cfm" method="Post">
+<form id="form" name="form" action="https://www.emembersdb.com/nm/custom.cfm" method="Post">
 		<!-- These parameters MUST be changed for each account membership application -->
-<input type="hidden" name="AccountID" 		value="10614" 						id="AccountID" />	<!-- Account -->
-<input type="hidden" name="APIKey" 			value="df9824bc63eb4d4c94ccd04d6dcef898" 	id="APIKey" />		<!-- APIKey -->
-<input type="hidden" name="BID" 			value="1023" 						id="BID" />		<!-- Account -->
-<input type="hidden" name="MemberID" 		value="0" />								<!-- Default memberide -->
+<input type="hidden" name="AccountID" value="10614" id="AccountID">	<!-- Account -->
+<input type="hidden" name="APIKey" value="df9824bc63eb4d4c94ccd04d6dcef898" id="APIKey">		<!-- APIKey -->
+<input type="hidden" name="BID" value="1023" id="BID">		<!-- Account -->
+<input type="hidden" name="MemberID" value="0">								<!-- Default memberide -->
 
-<input type="hidden" name="UserID" 			value="0" 							id="UserID"	/><!-- UserID -->
+<input type="hidden" name="UserID" value="0" id="UserID"><!-- UserID -->
 
-<input type="hidden" name="AddressTypeID" 	value="1" />								<!-- Default Address type -->
-<input type="hidden" name="EmailTypeID" 	value="1"  />								<!-- Default Email type -->
-<input type="hidden" name="UserStatusCode" 	value="P" />								<!-- DefaultUser Status -->
-<input type="hidden" name="MCY" 			value="546|1|1" 					id="MCY" />	<!-- MemberTypeID, Cost, No Years  -->
-<input type="hidden" name="MemberTypeID" 	value="546" 						id="MemberTypeID" />	<!-- Default MemberTypeID -->
-<input type="hidden" name="AccountEmail" 	value="membership@esrag.org" 		id="AccountEMail" />	<!-- Who gets the application -->
+<input type="hidden" name="AddressTypeID" value="1">								<!-- Default Address type -->
+<input type="hidden" name="EmailTypeID" value="1">								<!-- Default Email type -->
+<input type="hidden" name="UserStatusCode" value="P">								<!-- DefaultUser Status -->
+<input type="hidden" name="MCY" value="500|30|1" id="MCY">	<!-- MemberTypeID, Cost, No Years  -->
+<input type="hidden" name="MemberTypeID" value="500" id="MemberTypeID">	<!-- Default MemberTypeID -->
+<input type="hidden" name="AccountEmail" value="membership@esrag.org" id="AccountEMail">	<!-- Who gets the application -->
 
-<input id="fkclubname" 		type="hidden" name="fkclubname" 	value="">		<!--- FK reference in iMembersDB Region(Club) tab --->
-<input id="fkdistrict" 		type="hidden" name="fkdistrict" 	value="0">		<!--- FK reference in iMembersDB Region(Club) tab --->
-<input id="Region" 			type="hidden" name="Region" 		value="0">
-<input id="RegionName" 		type="hidden" name="RegionName" 	value="">
-<input id="ClubID" 			type="hidden" name="ClubID" 		value="989153">
+<input id="fkclubname" type="hidden" name="fkclubname" value="">		<!--- FK reference in iMembersDB Region(Club) tab --->
+<input id="fkdistrict" type="hidden" name="fkdistrict" value="0">		<!--- FK reference in iMembersDB Region(Club) tab --->
+<input id="Region" type="hidden" name="Region" value="0">
+<input id="RegionName" type="hidden" name="RegionName" value="">
+<input id="ClubID" type="hidden" name="ClubID" value="989153">
 
 <div id="PrintContent">
 <table border="0" cellpadding="3" cellspacing="0">
@@ -64,10 +64,10 @@ This form is customized for ESRAG
 		<tr>
 			<td align="center">
 				<span style="font-size:24px; font-family:Tahoma, Geneva, sans-serif; font-weight:bold;">YES!   I would like to join ESRAG</span><br>
-				<span style="font-size:14px; font-family:Tahoma, Geneva, sans-serif; font-weight:bold;">(Information provided will be used strictly for ESRAG use unless otherwise instructed)<br />
+				<span style="font-size:14px; font-family:Tahoma, Geneva, sans-serif; font-weight:bold;">(Information provided will be used strictly for ESRAG use unless otherwise instructed)<br>
 					<!--- <span style="font-size:14px;font-family:Tahoma, Geneva, sans-serif;font-weight:bold"><i>(If you are a returning member please log into your account to renew your membership.)</i>  <a href="http://www.imembersdb.com" target="_blank" rel="noopener">iMembersDB Login</a> </span><br /> --->
 				</span>
-				<br />
+				<br>
 			</td>
 		</tr>
 	</tbody>
@@ -78,7 +78,7 @@ This form is customized for ESRAG
 		<tr>
 			<td align="center">
 			<div>
-				<span style="font-size:13px; font-family:Tahoma, Geneva, sans-serif;font-weight:normal;"><u><em>Applicants are asked to complete the following information.</em></u>   Starred items(*) are required.</span><br />
+				<span style="font-size:13px; font-family:Tahoma, Geneva, sans-serif;font-weight:normal;"><u><em>Applicants are asked to complete the following information.</em></u>   Starred items(*) are required.</span><br>
 				<span style="font-size:13px; font-family:Tahoma, Geneva, sans-serif;font-weight:normal;">After completing this form, click ‘Submit’.
 					A copy of this application will be emailed to you. Or you can also print this form and mail it to the address below.
 				</span>
@@ -88,7 +88,7 @@ This form is customized for ESRAG
 	</tbody>
 </table>
 
-<br/>
+<br>
 <table border="0" cellpadding="3" cellspacing="0" style="padding-top:12px">
 	<tbody>
 		<tr>
@@ -101,16 +101,16 @@ This form is customized for ESRAG
 	<tbody>
 		<tr>
 			<td class="TDData" width="170"><span class="star">*</span> First Name: </td>
-			<td class="TDData"><input class="entry" id="FirstName" type="text" maxlength="32" name="FirstName" value="" onkeypress="return noEnter(event)" required size="32" placeholder="First Name" /></td>
+			<td class="TDData"><input class="entry" id="FirstName" type="text" maxlength="32" name="FirstName" value="" onkeypress="return noEnter(event)" required="" size="32" placeholder="First Name"></td>
 		</tr>
 
 		<tr>
 			<td class="TDData" width="170"><span class="star">*</span> Last Name: </td>
-			<td class="TDData"><input class="entry" id="LastName" type="text" maxlength="32" name="LastName" value="" style="height: 25px;" onkeypress="return noEnter(event)" required size="32" placeholder="Last Name" /></td>
+			<td class="TDData"><input class="entry" id="LastName" type="text" maxlength="32" name="LastName" value="" style="height: 25px;" onkeypress="return noEnter(event)" required="" size="32" placeholder="Last Name"></td>
 		</tr>
 		<tr>
 			<td class="TDData" width="170"><span class="star">*</span> Email Address  </td>
-			<td class="TDData"><input class="entry" id="Email" type="text" maxlength="64"  name="email" value="" style="height: 25px;"  onkeypress="return noEnter(event)" size="32" required  placeholder="EMail Address" />
+			<td class="TDData"><input class="entry" id="Email" type="text" maxlength="64" name="email" value="" style="height: 25px;" onkeypress="return noEnter(event)" size="32" required="" placeholder="EMail Address">
 				<div id="EMailDiv" style="display: none; color: red">This email is already in the system.  Please email membership at membership@esrag.org  to change your membership type.</div>
 			</td>
 		</tr>
@@ -119,30 +119,30 @@ This form is customized for ESRAG
 			<td class="TDData" width="170"><span class="star">*</span>  Are you a: </td>
 			<td class="TDData">
 				<select id="fkclubtype" name="fkclubtype" style="width: 150px; height: 30px; color: #444" class="TxtIn">
-					<option value="Rotary Club">	Rotarian</option>
-					<option value="Rotaract Club">	Rotaractor</option>
-					<option value="Non-Rotarian">	Non-Rotarian</option>
+<option value="Rotary Club">	Rotarian</option>
+<option value="Rotaract Club">	Rotaractor</option>
+<option value="Non-Rotarian">	Non-Rotarian</option>
 				</select>
-				<input id="fkmembertype" type="hidden" name="fkmembertype" 	value="Active">		<!--- FK reference in iMembersDB Region(Club) tab --->
+				<input id="fkmembertype" type="hidden" name="fkmembertype" value="Active">		<!--- FK reference in iMembersDB Region(Club) tab --->
 			</td>
 		</tr>
 		<tr>
 			<td class="TDData" width="170"><span class="star">*</span> Club Country: </td>
 			<td class="TDData">
-				<select id="fkcountry" name="fkcountry" style="width: 300px;" class="TxtIn CountryLookup">					</select>
+				<select id="fkcountry" name="fkcountry" style="width: 300px;" class="TxtIn CountryLookup select2-hidden-accessible" data-select2-id="select2-data-fkcountry" tabindex="-1" aria-hidden="true">					</select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="select2-data-1-09pi" style="width: 300px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-fkcountry-container" aria-controls="select2-fkcountry-container"><span class="select2-selection__rendered" id="select2-fkcountry-container" role="textbox" aria-readonly="true" title="Select Country"><span class="select2-selection__placeholder">Select Country</span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
 			</td>
 		</tr>
 		<tr id="staterow">
 			<td class="TDData" width="170"><span class="star">*</span>  State/Province: </td>
 			<td class="TDData">
-				<select id="stateprov" name="stateprov" style="width: 300px;" class="TxtIn StateProvLookup"></select>
-				<input id="fkstateprov" type="hidden" name="fkstateprov" 	value="">		<!--- FK reference in iMembersDB Region(Club) tab (not currently used) --->
+				<select id="stateprov" name="stateprov" style="width: 300px;" class="TxtIn StateProvLookup select2-hidden-accessible" data-select2-id="select2-data-stateprov" tabindex="-1" aria-hidden="true"></select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="select2-data-2-3nrj" style="width: 300px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-stateprov-container" aria-controls="select2-stateprov-container"><span class="select2-selection__rendered" id="select2-stateprov-container" role="textbox" aria-readonly="true" title="Select State or Province"><span class="select2-selection__placeholder">Select State or Province</span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+				<input id="fkstateprov" type="hidden" name="fkstateprov" value="">		<!--- FK reference in iMembersDB Region(Club) tab (not currently used) --->
 			</td>
 		</tr>
 		<tr class="hide9">
 			<td class="TDData" width="170"><span style="color: red; font-weight: bold;">*</span> Club Name: </td>
 			<td class="TDData">
-				<select id="clubname" type="text" name="clubname" style="width: 400px;" class="TxtIn ClubLookup"></select>
+				<select id="clubname" type="text" name="clubname" style="width: 400px;" class="TxtIn ClubLookup select2-hidden-accessible" data-select2-id="select2-data-clubname" tabindex="-1" aria-hidden="true"></select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="select2-data-3-fydk" style="width: 400px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-clubname-container" aria-controls="select2-clubname-container"><span class="select2-selection__rendered" id="select2-clubname-container" role="textbox" aria-readonly="true" title="Rotary Club"><span class="select2-selection__placeholder">Rotary Club</span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
 				<div id="ClubLocDiv"></div>
 			</td>
 		</tr>
@@ -161,40 +161,40 @@ This form is customized for ESRAG
 	<tbody>
 		<tr>
 			<td class="TDData" width="170"><span class="star">*</span> Address1: </td>
-			<td class="TDData"><input class="entry" id="Address1" type="text" maxlength="50" name="Address1" value="" style="height: 25px;" onkeypress="return noEnter(event)" size="50" type="text" value="" required  placeholder="Street Address" /> (Address)</td>
+			<td class="TDData"><input class="entry" id="Address1" type="text" maxlength="50" name="Address1" value="" style="height: 25px;" onkeypress="return noEnter(event)" size="50" required="" placeholder="Street Address"> (Address)</td>
 		</tr>
 		<tr>
 			<td class="TDData" width="170">Address2: </td>
-			<td class="TDData"><input class="entry" id="Address2" type="text" maxlength="50" name="Address2" style="height: 25px;" onkeypress="return noEnter(event)" size="50"  placeholder="Ste / Suite" /> (Ste/Suite)</td>
+			<td class="TDData"><input class="entry" id="Address2" type="text" maxlength="50" name="Address2" style="height: 25px;" onkeypress="return noEnter(event)" size="50" placeholder="Ste / Suite"> (Ste/Suite)</td>
 		</tr>
 		<tr>
 			<td class="TDData" width="170"><span class="star">*</span> City: </td>
-			<td class="TDData"><input class="entry" id="City" type="text" maxlength="50" name="City" value="" style="height: 25px;" onkeypress="return noEnter(event)" size="50" required  placeholder="City" /></td>
+			<td class="TDData"><input class="entry" id="City" type="text" maxlength="50" name="City" value="" style="height: 25px;" onkeypress="return noEnter(event)" size="50" required="" placeholder="City"></td>
 		</tr>
 		<tr>
 			<td class="TDData" width="170">State Code: </td>
-			<td class="TDData"><input class="entry" id="StateCode" type="text" maxlength="3" name="StateCode" value="" style="height: 25px;" onkeypress="return noEnter(event)" size="3" /></td>
+			<td class="TDData"><input class="entry" id="StateCode" type="text" maxlength="3" name="StateCode" value="" style="height: 25px;" onkeypress="return noEnter(event)" size="3"></td>
 		</tr>
 		<tr>
 			<td class="TDData" width="170">Province: </td>
-			<td class="TDData"><input class="entry" id="ProvOrOther" type="text" maxlength="20" name="ProvOrOther" value="" style="height: 25px;" onkeypress="return noEnter(event)" size="20" placeholder="Province" /></td>
+			<td class="TDData"><input class="entry" id="ProvOrOther" type="text" maxlength="20" name="ProvOrOther" value="" style="height: 25px;" onkeypress="return noEnter(event)" size="20" placeholder="Province"></td>
 		</tr>
 		<tr>
 			<td class="TDData" width="170">Country Code: </td>
 			<td class="TDData">
-				<input class="entry" id="CountryCode" type="text"   maxlength="3" name="CountryCode" value="" style="height: 25px;" onkeypress="return noEnter(event)" size="3" required/>
-				<input class="entry" id="CountryName" type="hidden" maxlength="3" name="CountryName" value="" />
+				<input class="entry" id="CountryCode" type="text" maxlength="3" name="CountryCode" value="" style="height: 25px;" onkeypress="return noEnter(event)" size="3" required="">
+				<input class="entry" id="CountryName" type="hidden" maxlength="3" name="CountryName" value="">
 			</td>
 		</tr>
 		<tr class="hide25">
 			<td class="TDData" width="170"><span class="star">*</span>Postal Code: </td>
-			<td class="TDData"><input class="entry" id="PostalZip" type="text" maxlength="12" name="PostalZip" value="" style="height: 25px;" onkeypress="return noEnter(event)" size="12" required  placeholder="Zip / Postal Code" /></td>
+			<td class="TDData"><input class="entry" id="PostalZip" type="text" maxlength="12" name="PostalZip" value="" style="height: 25px;" onkeypress="return noEnter(event)" size="12" required="" placeholder="Zip / Postal Code"></td>
 		</tr>
 		 <tr>
 			<td class="TDData" width="170">Captcha Code: </td>
 			<td class="TDData" align="top">
-				<input type="text" id="captchaCode" name="captchaCode" size="5" style="text-transform: uppercase; position: relative; bottom: 5px;" required>
-				<div id="captcha" style="display: inline; position: relative;"></div><BR>
+				<input type="text" id="captchaCode" name="captchaCode" size="5" style="text-transform: uppercase; position: relative; bottom: 5px;" required="">
+				<div id="captcha" style="display: inline; position: relative;"><img decoding="async" src="data:image/png;base64,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"> <a href="#" onclick="return DisplayCaptcha();"> <img decoding="async" src="https://www.emembersdb.com/Images/refresh.png" style="height: 40px; margin-left: 10px; vertical-align:0px; padding: 10px; border: 1px solid grey; background-color: ghostwhite;"><br></a></div><br>
 				<div id="captchaError" style="display: none;"></div>
 			</td>
 		</tr>
@@ -203,37 +203,37 @@ This form is customized for ESRAG
 </div>
 
 <div>
-	<P> ESRAG and our membership management system vendor, Member Minder Pro, LLC, dba iMembersDB, is collecting your personal information in order to process your online application for ESRAG membership. The Registrant authorizes ESRAG to collect and use personal information about the Registrant for the purpose of receiving communications and the purposes described in the ESRAG policies relating to data privacy - esrag.org/privacy.  Permission may be withdrawn at any time by contacting ESRAG’s Privacy Officer at privacy@esrag.org.  Please check the "I Consent" checkbox below to allow us to collect, use, and disclose your personal information as described above.</P>
-	<BR><BR>
-	<input id="Consent" type="checkbox" name="consent" value="1"> <strong>I Consent</strong><br />
+	 ESRAG and our membership management system vendor, Member Minder Pro, LLC, dba iMembersDB, is collecting your personal information in order to process your online application for ESRAG membership. The Registrant authorizes ESRAG to collect and use personal information about the Registrant for the purpose of receiving communications and the purposes described in the ESRAG policies relating to data privacy - esrag.org/privacy.  Permission may be withdrawn at any time by contacting ESRAG’s Privacy Officer at privacy@esrag.org.  Please check the "I Consent" checkbox below to allow us to collect, use, and disclose your personal information as described above.
+	<br><br>
+	<input id="Consent" type="checkbox" name="consent" value="1"> <strong>I Consent</strong><br>
 </div>
-<P class="noprint"><a href="" id="prtapp">Click here</a> to print.<br>
+<p class="noprint"><a href="" id="prtapp">Click here</a> to print.<br>
 <br>
 <input id="Send" type="button" name="Send" value="Submit Application" class="btn btn-warning noprint" style="display: none;">
-</form>
-<BR><BR><BR><BR>
+</p></form>
+<br><br><br><br>
 </div>
 
 <div id="Step2" style="display:none;">
 <h3>Problem!</h3>
-<P>There was a system error creating your new membership.  Please contact support to resolve this issue.</P>
-<P><BR /><div id="ErrorDiv"></div></P>
-<BR>
+There was a system error creating your new membership.  Please contact support to resolve this issue.
+<br><div id="ErrorDiv"></div>
+<br>
 </div>
 
 <div id="wait" style="display: none;">
 <div style="margin-top:25px;" align="center">
 	<div style="width: auto">
-		<img src="https://www.emembersdb.com/Portal/images/tm.png" height="50"><BR>
+		<img decoding="async" src="https://www.emembersdb.com/Portal/images/tm.png" height="50"><br>
 		<h4 style="font-family:Tahoma, Geneva, sans-serif">Please wait... We are taking you over to Team Merchant</h4>
-		<BR>
-		<img src="https://www.emembersdb.com/images/loading.gif" height="30">
+		<br>
+		<img decoding="async" src="https://www.emembersdb.com/images/loading.gif" height="30">
 	</div>
 </div>
 </div>
 
-<link  href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer=""></script>
 
 <script>
 var captchaHash = '';
@@ -611,8 +611,8 @@ function DisplayCaptcha() {
 		success: function(data) {
 			var rsp = JSON.parse(data);
 			captchaHash = rsp.CAPTCHAHASH;
-	//			$('#captcha').html('<img src="data:image/png;base64,'+rsp.CAPTCHA + '"> <a href="#" onclick="return DisplayCaptcha();"> <i class="fa fa-redo-alt fa-lg" style="margin-left: 10px; vertical-align:12px; padding: 10px; border: 1px solid grey; background-color: ghostwhite;"></i></span><br/>');
-			$('#captcha').html('<img src="data:image/png;base64,'+rsp.CAPTCHA + '"> <a href="#" onclick="return DisplayCaptcha();"> <img src="https://www.emembersdb.com/Images/refresh.png" style="height: 40px; margin-left: 10px; vertical-align:0px; padding: 10px; border: 1px solid grey; background-color: ghostwhite;"></i></span><br/>');
+	//			$('#captcha').html('<img decoding="async" src="data:image/png;base64,'+rsp.CAPTCHA + '"> <a href="#" onclick="return DisplayCaptcha();"> <i class="fa fa-redo-alt fa-lg" style="margin-left: 10px; vertical-align:12px; padding: 10px; border: 1px solid grey; background-color: ghostwhite;"></i></span><br />');
+			$('#captcha').html('<img decoding="async" src="data:image/png;base64,'+rsp.CAPTCHA + '"> <a href="#" onclick="return DisplayCaptcha();"> <img decoding="async" src="https://www.emembersdb.com/Images/refresh.png" style="height: 40px; margin-left: 10px; vertical-align:0px; padding: 10px; border: 1px solid grey; background-color: ghostwhite;"></i></span><br />');
 
 		}
 	});
