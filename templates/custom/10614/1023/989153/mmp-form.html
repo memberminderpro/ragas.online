@@ -1,0 +1,176 @@
+<!-- NOTE: START INCLUDE: 'templates/custom/10614/1023/989153/mmp-form.html' -->
+<!-- SECTION: MMP-Custom-Forms Distributable Form -->
+<div class="mmp">
+  <div id="Step1">
+    <form id="mmp-form" name="registration" action="https://www.emembersdb.com/nm/custom.cfm" method="POST">
+      <!-- SECTION: Contact Information -->
+      <fieldset>
+        <legend>Contact Information</legend>
+        <div class="form-row two-column">
+          <div class="form-group">
+            <label for="FirstName">First Name</label>
+            <input class="entry" id="FirstName" type="text" name="FirstName" placeholder="e.g., Riley" required
+              aria-required="true" maxlength="50" pattern="[A-Za-z\s'\-]+" />
+            <span id="FirstNameError" class="error-message" aria-live="polite">
+              Please enter your first name.
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="LastName">Last Name</label>
+            <input class="entry" id="LastName" type="text" name="LastName" placeholder="e.g., Smith" required
+              aria-required="true" maxlength="50" pattern="[A-Za-z\s'\-]+" /><span id="LastNameError"
+              class="error-message" aria-live="polite">
+              Your last name may only contain letters, spaces, hyphens, and apostrophes.
+            </span>
+          </div>
+        </div>
+        <div class="form-row two-column">
+          <div class="form-group">
+            <label for="Email">Email Address</label>
+            <input class="entry" id="Email" type="email" name="email" placeholder="e.g., rsmith@example.dom" required
+              aria-required="true" />
+            <span id="EmailError" class="error-message" aria-live="polite">
+              Please enter a valid email address.
+            </span>
+            <span id="EmailDuplicate" class="error-message" aria-live="polite">
+              This email is already in the system. Please contact customer support to make changes to your membership.
+            </span>
+          </div>
+        </div>
+      </fieldset>
+      <!-- !SECTION: Contact Information -->
+      <!-- SECTION: Rotary Questions -->
+      <fieldset>
+        <legend>Do you have a current Rotary affiliation?</legend>
+        <div class="form-row one-column">
+          <div class="form-group">
+            <label for="fkclubtype">I am a &hellip; ?</label>
+            <select id="fkclubtype" name="fkclubtype" class="entry" required aria-required="true">
+              <option value="">Select</option>
+              <option value="Rotary Club">Rotarian</option>
+              <option value="Rotaract Club">Rotaractor</option>
+              <option value="Non-Rotarian">Non-Rotarian</option>
+            </select>
+            <span id="fkclubtypeError" class="error-message" aria-live="polite">Please select your current Rotary affiliation. If you are not a current Rotarian or Rotaractor, please select "Non-Rotarian."</span>
+            <input id="fkmembertype" type="hidden" name="fkmembertype" value="Active" />
+          </div>
+        </div>
+        <div id="countryrow" class="form-row one-column" style="display: none;">
+          <div class="form-group">
+            <label for="fkcountry">Where is your club located?</label>
+            <select id="fkcountry" name="fkcountry" class="entry CountryLookup"></select>
+          </div>
+        </div>
+        <div id="staterow" class="form-row one-column" style="display: none;">
+          <div class="form-group">
+            <label for="stateprov">State/Province</label>
+            <select id="stateprov" name="stateprov" class="entry StateProvLookup"></select>
+            <input id="fkstateprov" type="hidden" name="fkstateprov" />
+          </div>
+        </div>
+        <div id="clubrow" class="form-row one-column" style="display: none;">
+          <div class="form-group">
+            <label for="clubname">Club Name</label>
+            <select id="clubname" name="clubname" class="entry ClubLookup"></select>
+            <span id="ClubLocDiv"></span>
+            <input id="fkdistrict" type="hidden" name="fkdistrict" />
+            <input id="fkclubname" type="hidden" name="fkclubname" />
+            <input id="Region" 			type="hidden" name="Region" 		value="0">
+            <input id="RegionName" 		type="hidden" name="RegionName" 	value="">
+            <input id="ClubID" 			type="hidden" name="ClubID" 		value="989153">
+          </div>
+        </div>
+      </fieldset>
+      <!-- !SECTION: Rotary Questions -->
+      <!-- SECTION: Address Information -->
+      <fieldset>
+        <legend>Address Information</legend>
+        <div class="form-row two-column">
+          <div class="form-group">
+            <label for="Address1">Street Address</label>
+            <input class="entry" id="Address1" type="text" name="Address1" placeholder="Street Address" required
+              aria-required="true" />
+          </div>
+          <div class="form-group">
+            <label for="Address2">Address Line 2</label>
+            <input class="entry" id="Address2" type="text" name="Address2" placeholder="Ste / Suite" />
+          </div>
+        </div>
+        <div class="form-row three-column-50-25-25">
+          <div class="form-group">
+            <label for="City">City</label>
+            <input class="entry" id="City" type="text" name="City" placeholder="City" required aria-required="true"
+              pattern="[A-Za-z\s'\-]+" />
+          </div>
+          <div class="form-group">
+            <label for="StateCode">State/Province</label>
+            <input class="entry" id="StateCode" type="text" name="StateCode" placeholder="State Code" required
+              aria-required="true" pattern="[A-Za-z\s'\-]+" />
+          </div>
+          <div class="form-group">
+            <label for="PostalZip">Postal Code</label>
+            <input class="entry" id="PostalZip" type="text" name="PostalZip" placeholder="Zip / Postal Code"
+              pattern="^[A-Za-z0-9\s\-]{3,9}$" required aria-required="true" />
+          </div>
+        </div>
+      </fieldset>
+      <!-- !SECTION: Address Information -->
+      <!-- SECTION: Membership Type -->
+      <fieldset>
+        <legend>Membership Levels</legend>
+        <div class="form-row two-column">
+          <div class="form-group">
+            <h3>Contributor</h3>
+            <div class="input-group">
+              <input type="radio" id="mcy_499" name="MCY" value="499|100|1" />
+              <label for="mcy_499">1-Year Membership ($100.00 USD)</label>
+            </div>
+            <div class="input-group">
+              <input type="radio" id="mcy_503" name="MCY" value="503|400|5" />
+              <label for="mcy_503">5-Year Membership ($400.00 USD)</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <h3>Member</h3>
+            <div class="input-group">
+              <input type="radio" id="mcy_500" name="MCY" value="500|30|1" />
+              <label for="mcy_500">1-Year Membership ($30.00 USD)</label>
+            </div>
+            <div class="input-group">
+              <input type="radio" id="mcy_501" name="MCY" value="501|125|5" />
+              <label for="mcy_501">5-Year Membership ($125.00 USD)</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <h3>Rotaractors</h3>
+            <div class="input-group">
+              <input type="radio" id="mcy_502" name="MCY" value="502|15|1" />
+              <label for="mcy_502">1-Year Membership ($15.00 USD)</label>
+          </div>
+        </div>
+      </fieldset>
+      <!-- !SECTION: Membership Type -->
+      <!-- SECTION: Privacy and Disclosure -->
+      <fieldset>
+        <legend>Privacy and Disclosure</legend>
+        <div class="form-row one-column">
+          <div class="form-group">
+            <p>This site and our membership management system vendor, Member Minder Pro, LLC <em>(dba iMembersDB)</em>, collects your personal information in order to process your online application for membership. </p>
+            <p>The Registrant authorizes the collection and use of personal information about the Registrant for the purpose of receiving communications and the purposes described in the policies relating to data privacy as stated in the privacy policy linked to in the site footer below.</p>
+            <p>Permission may be withdrawn at any time by contacting the site's privacy officer at any time at the contact information listed in the posted privacy policy. Please check the <em>"I Consent"</em> checkbox below to allow us to collect, use, and disclose your personal information as described above.</p>
+            <div class="consent-affirmation input-group">
+              <input id="Consent" type="checkbox" name="Consent" value="1" required aria-required="true" />
+              <label for="Consent">I Consent</label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <!-- !SECTION: Privacy and Disclosure -->
+      <div class="captcha-send">
+        <button id="Send" name="send" type="submit" class="btn btn-warning">Submit Registration</button>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- SECTION: MMP-Custom-Forms Distributable Form -->
+<!-- NOTE: END INCLUDE: 'templates/custom/10614/1023/989153/mmp-form.html' -->

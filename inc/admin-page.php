@@ -50,6 +50,21 @@ function mmp_custom_form_settings_init() {
         'mmp_custom_form_mmpPlugin_account_section' 
     );
 
+    add_settings_field( 
+        'mmp_custom_form_show_region', 
+        __('Show Region on Form', 'mmp'), 
+        'mmp_custom_form_show_region_render', 
+        'mmpPlugin', 
+        'mmp_custom_form_mmpPlugin_account_section' 
+    );
+    add_settings_field( 
+        'mmp_custom_form_region_label', 
+        __('Region Label', 'mmp'), 
+        'mmp_custom_form_region_label_render', 
+        'mmpPlugin', 
+        'mmp_custom_form_mmpPlugin_account_section' 
+    );
+
     // Default New Member Type Section
     add_settings_section(
         'mmp_custom_form_mmpPlugin_default_MCY_section', 
@@ -112,11 +127,11 @@ function mmp_custom_form_account_settings_section_callback() {
 }
 
 function mmp_custom_form_default_member_type_section_callback() { 
-    echo '<p>These settings will set a default member type to load if the form is ever accessed without the mtid querystring in the URL. If necessary, users will still be able to change member types in the Membership Level section of the form.</p>';
+    echo '<p>These settings determine the default member type to select if the form is ever accessed without the mtid querystring in the URL. If necessary, users will still be able to change member types in the Membership Level section of the form.</p>';
 }
 
 function mmp_custom_form_spam_protection_section_callback() { 
-    echo '<p>Configure the reCAPTCHA settings to protect the form from spam submissions.</p>';
+    echo '<p>Enter a <a href="https://www.google.com/recaptcha/about/" target="_blank">Google reCAPTCHA v3</a> key pair to protect the form from spam submissions. Keys may be created and managed by logging into the <strong><a href="https://www.google.com/recaptcha/admin" target="_blank">Admin Console</a></strong></p>';
 }
 
 function mmp_custom_form_recaptcha_site_key_render() { 
@@ -165,6 +180,22 @@ function mmp_custom_form_account_email_render() {
     ?>
     <input type='email' name='mmp_custom_form_settings[AccountEmail]' value='<?php echo $value; ?>' placeholder="Example: user@domain.sample">
     <p class="description">Enter the email address that should receive the submissions.</p>
+    <?php
+}
+
+function mmp_custom_form_show_region_render() { 
+    $options = get_option('mmp_custom_form_settings');
+    $value = isset($options['show_region']) ? esc_attr($options['show_region']) : get_option('show_region');
+    ?>
+    <div class="toggle"><div class="switch"><input type="checkbox" id="show_region" name="mmp_custom_form_settings[show_region]" value="1" <?=$value === '1' ? 'checked' : '';?> data-true-label="On (Region will be visible on the form)" data-false-label="Off (Region will not be displayed on the form)"><label class="slider" for="show_region"></label></div><label class="option-label" id="label_show_region" for="show_region">On (Region will be visible on the form)</label></div>
+    <?php
+}
+
+function mmp_custom_form_region_label_render() { 
+    $options = get_option('mmp_custom_form_settings');
+    $value = isset($options['region_label']) ? esc_attr($options['region_label']) : '';
+    ?>
+    <input type='text' name='mmp_custom_form_settings[region_label]' value='<?php echo $value; ?>' placeholder="Example: ESRAG Region">
     <?php
 }
 
@@ -235,10 +266,10 @@ function mmp_custom_form_options_page() {
             </form>
             
         </div>
-    </div>
+    </div> 
     <script>
         document.getElementById('mmp-custom-form-shortcode').addEventListener('click', function() {
-            var code = '[mmp-custom-form]';
+            var code = '[mmp_custom_form]';
             var textarea = document.createElement('textarea');
             textarea.value = code;
             document.body.appendChild(textarea);
@@ -280,6 +311,12 @@ function mmp_custom_form_settings_sanitize($input) {
     }
     if (isset($input['Term'])) {
         $sanitized_input['Term'] = is_numeric($input['Term']) ? intval($input['Term']) : sanitize_text_field($input['Term']);
+    }
+    if (isset($input['show_region'])) {
+        $sanitized_input['show_region'] = is_numeric($input['show_region']) ? intval($input['show_region']) : sanitize_text_field($input['show_region']);
+    }
+    if (isset($input['region_label'])) {
+        $sanitized_input['region_label'] = is_numeric($input['region_label']) ? intval($input['region_label']) : sanitize_text_field($input['region_label']);
     }
 
     return $sanitized_input;

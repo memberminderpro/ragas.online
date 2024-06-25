@@ -1,0 +1,15 @@
+/* Add custom CSS to the form here. */
+
+.mmp .entry[required] {
+    border-left: 5px solid #029739;
+    /* Left border for required fields */
+}
+
+.mmp .entry:focus {
+    outline: 2px solid #029739;
+}
+
+.mmp .entry.invalid-field {
+    border-left: 5px solid var(--cardinal);
+    outline: 2px solid var(--mmp-red-dark);
+}
