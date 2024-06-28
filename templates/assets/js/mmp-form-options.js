@@ -11,5 +11,7 @@ const mmpFormOptions = {
     membership_cost: 25,
     term: 1,
     showRegion: 0,
-    region_label: "Region"
+    region_label: "Region",
+    consent_title: "",
+    consent_text: ""
 };

@@ -335,6 +335,15 @@ input[type="radio"].invalid-radio + label {
   color: red;
 }
 
+
+.mmp #disclosure-container label {
+  display: inline;
+  font-weight: bold;
+}
+.mmp #signature-container {
+  display: none;
+}
+
 /* Ensure full-width columns on small screens */
 @media (max-width: 768px) {
   .form-row.equal-height {
@@ -360,3 +369,4 @@ input[type="radio"].invalid-radio + label {
     grid-template-columns: 1fr;
   }
 }
+

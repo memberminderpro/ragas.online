@@ -3,7 +3,7 @@
 /**
  * Plugin Name: MMP Custom Form
  * Description: A custom HTML form with multi-vendor captcha integration support
- * Version: 1.2.13
+ * Version: 1.2.13.1
  * Author: Member Minder Pro, LLC
  */
 
@@ -50,6 +50,8 @@ function mmp_custom_form_shortcode()
     $term = isset($settings['Term']) ? esc_attr($settings['Term']) : 1;
     $show_region = isset($settings['show_region']) ? esc_attr($settings['show_region']) : 0;
     $region_label = isset($settings['region_label']) ? esc_attr($settings['region_label']) : 'Region';
+    $consent_title = isset($settings['consent_title']) ? esc_attr($settings['consent_title']) : '';
+    $consent_text = isset($settings['consent_text']) ? esc_attr($settings['consent_text']) : '';
 
     // Localize script with configuration options
     $localization_array = array(
@@ -62,7 +64,9 @@ function mmp_custom_form_shortcode()
         'membership_cost' => $membership_cost,
         'term' => $term,
         'show_region' => $show_region,
-        'region_label' => $region_label
+        'region_label' => $region_label,
+        'consent_title' => $consent_title,
+        'consent_text' => $consent_text
     );
 
     // Check if options exist, otherwise enqueue the development script
@@ -90,7 +94,9 @@ function mmp_custom_form_shortcode()
                     membership_cost: mmpFormOptions.membership_cost,
                     term: mmpFormOptions.term,
                     show_region: mmpFormOptions.show_region,
-                    region_label: mmpFormOptions.region_label
+                    region_label: mmpFormOptions.region_label,
+                    consent_title: mmpFormOptions.consent_title,
+                    consent_text: mmpFormOptions.consent_text
                 };
             } else {
                 window.location.href = "' . admin_url('admin.php?page=mmp_custom_form') . '";
@@ -109,7 +115,9 @@ function mmp_custom_form_shortcode()
             'membership_cost' => '<script>document.write(mmpFormOptions.membership_cost);</script>',
             'term' => '<script>document.write(mmpFormOptions.term);</script>',
             'show_region' => '<script>document.write(mmpFormOptions.show_region);</script>',
-            'region_label' => '<script>document.write(mmpFormOptions.region_label);</script>'
+            'region_label' => '<script>document.write(mmpFormOptions.region_label);</script>',
+            'consent_title' => '<script>document.write(mmpFormOptions.consent_title);</script>',
+            'consent_text' => '<script>document.write(mmpFormOptions.consent_text);</script>'
         );
     }
 
@@ -162,7 +170,7 @@ function mmp_custom_form_shortcode()
     // Include the form HTML from an external file
     $form_html_path = $base_dir . 'mmp-form.html';
     if (file_exists($form_html_path)) {
-        $form_html = file_get_contents($form_html_path);
+        $form_html = '<div class="mmp-custom-form">' . file_get_contents($form_html_path) . '</div>';
     } else {
         $form_html = '<p>Form template not found. Please check the account ID, BID, and ClubID settings.</p>';
     }
