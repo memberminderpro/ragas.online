@@ -1,6 +1,14 @@
 (function ($) {
   const debug = false; // Set this to false in production
   $(document).ready(function () {
+    let consent_title = mmpFormOptions.consent_title ? mmpFormOptions.consent_title : "";
+    let consent_text = mmpFormOptions.consent_text ? mmpFormOptions.consent_text : "";
+    if (consent_title) {
+      $("#disclosure-container").append(`<legend>${consent_title}</legend>`);
+    }
+    if (consent_text) {
+      $("#disclosure-container").append(`${consent_text}`);
+    }
     $("#Consent").prop("disabled", true);
     $("#Send").hide();
 
