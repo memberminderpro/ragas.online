@@ -1,37 +1,18 @@
-name: SFTP Deploy
-
+name: Deploy to WP Engine
 on:
   push:
     branches:
-      - revision/eagleharbor
-
+      - revision/eagle-harbor
 jobs:
-  sftp-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4  # Updated to v4 to support Node.js 20
-
-      - name: Install SSH Client
-        run: sudo apt-get install -y openssh-client sshpass
-
-      - name: Generate file list
-        id: generate_file_list
-        run: |
-          git ls-files > files-to-upload.txt
-          grep -v -f .sftpignore files-to-upload.txt > filtered-files-to-upload.txt
-
-      - name: SFTP Deploy
-        env:
-          SFTP_SERVER: ${{ secrets.EAGLEHARBOR_DEV_FTP_SERVER }}
-          SFTP_USERNAME: ${{ secrets.EAGLEHARBOR_DEV_FTP_USER }}
-          SFTP_PASSWORD: ${{ secrets.EAGLEHARBOR_DEV_FTP_PASSWORD }}
-        run: |
-          export SSHPASS=$SFTP_PASSWORD
-          while read -r file; do
-            dir=$(dirname "$file")
-            sshpass -e ssh -o StrictHostKeyChecking=no -p 2222 $SFTP_USERNAME@$SFTP_SERVER "mkdir -p /wp-content/plugins/mmp-custom-form/$dir"
-            sshpass -e sftp -oBatchMode=no -b - -P 2222 $SFTP_USERNAME@$SFTP_SERVER <<'EOF'
-            put $file /wp-content/plugins/mmp-custom-form/$file
-          EOF
-          done < filtered-files-to-upload.txt
+    - uses: actions/checkout@v3
+    - name: GitHub Action Deploy to WP Engine
+      uses: wpengine/github-action-wpe-site-deploy@v3
+      with:
+        WPE_SSHG_KEY_PRIVATE: ${{ secrets.WPE_SSHG_KEY_PRIVATE }}
+        WPE_ENV: eagleharbordev
+        REMOTE_PATH: "wp-content/plugins/mmp-custom-form/"
+        FLAGS: -azvr --inplace --delete --exclude=".*" --exclude-from=.deployignore
+        CACHE_CLEAR: TRUE
