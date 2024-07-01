@@ -1,0 +1,7 @@
+.github/
+.vscode/
+.gitignore
+README.md
+path/to/exclude/
+custom/10614/
+custom/10651/
