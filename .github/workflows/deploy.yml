@@ -33,5 +33,5 @@ jobs:
             sshpass -e ssh -o StrictHostKeyChecking=no -p 2222 $SFTP_USERNAME@$SFTP_SERVER "mkdir -p /wp-content/plugins/mmp-custom-form/$dir"
             sshpass -e sftp -oBatchMode=no -b - -P 2222 $SFTP_USERNAME@$SFTP_SERVER <<'EOF'
             put $file /wp-content/plugins/mmp-custom-form/$file
-EOF
+          EOF
           done < filtered-files-to-upload.txt
