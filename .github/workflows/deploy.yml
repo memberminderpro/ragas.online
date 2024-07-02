@@ -15,7 +15,7 @@ jobs:
         branch: ${{ github.ref_name }} # Use the current branch name
         # Define the environments for 'develop' and 'main'
         include:
-          - branch: develop
+          - branch: develop 
             environments: mmp3dev washrotaryadev eagleharbordev ragasdev esragdev rghfdev
           - branch: main
             environments: washrag eagleharbor ragas esrag rghg
@@ -32,11 +32,12 @@ jobs:
             # Extract environment from branch name (using Bash substring removal)
             environment="${branch/revision\/}" 
             echo "environment=$environment" >> $GITHUB_OUTPUT
-          else  # This handles both 'main' and the default 'develop' case
-            # For 'main', use matrix.environments, otherwise default to 'mmp3dev' (modified)
-            echo "environments=${{ matrix.environments || 'mmp3dev' }}" >> $GITHUB_OUTPUT 
+          elif [[ "$branch" == "main" ]]; then   # Handle main branch explicitly
+            echo "environments=${{ matrix.environments }}" >> $GITHUB_OUTPUT
+          else  # Default to 'mmp3dev' for develop branch or other non-matching cases
+            echo "environment=mmp3dev" >> $GITHUB_OUTPUT
           fi
-          
+
       - name: Deploy to WP Engine Environments
         uses: wpengine/github-action-wpe-site-deploy@v3
         with:
