@@ -3,9 +3,9 @@ name: Deploy to WP Engine (Branch-Based Environment Detection)
 on:
   push:
     branches:
-      - main        # Deploy to multiple environments on 'main'
+      - revision/**  # Match all branches starting with "revision/"
       - develop     # Deploy to multiple environments on 'develop'
-      - revision/**  # This matches 'revision/*' and subdirectories like 'revision/subfolder/*'
+      - main        # Deploy to multiple environments on 'main'
 
 jobs:
   build:
@@ -13,9 +13,10 @@ jobs:
 
     strategy:
       matrix:
-        branch: ${{ github.ref_name }}
-        # Define the environments for 'develop' and 'main', but allow all branches to run 
-        include: # this is just for convenience in the steps below
+        branch: ${{ github.ref_name }} # Use the current branch name
+        # Define the environments for 'develop' and 'main' for better readability
+        # but allow all branches to run
+        include: 
           - branch: develop 
             environments: mmp3dev washrotaryadev eagleharbordev ragasdev esragdev rghfdev
           - branch: main
@@ -27,15 +28,17 @@ jobs:
       - name: Determine WP Engine Environment
         id: determine_environment
         run: |
-          branch="${{ matrix.branch }}"
+          branch="${{ matrix.branch }}" # Assign to a variable for easier manipulation
+          
           # Check for branch format (revision/*)
           if [[ "$branch" =~ ^revision/ ]]; then
             # Extract environment from branch name (using Bash substring removal)
             environment="${branch/revision\/}" 
-            echo "environments=[$environment]" >> $GITHUB_OUTPUT # Array format for consistency
+            # echo "environment=$environment" >> $GITHUB_OUTPUT # Single environment
+            echo "environments=[$environment]" >> $GITHUB_OUTPUT # Array for consistency
           elif [[ "$branch" == "main" ]]; then   # Handle main branch explicitly
             echo "environments=${{ matrix.environments }}" >> $GITHUB_OUTPUT
-          else  # Default to 'mmp3dev' for develop branch
+          else  # Default to 'mmp3dev' for develop branch and others
             echo "environments=mmp3dev" >> $GITHUB_OUTPUT 
           fi
           
