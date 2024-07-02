@@ -26,16 +26,17 @@ jobs:
       - name: Determine WP Engine Environment
         id: determine_environment
         run: |
-            # Check for branch format (revision/*)
-            if [[ "${{ matrix.branch }}" =~ ^revision/ ]]; then
-                # Extract environment from branch name (using Bash substring removal)
-                environment="${{ matrix.branch }}"; environment="${environment#revision/}" # Corrected syntax
-                echo "environment=$environment" >> $GITHUB_OUTPUT
-            else  # This handles both 'main' and the default 'develop' case
-                # For 'main', use matrix.environments, otherwise default to 'mmp3dev' (modified)
-                echo "environments=${{ matrix.environments || 'mmp3dev' }}" >> $GITHUB_OUTPUT 
-            fi
-
+          branch="${{ matrix.branch }}" # Assign to a variable for easier manipulation
+          # Check for branch format (revision/*)
+          if [[ "$branch" =~ ^revision/ ]]; then
+            # Extract environment from branch name (using Bash substring removal)
+            environment="${branch/revision\/}" 
+            echo "environment=$environment" >> $GITHUB_OUTPUT
+          else  # This handles both 'main' and the default 'develop' case
+            # For 'main', use matrix.environments, otherwise default to 'mmp3dev' (modified)
+            echo "environments=${{ matrix.environments || 'mmp3dev' }}" >> $GITHUB_OUTPUT 
+          fi
+          
       - name: Deploy to WP Engine Environments
         uses: wpengine/github-action-wpe-site-deploy@v3
         with:
