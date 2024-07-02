@@ -1,0 +1,62 @@
+name: Deploy to WP Engine (Branch-Based Environment Detection)
+
+on:
+  push:
+    branches:
+      - revision/*  # Match all branches starting with "revision/"
+      - main      # Still deploy to multiple environments on 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        branch: ${{ github.ref_name }} # Use the current branch name
+        # Define the environments for 'main' (adjust as needed)
+        include:
+            - branch: develop
+              environments: washrotaryadev eagleharbordev ragasdev
+            - branch: main
+              environments: washrag eagleharbor ragas
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Determine WP Engine Environment
+        id: determine_environment
+        run: |
+          # Check for branch format (revision/*)
+          if [[ "${{ matrix.branch }}" =~ ^revision/ ]]; then
+            # Extract environment from branch name
+            environment=${{ matrix.branch#revision/ }} 
+            echo "environment=$environment" >> $GITHUB_OUTPUT
+          elif [ "${{ matrix.branch }}" == "main" ]; then
+            # Handle multiple environments for 'main' branch
+            echo "environments=${{ matrix.environments }}" >> $GITHUB_OUTPUT
+          else
+            # Default to 'mmp1' for the 'revision' branch
+            echo "environment=mmp1" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Deploy to WP Engine
+        uses: wpengine/github-action-wpe-site-deploy@v3
+        with:
+          WPE_SSHG_KEY_PRIVATE: ${{ secrets.WPE_SSHG_KEY_PRIVATE }}
+          # Dynamically set the environment
+          WPE_ENV: ${{ fromJSON(steps.determine_environment.outputs.environment)[0] }} # The first environment for the main branch
+          REMOTE_PATH: "wp-content/plugins/mmp-custom-form/"
+          FLAGS: -azvr --inplace --delete --exclude=".*" --exclude-from=.deployignore
+          CACHE_CLEAR: TRUE
+
+      - name: Deploy to Additional WP Engine Environments (if applicable)
+        if: fromJson(steps.determine_environment.outputs.environment)[1]
+        uses: wpengine/github-action-wpe-site-deploy@v3
+        with:
+          WPE_SSHG_KEY_PRIVATE: ${{ secrets.WPE_SSHG_KEY_PRIVATE }}
+          # Dynamically set the environment
+          WPE_ENV: ${{ fromJson(steps.determine_environment.outputs.environment)[1] }} # The second environment for the main branch
+          REMOTE_PATH: "wp-content/plugins/mmp-custom-form/"
+          FLAGS: -azvr --inplace --delete --exclude=".*" --exclude-from=.deployignore
+          CACHE_CLEAR: TRUE
+
