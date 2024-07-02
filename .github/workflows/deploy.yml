@@ -16,9 +16,9 @@ jobs:
         # Define the environments for 'main' (adjust as needed)
         include:
             - branch: develop
-              environments: washrotaryadev eagleharbordev ragasdev
+              environments: washrotaryadev eagleharbordev ragasdev esragdev rghfdev
             - branch: main
-              environments: washrag eagleharbor ragas
+              environments: washrag eagleharbor ragas esrag rghg
 
     steps:
       - uses: actions/checkout@v3
