@@ -4,16 +4,12 @@ on:
   push:
     branches:
       - revision/**  # Match all branches starting with "revision/"
-      - develop     # Deploy to multiple environments on 'develop'
-      - main        # Deploy to multiple environments on 'main'
+      - develop     
+      - main       
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        branch: ${{ github.ref_name }} # Use the current branch name
 
     steps:
       - uses: actions/checkout@v3
@@ -21,19 +17,23 @@ jobs:
       - name: Determine WP Engine Environment
         id: determine_environment
         run: |
-          branch="${{ matrix.branch }}" # Assign to a variable for easier manipulation
-          
-          # Check for branch format (revision/*)
+          branch="${{ github.ref_name }}" 
+
           if [[ "$branch" =~ ^revision/ ]]; then
             # Extract environment from branch name (using Bash substring removal)
             environment="${branch/revision\/}" 
-            echo "environments=[$environment]" >> $GITHUB_OUTPUT # Array for consistency
-          elif [[ "$branch" == "main" ]]; then   # Handle main branch explicitly
-            echo "environments=washrag eagleharbor ragas esrag rghg" >> $GITHUB_OUTPUT 
-          else  # Default to 'mmp3dev' for develop branch and others
-            echo "environments=mmp3dev washrotaryadev eagleharbordev ragasdev esragdev rghfdev" >> $GITHUB_OUTPUT
+            echo "environments=[$environment]" >> $GITHUB_OUTPUT # Array format for consistency
+          else
+            env_file=".wpe_env_${branch}" # Determine the filename based on the branch
+            if [[ -f "$env_file" ]]; then
+              environments=$(tr '\n' ' ' < "$env_file") # Read environments from file
+              echo "environments=$environments" >> $GITHUB_OUTPUT
+            else
+              echo "::error::Environment file '$env_file' not found."
+              exit 1  # Fail the workflow if the file is missing
+            fi
           fi
-          
+
       - name: Deploy to WP Engine Environments
         uses: wpengine/github-action-wpe-site-deploy@v3
         with:
