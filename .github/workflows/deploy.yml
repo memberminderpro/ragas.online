@@ -3,9 +3,9 @@ name: Deploy to WP Engine (Branch-Based Environment Detection)
 on:
   push:
     branches:
-      - revision/*  # Match all branches starting with "revision/"
-      - develop     # Deploy to multiple environments on 'develop'
       - main        # Deploy to multiple environments on 'main'
+      - develop     # Deploy to multiple environments on 'develop'
+      - revision/**  # This matches 'revision/*' and subdirectories like 'revision/subfolder/*'
 
 jobs:
   build:
@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        branch: ${{ github.ref_name }} # Use the current branch name
+        branch: ${{ github.ref_name }}
         # Define the environments for 'develop' and 'main', but allow all branches to run 
         include: # this is just for convenience in the steps below
           - branch: develop 
@@ -27,8 +27,7 @@ jobs:
       - name: Determine WP Engine Environment
         id: determine_environment
         run: |
-          branch="${{ matrix.branch }}" # Assign to a variable for easier manipulation
-
+          branch="${{ matrix.branch }}"
           # Check for branch format (revision/*)
           if [[ "$branch" =~ ^revision/ ]]; then
             # Extract environment from branch name (using Bash substring removal)
