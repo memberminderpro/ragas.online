@@ -14,13 +14,6 @@ jobs:
     strategy:
       matrix:
         branch: ${{ github.ref_name }} # Use the current branch name
-        # Define the environments for 'develop' and 'main' for better readability
-        # but allow all branches to run
-        include: 
-          - branch: develop 
-            environments: mmp3dev washrotaryadev eagleharbordev ragasdev esragdev rghfdev
-          - branch: main
-            environments: washrag eagleharbor ragas esrag rghg
 
     steps:
       - uses: actions/checkout@v3
@@ -34,12 +27,11 @@ jobs:
           if [[ "$branch" =~ ^revision/ ]]; then
             # Extract environment from branch name (using Bash substring removal)
             environment="${branch/revision\/}" 
-            # echo "environment=$environment" >> $GITHUB_OUTPUT # Single environment
             echo "environments=[$environment]" >> $GITHUB_OUTPUT # Array for consistency
           elif [[ "$branch" == "main" ]]; then   # Handle main branch explicitly
-            echo "environments=${{ matrix.environments }}" >> $GITHUB_OUTPUT
+            echo "environments=washrag eagleharbor ragas esrag rghg" >> $GITHUB_OUTPUT 
           else  # Default to 'mmp3dev' for develop branch and others
-            echo "environments=mmp3dev" >> $GITHUB_OUTPUT 
+            echo "environments=mmp3dev washrotaryadev eagleharbordev ragasdev esragdev rghfdev" >> $GITHUB_OUTPUT
           fi
           
       - name: Deploy to WP Engine Environments
