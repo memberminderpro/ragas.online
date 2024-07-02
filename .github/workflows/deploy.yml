@@ -4,7 +4,8 @@ on:
   push:
     branches:
       - revision/*  # Match all branches starting with "revision/"
-      - main       # Still deploy to multiple environments on 'main'
+      - develop     # Deploy to multiple environments on 'develop'
+      - main        # Deploy to multiple environments on 'main'
 
 jobs:
   build:
