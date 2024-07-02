@@ -29,7 +29,7 @@ jobs:
           # Check for branch format (revision/*)
           if [[ "${{ matrix.branch }}" =~ ^revision/ ]]; then
             # Extract environment from branch name
-            environment=${{ matrix.branch#revision/ }} 
+            environment=${{ matrix.branch#revision/ }} # Removed extra space in environment variable
             echo "environment=$environment" >> $GITHUB_OUTPUT
           else  # This handles both 'main' and the default 'develop' case
             # For 'main', use matrix.environments, otherwise default to 'mmp1'
