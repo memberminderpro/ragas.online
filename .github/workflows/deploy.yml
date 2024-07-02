@@ -1,18 +1,40 @@
-name: Deploy to WP Engine
+name: Deploy to WP Engine (Branch-Based Environment Detection)
+
 on:
   push:
     branches:
-      - revision/eagleharbor
+      - revision/**  
+      - develop     
+      - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: GitHub Action Deploy to WP Engine
-      uses: wpengine/github-action-wpe-site-deploy@v3
-      with:
-        WPE_SSHG_KEY_PRIVATE: ${{ secrets.WPE_SSHG_KEY_PRIVATE }}
-        WPE_ENV: eagleharbordev
-        REMOTE_PATH: "wp-content/plugins/mmp-custom-form/"
-        FLAGS: -azvr --inplace --delete --exclude=".*" --exclude-from=.deployignore
-        CACHE_CLEAR: TRUE
+      - uses: actions/checkout@v4
+
+      - name: Determine WP Engine Environment
+        id: determine_environment
+        run: |
+          branch="${{ github.ref_name }}"
+          env_file=".wpe_env_${branch}" # Determine the filename based on the branch
+
+          if [[ "$branch" =~ ^revision/ ]]; then
+            # Extract environment from branch name (using Bash substring removal)
+            environment="${branch/revision\/}" 
+          elif [[ -f "$env_file" ]]; then
+            environment=$(tr '\n' ' ' < "$env_file") # Read environments from file
+          else
+            echo "::error::Environment file '$env_file' not found."
+            exit 1  # Fail the workflow if the file is missing
+          fi
+          echo "environment=$environment" >> $GITHUB_OUTPUT
+          
+      - name: Deploy to WP Engine
+        uses: wpengine/github-action-wpe-site-deploy@v3
+        with:
+          WPE_SSHG_KEY_PRIVATE: ${{ secrets.WPE_SSHG_KEY_PRIVATE }}
+          WPE_ENV: ${{ steps.determine_environment.outputs.environment }}
+          REMOTE_PATH: "wp-content/plugins/mmp-custom-form/"
+          FLAGS: -azvr --inplace --delete --exclude=".*" --exclude-from=.deployignore
+          CACHE_CLEAR: TRUE

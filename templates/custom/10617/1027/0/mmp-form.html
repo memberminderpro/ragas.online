@@ -121,12 +121,14 @@
       <!-- SECTION: Co-Member Information -->
       <fieldset>
         <legend>Co-Member Information</legend>
-        <label class="switch">
-          <input id="CoMember" type="checkbox" name="CoMember" value="">
-          <span class="slider"></span>
-        </label>
-        <label for="CoMember">Check this box to enter co-member information. Your membership fee includes your spouse,
-          partner, or sibling.</label>
+        <div class="coMemberSwitch">
+          <label class="switch">
+            <input id="CoMember" type="checkbox" name="CoMember" value="">
+            <span class="slider"></span>
+          </label>
+          <label for="CoMember">Check this box to enter co-member information. Your membership fee includes your spouse,
+            partner, or sibling.</label>
+        </div>
         <div id="CoMemberDiv">
           <div class="form-row three-column">
             <div class="form-group">
@@ -277,7 +279,7 @@
             </div>
           </div>
           <!-- ANCHOR: Boat Details Radio Inputs -->
-          <div class="form-row three-column equal-height">
+          <div class="form-row three-column equal-height select-grid">
             <!-- ANCHOR: Power -->
             <div class="form-group">
               <h3>Power:</h3>
@@ -358,7 +360,7 @@
       <!-- !SECTION: Boat Information -->
 
       <!-- SECTION: Areas of Interest and Additional Information -->
-      <fieldset>
+      <fieldset class="additional-information  .select-grid">
         <legend>Additional Information </legend>
         <!-- ANCHOR: Biography -->
         <div class="form-row one-column">
@@ -502,28 +504,43 @@
           </div>
         </div>
       </fieldset>
-      <!-- !SECTION: Privacy and Disclosure -->
+      <fieldset class="signature-container">
+        <div class="form-row two-column-66-34">
+          <div class="form-group">
+            <p>Signature of Applicant</p>
+          </div>
+          <div class="form-group">
+            <p>Date Signed</p>
+          </div>
+        </div>
+  </div>
+  </fieldset>
+  <!-- !SECTION: Privacy and Disclosure -->
 
-      <div class="captcha-send">
-        <button id="Send" name="send" type="submit" class="btn btn-warning">Submit Registration</button>
-      </div>
+  <div class="captcha-send">
+    <button id="Send" name="send" type="submit" class="btn btn-warning">Submit Registration</button>
+  </div>
 
-    </form>
+  <div class="signature">
+    <button id="Send" name="send" type="submit" class="btn btn-warning">Submit Registration</button>
   </div>
-  <!-- SECTION: Hidden Divs -->
-  <div id="Step2" hidden>
-    <h3>Problem!</h3>
-    <p>There was a system error creating your new membership. Please contact support to resolve this issue.</p>
-    <div id="ErrorDiv"></div>
+
+  </form>
+</div>
+<!-- SECTION: Hidden Divs -->
+<div id="Step2" hidden>
+  <h3>Problem!</h3>
+  <p>There was a system error creating your new membership. Please contact support to resolve this issue.</p>
+  <div id="ErrorDiv"></div>
+</div>
+<div id="wait" hidden>
+  <div>
+    <img src="https://www.emembersdb.com/Portal/images/tm.png" height="50" />
+    <h4>Redirecting to payment processor...</h4>
+    <img src="https://www.emembersdb.com/images/loading.gif" height="30" />
   </div>
-  <div id="wait" hidden>
-    <div>
-      <img src="https://www.emembersdb.com/Portal/images/tm.png" height="50" />
-      <h4>Redirecting to payment processor...</h4>
-      <img src="https://www.emembersdb.com/images/loading.gif" height="30" />
-    </div>
-  </div>
-  <!-- !SECTION: Hidden Divs -->
+</div>
+<!-- !SECTION: Hidden Divs -->
 </div>
 <!-- NOTE:  This custom form was created exclusively for 
             Eagle Harbor Yacht Club by Member Minder Pro, LLC.
