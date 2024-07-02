@@ -8,37 +8,29 @@ on:
       - main       
 
 jobs:
-  determine_environment: # Separate job to determine environments
+  build:
     runs-on: ubuntu-latest
-    outputs:
-      environment: ${{ steps.set_environment.outputs.environment }}
     steps:
-      - name: Set Environment
-        id: set_environment
+      - uses: actions/checkout@v3
+
+      - name: Determine WP Engine Environment
+        id: determine_environment
         run: |
           branch="${{ github.ref_name }}" 
 
           if [[ "$branch" =~ ^revision/ ]]; then
             # Extract environment from branch name (using Bash substring removal)
-            environment="${branch/revision\/}"
-          elif [[ "$branch" == "main" ]]; then
-            environment="washrag eagleharbor ragas esrag rghg" 
-          else # Default to 'mmp3dev' for develop
-            environment="mmp3dev washrotaryadev eagleharbordev ragasdev esragdev rghfdev"
+            environment="${branch/revision\/}" 
+            # Wrap in an array for consistent JSON output
+            echo "environments=[\"$environment\"]" >> $GITHUB_OUTPUT 
+          elif [[ "$branch" == "main" ]]; then   
+            # Quote individual environment names for valid JSON
+            echo "environments=[\"washrag\", \"eagleharbor\", \"ragas\", \"esrag\", \"rghg\"]" >> $GITHUB_OUTPUT
+          else  # Default to 'mmp3dev' for develop and others
+            echo "environments=[\"mmp3dev\", \"washrotaryadev\", \"eagleharbordev\", \"ragasdev\", \"esragdev\", \"rghfdev\"]" >> $GITHUB_OUTPUT 
           fi
-
-          echo "environment=$environment" >> $GITHUB_OUTPUT
-
-  deploy:
-    needs: determine_environment # Ensure this job runs after determine_environment
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        env: ${{fromJson(needs.determine_environment.outputs.environment)}}  # Use fromJson to parse
-
-    steps:
-      - uses: actions/checkout@v3
-      - name: Deploy to WP Engine
+          
+      - name: Deploy to WP Engine Environments
         uses: wpengine/github-action-wpe-site-deploy@v3
         with:
           WPE_SSHG_KEY_PRIVATE: ${{ secrets.WPE_SSHG_KEY_PRIVATE }}
@@ -46,3 +38,6 @@ jobs:
           REMOTE_PATH: "wp-content/plugins/mmp-custom-form/"
           FLAGS: -azvr --inplace --delete --exclude=".*" --exclude-from=.deployignore
           CACHE_CLEAR: TRUE
+        env:
+          # Create a matrix variable for the environments
+          matrix: ${{ fromJson(steps.determine_environment.outputs.environments) }}
