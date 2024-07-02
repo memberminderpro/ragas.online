@@ -10,6 +10,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
 
@@ -21,13 +22,16 @@ jobs:
           if [[ "$branch" =~ ^revision/ ]]; then
             # Extract environment from branch name (using Bash substring removal)
             environment="${branch/revision\/}" 
-            # Wrap in an array for consistent JSON output
-            echo "environments=[\"$environment\"]" >> $GITHUB_OUTPUT 
-          elif [[ "$branch" == "main" ]]; then   
-            # Quote individual environment names for valid JSON
-            echo "environments=[\"washrag\", \"eagleharbor\", \"ragas\", \"esrag\", \"rghg\"]" >> $GITHUB_OUTPUT
-          else  # Default to 'mmp3dev' for develop and others
-            echo "environments=[\"mmp3dev\", \"washrotaryadev\", \"eagleharbordev\", \"ragasdev\", \"esragdev\", \"rghfdev\"]" >> $GITHUB_OUTPUT 
+            echo "environments=[\"$environment\"]" >> $GITHUB_OUTPUT # Array format for consistency
+          else
+            env_file=".wpe_env_${branch}" # Determine the filename based on the branch
+            if [[ -f "$env_file" ]]; then
+              environments=$(tr '\n' ' ' < "$env_file") # Read environments from file
+              echo "environments=[\"$environments\"]" >> $GITHUB_OUTPUT  # Wrap in an array for consistency
+            else
+              echo "::error::Environment file '$env_file' not found."
+              exit 1  # Fail the workflow if the file is missing
+            fi
           fi
           
       - name: Deploy to WP Engine Environments
