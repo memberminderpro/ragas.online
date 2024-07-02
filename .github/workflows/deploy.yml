@@ -14,8 +14,8 @@ jobs:
     strategy:
       matrix:
         branch: ${{ github.ref_name }} # Use the current branch name
-        # Define the environments for 'develop' and 'main'
-        include:
+        # Define the environments for 'develop' and 'main', but allow all branches to run 
+        include: # this is just for convenience in the steps below
           - branch: develop 
             environments: mmp3dev washrotaryadev eagleharbordev ragasdev esragdev rghfdev
           - branch: main
@@ -28,17 +28,18 @@ jobs:
         id: determine_environment
         run: |
           branch="${{ matrix.branch }}" # Assign to a variable for easier manipulation
+
           # Check for branch format (revision/*)
           if [[ "$branch" =~ ^revision/ ]]; then
             # Extract environment from branch name (using Bash substring removal)
             environment="${branch/revision\/}" 
-            echo "environment=$environment" >> $GITHUB_OUTPUT
+            echo "environments=[$environment]" >> $GITHUB_OUTPUT # Array format for consistency
           elif [[ "$branch" == "main" ]]; then   # Handle main branch explicitly
             echo "environments=${{ matrix.environments }}" >> $GITHUB_OUTPUT
-          else  # Default to 'mmp3dev' for develop branch or other non-matching cases
-            echo "environment=mmp3dev" >> $GITHUB_OUTPUT
+          else  # Default to 'mmp3dev' for develop branch
+            echo "environments=mmp3dev" >> $GITHUB_OUTPUT 
           fi
-
+          
       - name: Deploy to WP Engine Environments
         uses: wpengine/github-action-wpe-site-deploy@v3
         with:
@@ -49,4 +50,4 @@ jobs:
           CACHE_CLEAR: TRUE
         env:
           # Create a matrix variable for the environments
-          matrix: ${{ toJson(fromJSON(steps.determine_environment.outputs.environments)) }}
+          matrix: ${{ fromJSON(steps.determine_environment.outputs.environments) }}
