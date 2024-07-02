@@ -3,45 +3,38 @@ name: Deploy to WP Engine (Branch-Based Environment Detection)
 on:
   push:
     branches:
-      - revision/**  # Match all branches starting with "revision/"
+      - revision/**  
       - develop     
-      - main       
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Determine WP Engine Environment
         id: determine_environment
         run: |
-          branch="${{ github.ref_name }}" 
+          branch="${{ github.ref_name }}"
+          env_file=".wpe_env_${branch}" # Determine the filename based on the branch
 
           if [[ "$branch" =~ ^revision/ ]]; then
             # Extract environment from branch name (using Bash substring removal)
             environment="${branch/revision\/}" 
-            echo "environments=[\"$environment\"]" >> $GITHUB_OUTPUT # Array format for consistency
+          elif [[ -f "$env_file" ]]; then
+            environment=$(tr '\n' ' ' < "$env_file") # Read environments from file
           else
-            env_file=".wpe_env_${branch}" # Determine the filename based on the branch
-            if [[ -f "$env_file" ]]; then
-              environments=$(tr '\n' ' ' < "$env_file") # Read environments from file
-              echo "environments=[\"$environments\"]" >> $GITHUB_OUTPUT  # Wrap in an array for consistency
-            else
-              echo "::error::Environment file '$env_file' not found."
-              exit 1  # Fail the workflow if the file is missing
-            fi
+            echo "::error::Environment file '$env_file' not found."
+            exit 1  # Fail the workflow if the file is missing
           fi
+          echo "environment=$environment" >> $GITHUB_OUTPUT
           
-      - name: Deploy to WP Engine Environments
+      - name: Deploy to WP Engine
         uses: wpengine/github-action-wpe-site-deploy@v3
         with:
           WPE_SSHG_KEY_PRIVATE: ${{ secrets.WPE_SSHG_KEY_PRIVATE }}
-          WPE_ENV: ${{ matrix.env }}
+          WPE_ENV: ${{ steps.determine_environment.outputs.environment }}
           REMOTE_PATH: "wp-content/plugins/mmp-custom-form/"
           FLAGS: -azvr --inplace --delete --exclude=".*" --exclude-from=.deployignore
           CACHE_CLEAR: TRUE
-        env:
-          # Create a matrix variable for the environments
-          matrix: ${{ fromJson(steps.determine_environment.outputs.environments) }}
