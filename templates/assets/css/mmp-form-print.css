@@ -1,12 +1,26 @@
 @media print {
+
   /* Hide all elements except the form */
-  body * {
-    visibility: hidden;
+  #top-header,
+  #main-header,
+  .et_pb_fullwidth_header.et_pb_fullwidth_header_0,
+  .et_pb_text_2,
+  .grecaptcha-badge,
+  .captcha-send,
+  .coMemberSwitch,
+  /* .switch > input#CoMember, 
+  .switch > input#CoMember + .slider,
+  .switch + label[for="CoMember"], */
+  footer {
+    display: none !important;
   }
 
-  .mmp,
-  .mmp * {
-    visibility: visible;
+  .et_pb_scroll_top.et-visible {
+    opacity: 0;
+  }
+
+  .et_pb_gutters3 .et_pb_column_1_4 {
+    width: 100px;
   }
 
   /* Ensure the form occupies the full width of the page */
@@ -30,7 +44,8 @@
     margin-bottom: 1rem;
     padding: 0;
     border: none;
-    break-inside: avoid; /* Avoid breaking inside fieldsets */
+    break-inside: avoid;
+    /* Avoid breaking inside fieldsets */
   }
 
   .mmp legend {
@@ -57,46 +72,73 @@
     border: none;
     border-bottom: 2px solid #000;
     box-sizing: border-box;
+    resize: none;
+  }
+ .mmp .entry[required] {
+    border-left: none;
+  }
+  .mmp input::placeholder {
+    opacity: 0;
   }
 
-  .mmp .form-row {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 1rem;
-    clear: both;
+  .mmp #CoMemberDiv, .mmp .BoatDiv {
+    display: block !important;
   }
 
   .mmp .form-group {
     padding: 0 10px;
     box-sizing: border-box;
-    width: 70%;
-    float: right;
+    width: 100%;
   }
 
-  .mmp .one-column .form-group {
+  .mmp .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    clear: both;
+    margin-bottom: 1rem;
+  }
+
+  .mmp #mmp-custom-form .one-column .form-group {
     flex: 1 0 100%;
   }
 
-  .mmp .two-column .form-group {
+  .mmp #mmp-custom-form .two-column .form-group {
     flex: 1 0 50%;
   }
 
-  .mmp .three-column .form-group {
+  .mmp #mmp-custom-form .three-column .form-group {
     flex: 1 0 33.33%;
   }
 
-  .mmp .four-column .form-group {
+  .mmp #mmp-custom-form .four-column .form-group {
     flex: 1 0 25%;
   }
 
-  .mmp .checkbox-group, 
+  .mmp .three-column:not(:first-of-type) .form-group {
+    display: inline-block;
+    width: 33%;
+    box-sizing: border-box;
+    vertical-align: top;
+  }
+
+  .mmp .three-column:not(:first-of-type) {
+    text-align: justify;
+    display: block;
+    margin-bottom: 2rem;
+  }
+
+  .mmp .three-column:not(:first-of-type) label,
+  input {
+    display: inline;
+  }
+
+  .mmp .checkbox-group,
   .mmp .radio-group {
     width: 100%;
   }
 
-  .mmp .checkbox-group label, 
+  .mmp .checkbox-group label,
   .mmp .radio-group label {
-    display: block;
     margin-bottom: 0.5rem;
     font-weight: normal;
   }
@@ -105,20 +147,33 @@
   .mmp .radio-group input[type="radio"] {
     margin-right: 0.5rem;
   }
-
-  .mmp .signature-block {
+  .mmp .signature-container {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
     margin-top: 2rem;
   }
 
-  .mmp .signature-block .signature-line,
-  .mmp .signature-block .date-line {
-    flex: 0 0 48%;
+  .mmp .signature-container p {
+    width: 66%;
     border-bottom: 2px solid #000;
     margin-bottom: 2rem;
     height: 2rem;
   }
+
+  .mmp .signature-container p:last-child {
+    width: 34%;
+  }
+  /*
+  .mmp .signature-container {
+    display: block;
+    margin-top: 2rem;
+  }
+
+  .mmp .signature-container p {
+    border-bottom: 2px solid #000;
+    margin-bottom: 2rem;
+    height: 2rem;
+  } */
 
   /* Hide dropdown menus and replace with text fields for printing */
   .mmp select,
@@ -127,14 +182,14 @@
   }
 
   /* Custom replacement for select menus */
-  .mmp select + .custom-checkbox,
-  .mmp input[type="radio"] + .custom-checkbox {
+  .mmp select+.custom-checkbox,
+  .mmp input[type="radio"]+.custom-checkbox {
     display: block;
     margin-bottom: 1rem;
   }
 
   /* Custom replacement for radio buttons */
-  .mmp input[type="radio"] + label:before {
+  .mmp input[type="radio"]+label:before {
     content: "☐";
     display: inline-block;
     margin-right: 0.5rem;
@@ -142,7 +197,7 @@
   }
 
   /* Checked state for radio buttons */
-  .mmp input[type="radio"]:checked + label:before {
+  .mmp input[type="radio"]:checked+label:before {
     content: "☑";
   }
 
@@ -189,6 +244,7 @@
     .mmp .form-row {
       flex-direction: column;
     }
+
     .mmp .form-group,
     .mmp .half-width,
     .mmp .three-column-50-25-25 .form-group {
