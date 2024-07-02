@@ -16,7 +16,7 @@ jobs:
         # Define the environments for 'develop' and 'main'
         include:
           - branch: develop
-            environments: washrotaryadev eagleharbordev ragasdev esragdev rghfdev
+            environments: mmp3dev washrotaryadev eagleharbordev ragasdev esragdev rghfdev
           - branch: main
             environments: washrag eagleharbor ragas esrag rghg
 
@@ -32,8 +32,8 @@ jobs:
             environment="${{ matrix.branch:9 }}"  
             echo "environment=$environment" >> $GITHUB_OUTPUT
           else  # This handles both 'main' and the default 'develop' case
-            # For 'main', use matrix.environments, otherwise default to 'mmp1'
-            echo "environments=${{ matrix.environments || 'mmp1' }}" >> $GITHUB_OUTPUT
+            # For 'main', use matrix.environments, otherwise default to 'mmp3dev' (modified)
+            echo "environments=${{ matrix.environments || 'mmp3dev' }}" >> $GITHUB_OUTPUT 
           fi
 
       - name: Deploy to WP Engine Environments
