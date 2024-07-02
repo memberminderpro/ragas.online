@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - revision/*  # Match all branches starting with "revision/"
-      - main      # Still deploy to multiple environments on 'main'
+      - main       # Still deploy to multiple environments on 'main'
 
 jobs:
   build:
@@ -13,12 +13,12 @@ jobs:
     strategy:
       matrix:
         branch: ${{ github.ref_name }} # Use the current branch name
-        # Define the environments for 'main' (adjust as needed)
+        # Define the environments for 'develop' and 'main'
         include:
-            - branch: develop
-              environments: washrotaryadev eagleharbordev ragasdev esragdev rghfdev
-            - branch: main
-              environments: washrag eagleharbor ragas esrag rghg
+          - branch: develop
+            environments: washrotaryadev eagleharbordev ragasdev esragdev rghfdev
+          - branch: main
+            environments: washrag eagleharbor ragas esrag rghg
 
     steps:
       - uses: actions/checkout@v3
@@ -31,32 +31,19 @@ jobs:
             # Extract environment from branch name
             environment=${{ matrix.branch#revision/ }} 
             echo "environment=$environment" >> $GITHUB_OUTPUT
-          elif [ "${{ matrix.branch }}" == "main" ]; then
-            # Handle multiple environments for 'main' branch
-            echo "environments=${{ matrix.environments }}" >> $GITHUB_OUTPUT
-          else
-            # Default to 'mmp1' for the 'revision' branch
-            echo "environment=mmp1" >> $GITHUB_OUTPUT
+          else  # This handles both 'main' and the default 'develop' case
+            # For 'main', use matrix.environments, otherwise default to 'mmp1'
+            echo "environments=${{ matrix.environments || 'mmp1' }}" >> $GITHUB_OUTPUT
           fi
 
-      - name: Deploy to WP Engine
+      - name: Deploy to WP Engine Environments
         uses: wpengine/github-action-wpe-site-deploy@v3
         with:
           WPE_SSHG_KEY_PRIVATE: ${{ secrets.WPE_SSHG_KEY_PRIVATE }}
-          # Dynamically set the environment
-          WPE_ENV: ${{ fromJSON(steps.determine_environment.outputs.environment)[0] }} # The first environment for the main branch
+          WPE_ENV: ${{ matrix.env }}
           REMOTE_PATH: "wp-content/plugins/mmp-custom-form/"
           FLAGS: -azvr --inplace --delete --exclude=".*" --exclude-from=.deployignore
           CACHE_CLEAR: TRUE
-
-      - name: Deploy to Additional WP Engine Environments (if applicable)
-        if: fromJson(steps.determine_environment.outputs.environment)[1]
-        uses: wpengine/github-action-wpe-site-deploy@v3
-        with:
-          WPE_SSHG_KEY_PRIVATE: ${{ secrets.WPE_SSHG_KEY_PRIVATE }}
-          # Dynamically set the environment
-          WPE_ENV: ${{ fromJson(steps.determine_environment.outputs.environment)[1] }} # The second environment for the main branch
-          REMOTE_PATH: "wp-content/plugins/mmp-custom-form/"
-          FLAGS: -azvr --inplace --delete --exclude=".*" --exclude-from=.deployignore
-          CACHE_CLEAR: TRUE
-
+        env:
+          # Create a matrix variable for the environments
+          matrix: ${{ toJson(fromJSON(steps.determine_environment.outputs.environments)) }}
