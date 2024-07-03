@@ -259,6 +259,9 @@
     margin-right: 0.5rem;
   }
 
+  .mmp .signature-container {
+    display: block;
+  }
   .mmp .signature-container p {
 
     border-top: 2px solid #000;
