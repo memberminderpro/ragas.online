@@ -8,6 +8,12 @@
   --font-size-label: 1em;
   /* Same as base size */
 }
+.mmp-custom-form {
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding-bottom: 1.2em;
+}
 
 .mmp {
   width: 100%;
@@ -343,6 +349,7 @@ input[type="radio"].invalid-radio + label {
 .mmp .signature-container {
   display: none;
 }
+
 
 /* Ensure full-width columns on small screens */
 @media (max-width: 768px) {
