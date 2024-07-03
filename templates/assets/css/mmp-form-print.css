@@ -74,14 +74,23 @@
     box-sizing: border-box;
     resize: none;
   }
- .mmp .entry[required] {
-    border-left: none;
+
+  .mmp .entry[required] {
+    border-left: none !important;
   }
+
+.form-group:has(input[required]) > label::after  {
+  content: " *";
+  color: red; 
+  font-weight: bold;
+}
+
   .mmp input::placeholder {
     opacity: 0;
   }
 
-  .mmp #CoMemberDiv, .mmp .BoatDiv {
+  .mmp #CoMemberDiv,
+  .mmp .BoatDiv {
     display: block !important;
   }
 
@@ -114,22 +123,63 @@
     flex: 1 0 25%;
   }
 
-  .mmp .three-column:not(:first-of-type) .form-group {
-    display: inline-block;
-    width: 33%;
-    box-sizing: border-box;
-    vertical-align: top;
-  }
-
-  .mmp .three-column:not(:first-of-type) {
+  .mmp .three-column,
+  .mmp .two-column {
     text-align: justify;
     display: block;
     margin-bottom: 2rem;
   }
 
+  .mmp .three-column-50-25-25 .form-group,
+  .mmp .three-column .form-group,
+  .mmp .two-column .form-group,
+  .mmp .two-column-66-34 .form-group {
+    display: inline-block;
+    box-sizing: border-box;
+    vertical-align: top;
+  }
+
+  .mmp .three-column .form-group {
+    width: 33%;
+  }
+
+  .mmp .two-column .form-group {
+    width: 49%;
+  }
+
+  .mmp .three-column-50-25-25 .form-group {
+    width: 24%;
+  }
+
+  .mmp .three-column-50-25-25 .form-group:first-of-type {
+    width: 48%;
+  }
+
+  .mmp .three-column-25-25-50 .form-group {
+    width: 24%;
+  }
+
+  .mmp .three-column-25-25-50 .form-group:last-of-type {
+    width: 48%;
+  }
+
+  .mmp .two-column-66-34 .form-group {
+    width: 65%;
+  }
+
+  .mmp .two-column-66-34 .form-group:last-of-type {
+    width: 33%;
+  }
+
   .mmp .three-column:not(:first-of-type) label,
   input {
     display: inline;
+  }
+
+  .mmp #birthday_fields .form-group, 
+  .mmp #partner_birthdate_fields .form-group {
+    display: inline-block;
+    width: 25%;
   }
 
   .mmp .checkbox-group,
@@ -147,33 +197,16 @@
   .mmp .radio-group input[type="radio"] {
     margin-right: 0.5rem;
   }
-  .mmp .signature-container {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 2rem;
-  }
 
-  .mmp .signature-container p {
-    width: 66%;
-    border-bottom: 2px solid #000;
-    margin-bottom: 2rem;
-    height: 2rem;
-  }
-
-  .mmp .signature-container p:last-child {
-    width: 34%;
-  }
-  /*
   .mmp .signature-container {
     display: block;
-    margin-top: 2rem;
   }
-
   .mmp .signature-container p {
-    border-bottom: 2px solid #000;
+
+    border-top: 2px solid #000;
     margin-bottom: 2rem;
     height: 2rem;
-  } */
+  }
 
   /* Hide dropdown menus and replace with text fields for printing */
   .mmp select,
