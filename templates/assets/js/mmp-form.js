@@ -18,6 +18,9 @@
         "Form loaded. Consent checkbox disabled and send button hidden."
       );
     }
+    $('.print-link').click(function(){
+      window.print();
+ });
     function getPostData() {
       let postData = $("#mmp-form").serializeArray();
 
