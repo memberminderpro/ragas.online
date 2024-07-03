@@ -24,11 +24,9 @@
   /* Ensure the form occupies the full width of the page */
   .mmp {
     position: absolute;
-    top: 0;
+    top: 2em;
     left: 0;
     width: 100%;
-    padding: 0;
-    margin: 0;
     box-sizing: border-box;
   }
 
@@ -72,8 +70,7 @@
     box-sizing: border-box;
     resize: none;
   }
-
-  .mmp textarea#Experience.entry {
+  .mmp .form-row .form-group textarea {
     width: 100%;
     height: 8em !important;
     margin-bottom: 1rem;
@@ -105,6 +102,7 @@
     padding: 0 10px;
     box-sizing: border-box;
     width: 100%;
+    break-inside: avoid;
   }
 
   .mmp .form-row {
@@ -132,9 +130,13 @@
   }
 
   .mmp .three-column,
-  .mmp .two-column {
+  .mmp .two-column, 
+  .mmp .three-column-25-25-50,
+  .mmp .three-column-50-25-25,
+  .mmp .two-column-66-34  {
     text-align: justify;
-    display: block;
+    display: grid;
+    gap: 16px; /* Adjust the gap as needed */
     margin-bottom: 2rem;
   }
 
@@ -147,36 +149,20 @@
     vertical-align: top;
   }
 
-  .mmp .three-column .form-group {
-    width: 33%;
+  .mmp .three-column {
+    grid-template-columns: 33% auto 33%; 
   }
-
-  .mmp .two-column .form-group {
-    width: 49%;
+  .mmp .two-column {
+    grid-template-columns: 50% auto; 
   }
-
-  .mmp .three-column-50-25-25 .form-group {
-    width: 24%;
+  .mmp .three-column-25-25-50 {
+    grid-template-columns: 25% 25% 50%; 
   }
-
-  .mmp .three-column-50-25-25 .form-group:first-of-type {
-    width: 48%;
+  .mmp .three-column-50-25-25 {
+    grid-template-columns: 50% 25% 25%; 
   }
-
-  .mmp .three-column-25-25-50 .form-group {
-    width: 24%;
-  }
-
-  .mmp .three-column-25-25-50 .form-group:last-of-type {
-    width: 48%;
-  }
-
-  .mmp .two-column-66-34 .form-group {
-    width: 65%;
-  }
-
-  .mmp .two-column-66-34 .form-group:last-of-type {
-    width: 33%;
+  .mmp .two-column-66-34 {
+    grid-template-columns: 66% 34%; 
   }
 
   .mmp .three-column:not(:first-of-type) label,
@@ -184,7 +170,11 @@
     display: inline;
   }
 
-
+  #birthday_fields {
+    display: grid;
+    grid-template-columns: 25% 25% auto; /* Two columns 25% wide and one taking the remaining space */
+    gap: 16px; /* Adjust the gap as needed */
+  }
 
   .mmp .checkbox-group,
   .mmp .radio-group {
@@ -288,4 +278,14 @@
       flex: 1 0 100%;
     }
   }
+  
+@page {
+  /* size: 7.5in 9.5in; */
+  size: A4 portrait;
+  margin: 60pt 20pt 40pt;
+}
+
+@page:first {
+  margin: 1pt 20pt 1pt; /* Match the margins of subsequent pages */
+}
 }
