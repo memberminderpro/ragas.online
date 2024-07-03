@@ -77,7 +77,17 @@
 
   .mmp .entry[required] {
     border-left: none !important;
+
+  .mmp .entry[required] {
+    border-left: none !important;
   }
+
+.form-group:has(input[required]) > label::after  {
+  content: " *";
+  color: red; 
+  font-weight: bold;
+}
+
 
 .form-group:has(input[required]) > label::after  {
   content: " *";
@@ -89,6 +99,8 @@
     opacity: 0;
   }
 
+  .mmp #CoMemberDiv,
+  .mmp .BoatDiv {
   .mmp #CoMemberDiv,
   .mmp .BoatDiv {
     display: block !important;
@@ -125,9 +137,52 @@
 
   .mmp .three-column,
   .mmp .two-column {
+  .mmp .three-column,
+  .mmp .two-column {
     text-align: justify;
     display: block;
     margin-bottom: 2rem;
+  }
+
+  .mmp .three-column-50-25-25 .form-group,
+  .mmp .three-column .form-group,
+  .mmp .two-column .form-group,
+  .mmp .two-column-66-34 .form-group {
+    display: inline-block;
+    box-sizing: border-box;
+    vertical-align: top;
+  }
+
+  .mmp .three-column .form-group {
+    width: 33%;
+  }
+
+  .mmp .two-column .form-group {
+    width: 49%;
+  }
+
+  .mmp .three-column-50-25-25 .form-group {
+    width: 24%;
+  }
+
+  .mmp .three-column-50-25-25 .form-group:first-of-type {
+    width: 48%;
+  }
+
+  .mmp .three-column-25-25-50 .form-group {
+    width: 24%;
+  }
+
+  .mmp .three-column-25-25-50 .form-group:last-of-type {
+    width: 48%;
+  }
+
+  .mmp .two-column-66-34 .form-group {
+    width: 65%;
+  }
+
+  .mmp .two-column-66-34 .form-group:last-of-type {
+    width: 33%;
   }
 
   .mmp .three-column-50-25-25 .form-group,
@@ -182,6 +237,12 @@
     width: 25%;
   }
 
+  .mmp #birthday_fields .form-group, 
+  .mmp #partner_birthdate_fields .form-group {
+    display: inline-block;
+    width: 25%;
+  }
+
   .mmp .checkbox-group,
   .mmp .radio-group {
     width: 100%;
@@ -198,10 +259,9 @@
     margin-right: 0.5rem;
   }
 
-  .mmp .signature-container {
-    display: block;
-  }
   .mmp .signature-container p {
+
+    border-top: 2px solid #000;
 
     border-top: 2px solid #000;
     margin-bottom: 2rem;
