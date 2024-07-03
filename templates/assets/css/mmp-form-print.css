@@ -8,11 +8,10 @@
   .grecaptcha-badge,
   .captcha-send,
   .coMemberSwitch,
-  .print-no
+  .print-no,
   /* .switch > input#CoMember, 
   .switch > input#CoMember + .slider,
   .switch + label[for="CoMember"], */
-
   footer {
     display: none !important;
   }
