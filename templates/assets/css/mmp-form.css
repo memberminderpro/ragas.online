@@ -335,12 +335,12 @@ input[type="radio"].invalid-radio + label {
   color: red;
 }
 
-
 .mmp #disclosure-container label {
   display: inline;
   font-weight: bold;
 }
-.mmp #signature-container {
+
+.mmp .signature-container {
   display: none;
 }
 
