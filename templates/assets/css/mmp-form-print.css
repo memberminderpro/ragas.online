@@ -9,9 +9,6 @@
   .captcha-send,
   .coMemberSwitch,
   .print-no,
-  /* .switch > input#CoMember, 
-  .switch > input#CoMember + .slider,
-  .switch + label[for="CoMember"], */
   footer {
     display: none !important;
   }
@@ -42,19 +39,19 @@
   }
 
   .mmp fieldset {
-    margin-bottom: 1rem;
+    margin: 1em 0;
     padding: 0;
     border: none;
     break-inside: avoid;
     /* Avoid breaking inside fieldsets */
   }
 
-  .mmp legend {
+  .mmp fieldset legend {
     font-size: 1.5em;
     font-weight: bold;
     margin: 0;
     margin-bottom: 1rem;
-    width: 30%;
+    width: 100%;
     float: left;
     clear: left;
   }
@@ -72,6 +69,15 @@
     margin-bottom: 1rem;
     border: none;
     border-bottom: 2px solid #000;
+    box-sizing: border-box;
+    resize: none;
+  }
+
+  .mmp textarea#Experience.entry {
+    width: 100%;
+    height: 8em !important;
+    margin-bottom: 1rem;
+    border: 1px solid #000 !important;
     box-sizing: border-box;
     resize: none;
   }
@@ -107,7 +113,8 @@
     clear: both;
     margin-bottom: 1rem;
   }
-
+  
+  
   .mmp #mmp-custom-form .one-column .form-group {
     flex: 1 0 100%;
   }
@@ -177,11 +184,7 @@
     display: inline;
   }
 
-  .mmp #birthday_fields .form-group, 
-  .mmp #partner_birthdate_fields .form-group {
-    display: inline-block;
-    width: 25%;
-  }
+
 
   .mmp .checkbox-group,
   .mmp .radio-group {
