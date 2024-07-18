@@ -5,7 +5,15 @@ add_action('admin_init', 'mmp_custom_form_settings_init');
 
 function mmp_custom_form_add_admin_menu()
 {
-    add_menu_page('MMP Custom Form Settings', 'MMP Custom Form', 'manage_options', 'mmp_custom_form', 'mmp_custom_form_options_page', 'https://plus.dacdb.org/wp-content/uploads/2024/05/round-icon-20.png', 110);
+    add_menu_page(
+        'MMP Custom Form Settings', 
+        'MMP Custom Form', 
+        'manage_options', 
+        'mmp_custom_form', 
+        'mmp_custom_form_options_page', 
+        MMPCF_PLUGIN_URL . 'assets/img/mmp-icon-reverse.svg', 
+        110
+    );
 }
 
 function mmp_custom_form_settings_init()
@@ -59,6 +67,7 @@ function mmp_custom_form_settings_init()
         'mmpPlugin',
         'mmp_custom_form_mmpPlugin_account_section'
     );
+
     add_settings_field(
         'mmp_custom_form_region_label',
         __('Region Label', 'mmp'),
@@ -167,105 +176,105 @@ function mmp_custom_form_consent_text_section_callback() {
     echo '<p>Enter the title and text to display in the <em><strong>Consent and Disclosures</strong></em> section of the form. Both fields are optional and may be left blank to exclude them from the public-facing form.</p>';
 }
 
-
 function mmp_custom_form_recaptcha_site_key_render()
 {
     $options = get_option('mmp_custom_form_settings');
     $value = isset($options['mmp_custom_form_recaptcha_site_key']) ? esc_attr($options['mmp_custom_form_recaptcha_site_key']) : '';
-?>
+    ?>
     <input type='text' name='mmp_custom_form_settings[mmp_custom_form_recaptcha_site_key]' value='<?php echo $value; ?>' placeholder="Enter reCAPTCHA Site Key">
-<?php
+    <?php
 }
 
 function mmp_custom_form_recaptcha_secret_key_render()
 {
     $options = get_option('mmp_custom_form_settings');
     $value = isset($options['mmp_custom_form_recaptcha_secret_key']) ? esc_attr($options['mmp_custom_form_recaptcha_secret_key']) : '';
-?>
+    ?>
     <input type='text' name='mmp_custom_form_settings[mmp_custom_form_recaptcha_secret_key]' value='<?php echo $value; ?>' placeholder="Enter reCAPTCHA Secret Key">
-<?php
+    <?php
 }
 
 function mmp_custom_form_account_id_render()
 {
     $options = get_option('mmp_custom_form_settings');
     $value = isset($options['AccountID']) ? esc_attr($options['AccountID']) : '';
-?>
+    ?>
     <input type='text' name='mmp_custom_form_settings[AccountID]' value='<?php echo $value; ?>' placeholder="e.g., 12345">
-<?php
+    <?php
 }
 
 function mmp_custom_form_bid_render()
 {
     $options = get_option('mmp_custom_form_settings');
     $value = isset($options['BID']) ? esc_attr($options['BID']) : '';
-?>
+    ?>
     <input type='text' name='mmp_custom_form_settings[BID]' value='<?php echo $value; ?>' placeholder="e.g., 1234">
-<?php
+    <?php
 }
+
 function mmp_custom_form_clubid_render()
 {
     $options = get_option('mmp_custom_form_settings');
     $value = isset($options['ClubID']) ? esc_attr($options['ClubID']) : '';
-?>
+    ?>
     <input type='text' name='mmp_custom_form_settings[ClubID]' value='<?php echo $value; ?>' placeholder="e.g., 12345">
     <p class="description">Enter the Club ID for the club or group where the new member will be added.</p>
-<?php
+    <?php
 }
 
 function mmp_custom_form_account_email_render()
 {
     $options = get_option('mmp_custom_form_settings');
     $value = isset($options['AccountEmail']) ? esc_attr($options['AccountEmail']) : get_option('admin_email');
-?>
+    ?>
     <input type='email' name='mmp_custom_form_settings[AccountEmail]' value='<?php echo $value; ?>' placeholder="Example: user@domain.sample">
     <p class="description">Enter the email address that should receive the submissions.</p>
-<?php
+    <?php
 }
 
 function mmp_custom_form_show_region_render()
 {
     $options = get_option('mmp_custom_form_settings');
     $value = isset($options['show_region']) ? esc_attr($options['show_region']) : get_option('show_region');
-?>
+    ?>
     <div class="toggle">
         <div class="switch"><input type="checkbox" id="show_region" name="mmp_custom_form_settings[show_region]" value="1" <?= $value === '1' ? 'checked' : ''; ?> data-true-label="On (Region will be visible on the form)" data-false-label="Off (Region will not be displayed on the form)"><label class="slider" for="show_region"></label></div><label class="option-label" id="label_show_region" for="show_region">On (Region will be visible on the form)</label>
     </div>
-<?php
+    <?php
 }
 
 function mmp_custom_form_region_label_render()
 {
     $options = get_option('mmp_custom_form_settings');
     $value = isset($options['region_label']) ? esc_attr($options['region_label']) : '';
-?>
+    ?>
     <input type='text' name='mmp_custom_form_settings[region_label]' value='<?php echo $value; ?>' placeholder="Example: ESRAG Region">
-<?php
+    <?php
 }
 
 function mmp_custom_form_default_member_type_id_render()
 {
     $options = get_option('mmp_custom_form_settings');
     $value = isset($options['DefaultMemberTypeID']) ? esc_attr($options['DefaultMemberTypeID']) : '';
-?>
+    ?>
     <input type='text' name='mmp_custom_form_settings[DefaultMemberTypeID]' value='<?php echo $value; ?>' placeholder="Example: 123">
-<?php
+    <?php
 }
 
 function mmp_custom_form_membership_cost_render()
 {
     $options = get_option('mmp_custom_form_settings');
     $value = isset($options['MembershipCost']) ? esc_attr($options['MembershipCost']) : '';
-?>
+    ?>
     <input type='number' name='mmp_custom_form_settings[MembershipCost]' value='<?php echo $value; ?>' min="0" step="1" placeholder="Example: $100">
-<?php
+    <?php
 }
 
 function mmp_custom_form_term_render()
 {
     $options = get_option('mmp_custom_form_settings');
     $value = isset($options['Term']) ? esc_attr($options['Term']) : '';
-?>
+    ?>
     <select name='mmp_custom_form_settings[Term]'>
         <?php for ($i = 1; $i <= 10; $i++) : ?>
             <option value='<?php echo $i; ?>' <?php selected($value, $i); ?>><?php echo $i; ?></option>
@@ -276,8 +285,9 @@ function mmp_custom_form_term_render()
         <option value='100' <?php selected($value, '100'); ?>>100</option>
         <option value='lifetime' <?php selected($value, 'lifetime'); ?>>Lifetime</option>
     </select>
-<?php
+    <?php
 }
+
 function mmp_custom_form_consent_title_render() { 
     $options = get_option('mmp_custom_form_settings');
     $value = isset($options['consent_title']) ? esc_attr($options['consent_title']) : '';
@@ -299,13 +309,13 @@ function mmp_custom_form_consent_text_render() {
 
 function mmp_custom_form_options_page()
 {
-?>
+    ?>
     <div id="mmp-plugin-container" class="wrap">
         <div id="mmp-settings">
             <form action='options.php' method='post'>
                 <header class="mmp-masthead">
                     <div class="logo-container">
-                        <a href="https://memberminderpro.com" target="_blank"><img src="https://plus.dacdb.org/wp-content/uploads/2023/07/mmp-icon_512.png" title="Member Minder Pro — Powering DACdb and iMembersDB" alt="Logo"></a>
+                        <a href="https://memberminderpro.com" target="_blank"><img src="<?php echo MMPCF_PLUGIN_URL; ?>assets/img/mmp-icon-round-reverse.svg" title="Member Minder Pro — Powering DACdb and iMembersDB" alt="Logo"></a>
                     </div>
                     <div class="title-container">
                         <h1>MMP Custom Form Settings</h1>
@@ -330,7 +340,6 @@ function mmp_custom_form_options_page()
                     <p>Copyright © 2023-<?php echo date("Y"); ?> <a href="https://memberminderpro.com/" target="_blank"><strong>Member Minder Pro, LLC</strong></a> — Powering <a href="https://www.dacdbsupport.com/new-ticket" title="Open a support ticket on DACdb" target="_blank"><strong>DAC</strong>db</a> &amp; <a href="https://www.imemberssupport.com/new-ticket" title="Open a support ticket on iMembersDB" target="_blank">i<strong>Members</strong>db</a></p>
                 </footer>
             </form>
-
         </div>
     </div>
     <script>
@@ -345,7 +354,7 @@ function mmp_custom_form_options_page()
             alert('Shortcode copied to clipboard!');
         });
     </script>
-<?php
+    <?php
 }
 
 function mmp_custom_form_settings_sanitize($input)
@@ -383,7 +392,7 @@ function mmp_custom_form_settings_sanitize($input)
         $sanitized_input['show_region'] = is_numeric($input['show_region']) ? intval($input['show_region']) : sanitize_text_field($input['show_region']);
     }
     if (isset($input['region_label'])) {
-        $sanitized_input['region_label'] = is_numeric($input['region_label']) ? intval($input['region_label']) : sanitize_text_field($input['region_label']);
+        $sanitized_input['region_label'] = sanitize_text_field($input['region_label']);
     }
     if (isset($input['consent_title'])) {
         $sanitized_input['consent_title'] = sanitize_text_field($input['consent_title']);
@@ -394,3 +403,4 @@ function mmp_custom_form_settings_sanitize($input)
 
     return $sanitized_input;
 }
+?>
