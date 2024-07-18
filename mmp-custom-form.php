@@ -50,25 +50,31 @@ function enqueue_mmp_custom_form_scripts() {
     wp_enqueue_script('mmp-custom-form-select2-js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js', array('jquery'), null, true);
     wp_enqueue_script('mmp-custom-form-jquery-validate', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js', array('jquery'), null, true);
 
-    // Enqueue the debug setting script first
-    wp_add_inline_script('jquery', '
-        function getQueryParam(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
-        }
+    // Fetch settings
+    $settings = get_option('mmp_custom_form_settings');
+    $localization_array = array(
+        'recaptcha_site_key' => isset($settings['mmp_custom_form_recaptcha_site_key']) ? $settings['mmp_custom_form_recaptcha_site_key'] : null,
+        'account_ID' => isset($settings['AccountID']) ? esc_attr($settings['AccountID']) : null,
+        'BID' => isset($settings['BID']) ? esc_attr($settings['BID']) : null,
+        'ClubID' => isset($settings['ClubID']) ? esc_attr($settings['ClubID']) : null,
+        'account_email' => isset($settings['AccountEmail']) ? $settings['AccountEmail'] : null,
+        'default_member_type_id' => isset($settings['DefaultMemberTypeID']) ? esc_attr($settings['DefaultMemberTypeID']) : null,
+        'membership_cost' => isset($settings['MembershipCost']) ? esc_attr($settings['MembershipCost']) : 100,
+        'term' => isset($settings['Term']) ? esc_attr($settings['Term']) : 1,
+        'show_region' => isset($settings['show_region']) ? esc_attr($settings['show_region']) : 0,
+        'region_label' => isset($settings['region_label']) ? esc_attr($settings['region_label']) : 'Region',
+        'consent_title' => isset($settings['consent_title']) ? esc_attr($settings['consent_title']) : '',
+        'consent_text' => isset($settings['consent_text']) ? esc_attr($settings['consent_text']) : ''
+    );
 
-        // Set the global debug variable based on the query parameter
-        window.debug = getQueryParam("debug") === "true";
-    ', 'before');
-
-    // Enqueue your main script
+    // Enqueue the main script and localize it with the configuration options
     wp_enqueue_script('mmp-form-script', MMPCF_PLUGIN_URL . 'templates/assets/js/mmp-form.js', array('jquery'), MMPCF_PLUGIN_VERSION, true);
+    wp_localize_script('mmp-form-script', 'mmpFormOptions', $localization_array);
 
     // Conditionally enqueue custom scripts if they exist
-    $settings = get_option('mmp_custom_form_settings');
-    $accountID = isset($settings['AccountID']) ? esc_attr($settings['AccountID']) : null;
-    $bid = isset($settings['BID']) ? esc_attr($settings['BID']) : null;
-    $clubid = isset($settings['ClubID']) ? esc_attr($settings['ClubID']) : null;
+    $accountID = $localization_array['account_ID'];
+    $bid = $localization_array['BID'];
+    $clubid = $localization_array['ClubID'];
     $base_dir = MMPCF_PLUGIN_DIR . "templates/custom/{$accountID}/{$bid}/{$clubid}/";
 
     $custom_css_exists = file_exists($base_dir . 'css/mmp-form-custom.css');
@@ -100,31 +106,6 @@ function mmp_custom_form_shortcode()
     $accountID = isset($settings['AccountID']) ? esc_attr($settings['AccountID']) : null;
     $bid = isset($settings['BID']) ? esc_attr($settings['BID']) : null;
     $clubid = isset($settings['ClubID']) ? esc_attr($settings['ClubID']) : null;
-    $recaptcha_site_key = isset($settings['mmp_custom_form_recaptcha_site_key']) ? $settings['mmp_custom_form_recaptcha_site_key'] : null;
-    $account_email = isset($settings['AccountEmail']) ? $settings['AccountEmail'] : null;
-    $default_member_type_id = isset($settings['DefaultMemberTypeID']) ? esc_attr($settings['DefaultMemberTypeID']) : null;
-    $membership_cost = isset($settings['MembershipCost']) ? esc_attr($settings['MembershipCost']) : 100;
-    $term = isset($settings['Term']) ? esc_attr($settings['Term']) : 1;
-    $show_region = isset($settings['show_region']) ? esc_attr($settings['show_region']) : 0;
-    $region_label = isset($settings['region_label']) ? esc_attr($settings['region_label']) : 'Region';
-    $consent_title = isset($settings['consent_title']) ? esc_attr($settings['consent_title']) : '';
-    $consent_text = isset($settings['consent_text']) ? esc_attr($settings['consent_text']) : '';
-
-    // Localize script with configuration options
-    $localization_array = array(
-        'recaptcha_site_key' => $recaptcha_site_key,
-        'account_ID' => $accountID,
-        'BID' => $bid,
-        'ClubID' => $clubid,
-        'account_email' => $account_email,
-        'default_member_type_id' => $default_member_type_id,
-        'membership_cost' => $membership_cost,
-        'term' => $term,
-        'show_region' => $show_region,
-        'region_label' => $region_label,
-        'consent_title' => $consent_title,
-        'consent_text' => $consent_text
-    );
 
     // Include the form HTML from an external file
     $base_dir = MMPCF_PLUGIN_DIR . "templates/custom/{$accountID}/{$bid}/{$clubid}/";
