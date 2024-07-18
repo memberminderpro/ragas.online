@@ -1,0 +1,24 @@
+#adminmenu #toplevel_page_mmp_custom_form div.wp-menu-image img {
+    width: 20px;
+    height: 20px;
+}
+#adminmenu #toplevel_page_mmp_custom_form a {
+    background: #1D2325;
+    color: white;
+    font-weight: 400;
+}
+#adminmenu #toplevel_page_mmp_custom_form.current a {
+    background: var(--cloud);
+    color: var(--mmp-red);
+    font-weight: 600;
+}
+#adminmenu #toplevel_page_mmp_custom_form a:hover {
+    background: var(--mmp-red);
+    color: white;
+    font-weight: 600;
+}
+#mmp-settings > form > header > div.title-container > h1 {
+    font-size: 2.4em;
+    margin-bottom: 0em;
+    font-weight: 800;
+}
