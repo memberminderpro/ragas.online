@@ -1,6 +1,5 @@
-
 <!-- SECTION: MMP-Custom-Forms Distributable Form -->
- <!-- NOTE: Custom Form for ESRAG: https://www.esrag.org/join-esrag/ -->
+<!-- NOTE: Custom form for RGHF: https://www.rghf.org/join-rghf/ -->
 <div class="mmp">
   <div id="Step1">
     <form id="mmp-form" name="registration" action="https://www.emembersdb.com/nm/custom.cfm" method="POST">
@@ -38,6 +37,37 @@
             </span>
           </div>
         </div>
+        <div class="form-row two-column">
+          <div class="form-group">
+            <label for="BirthMonth">Month</label>
+            <select class="entry" id="BirthMonth" name="BirthMonth" required aria-required="true">
+              <option value="">Select Month</option>
+              <option value="01">January</option>
+              <option value="02">February</option>
+              <option value="03">March</option>
+              <option value="04">April</option>
+              <option value="05">May</option>
+              <option value="06">June</option>
+              <option value="07">July</option>
+              <option value="08">August</option>
+              <option value="09">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+            <span id="BirthMonthError" class="error-message" aria-live="polite">
+              Please select a valid month.
+            </span>
+          </div>
+          <div class="form-group">
+            <label for="BirthDay">Day</label>
+            <input class="entry" id="BirthDay" type="text" name="BirthDay" placeholder="DD" required
+              aria-required="true" maxlength="2" pattern="\d{2}" />
+            <span id="BirthDayError" class="error-message" aria-live="polite">
+              Please enter a valid day.
+            </span>
+          </div>
+        </div>
       </fieldset>
       <!-- !SECTION: Contact Information -->
       <!-- SECTION: Rotary Questions -->
@@ -52,7 +82,8 @@
               <option value="Rotaract Club">Rotaractor</option>
               <option value="Non-Rotarian">Non-Rotarian</option>
             </select>
-            <span id="fkclubtypeError" class="error-message" aria-live="polite">Please select your current Rotary affiliation. If you are not a current Rotarian or Rotaractor, please select "Non-Rotarian."</span>
+            <span id="fkclubtypeError" class="error-message" aria-live="polite">Please select your current Rotary
+              affiliation. If you are not a current Rotarian or Rotaractor, please select "Non-Rotarian."</span>
             <input id="fkmembertype" type="hidden" name="fkmembertype" value="Active" />
           </div>
         </div>
@@ -76,9 +107,9 @@
             <span id="ClubLocDiv"></span>
             <input id="fkdistrict" type="hidden" name="fkdistrict" />
             <input id="fkclubname" type="hidden" name="fkclubname" />
-            <input id="Region" 			type="hidden" name="Region" 		value="0">
-            <input id="RegionName" 		type="hidden" name="RegionName" 	value="">
-            <input id="ClubID" 			type="hidden" name="ClubID" 		value="989153">
+            <input id="Region" type="hidden" name="Region" value="0">
+            <input id="RegionName" type="hidden" name="RegionName" value="">
+            <input id="ClubID" type="hidden" name="ClubID" value="989153">
           </div>
         </div>
       </fieldset>
@@ -147,8 +178,8 @@
             <div class="input-group">
               <input type="radio" id="mcy_502" name="MCY" value="502|15|1" />
               <label for="mcy_502">1-Year Membership ($15.00 USD)</label>
+            </div>
           </div>
-        </div>
       </fieldset>
       <!-- !SECTION: Membership Type -->
       <!-- SECTION: Privacy and Disclosure -->
@@ -156,9 +187,14 @@
         <legend>Privacy and Disclosure</legend>
         <div class="form-row one-column">
           <div class="form-group">
-            <p>This site and our membership management system vendor, Member Minder Pro, LLC <em>(dba iMembersDB)</em>, collects your personal information in order to process your online application for membership. </p>
-            <p>The Registrant authorizes the collection and use of personal information about the Registrant for the purpose of receiving communications and the purposes described in the policies relating to data privacy as stated in the privacy policy linked to in the site footer below.</p>
-            <p>Permission may be withdrawn at any time by contacting the site's privacy officer at any time at the contact information listed in the posted privacy policy. Please check the <em>"I Consent"</em> checkbox below to allow us to collect, use, and disclose your personal information as described above.</p>
+            <p>This site and our membership management system vendor, Member Minder Pro, LLC <em>(dba iMembersDB)</em>,
+              collects your personal information in order to process your online application for membership. </p>
+            <p>The Registrant authorizes the collection and use of personal information about the Registrant for the
+              purpose of receiving communications and the purposes described in the policies relating to data privacy as
+              stated in the privacy policy linked to in the site footer below.</p>
+            <p>Permission may be withdrawn at any time by contacting the site's privacy officer at any time at the
+              contact information listed in the posted privacy policy. Please check the <em>"I Consent"</em> checkbox
+              below to allow us to collect, use, and disclose your personal information as described above.</p>
             <div class="consent-affirmation input-group">
               <input id="Consent" type="checkbox" name="Consent" value="1" required aria-required="true" />
               <label for="Consent">I Consent</label>
