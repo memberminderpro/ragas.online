@@ -6,8 +6,10 @@ const mmpFormOptions = {
     account_ID: 10651,
     BID: 1065,
     ClubID: 989306,
-    account_email: "wash-rag@rmoore.dev",
+    account_email: "mmp-custom-form@rmoore.dev",
     default_member_type_id: 938,
     membership_cost: 25,
-    term: 1
+    term: 1,
+    showRegion: 0,
+    region_label: "Region"
 };
