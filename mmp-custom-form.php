@@ -9,6 +9,22 @@
  * Domain Path: /languages
  */
 
+// Prevent WordPress from attempting to load translations for this plugin
+add_filter('load_textdomain_mofile', function($mofile, $domain) {
+    if ($domain === 'mmp-custom-form') {
+        return false;
+    }
+    return $mofile;
+}, 10, 2);
+
+// Also prevent just-in-time loading of translations
+add_filter('plugin_locale', function($locale, $domain) {
+    if ($domain === 'mmp-custom-form') {
+        return 'en_US';
+    }
+    return $locale;
+}, 10, 2);
+
 function set_mmpcf_plugin_version()
 {
     if (!function_exists('get_plugin_data')) {
