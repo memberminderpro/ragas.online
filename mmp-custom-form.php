@@ -5,18 +5,9 @@
  * Description: A custom HTML form with multi-vendor captcha integration support
  * Version: 1.2.14
  * Author: Member Minder Pro, LLC
+ * Text Domain: mmp-custom-form
+ * Domain Path: /languages
  */
-
-add_action('init', function() {
-    if (defined('WP_DEBUG') && WP_DEBUG) {
-        add_action('load_textdomain', function($domain) {
-            if ($domain === 'mmp-custom-form') {
-                error_log('MMP Custom Form textdomain loaded from:');
-                error_log(print_r(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS), true));
-            }
-        });
-    }
-});
 
 function set_mmpcf_plugin_version()
 {
