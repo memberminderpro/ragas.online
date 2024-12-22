@@ -30,7 +30,10 @@ if (!defined('MMPCF_PLUGIN_DIR')) {
     define('MMPCF_PLUGIN_DIR', plugin_dir_path(__FILE__));
 }
 
-wp_enqueue_script("jquery");
+function mmpcf_enqueue_scripts() {
+    wp_enqueue_script("jquery");
+}
+add_action('wp_enqueue_scripts', 'mmpcf_enqueue_scripts');
 
 // Create a settings page for the plugin
 require_once MMPCF_PLUGIN_DIR . 'inc/admin-page.php';
