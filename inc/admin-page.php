@@ -189,22 +189,9 @@ function mmp_custom_form_recaptcha_secret_key_render()
 function mmp_custom_form_account_id_render()
 {
     $options = get_option('mmp_custom_form_settings');
-    
-    // First check for a manually entered AccountID
-    $value = isset($options['AccountID']) && !empty($options['AccountID']) 
-        ? esc_attr($options['AccountID']) 
-        : '';
-    
-    // If no manual entry exists, try to get dacdb_district
-    if (empty($value)) {
-        $dacdb_options = get_option('dacdbplus_options');
-        $value = isset($dacdb_options['dacdb_district']) ? esc_attr($dacdb_options['dacdb_district']) : '';
-    }
+    $value = isset($options['AccountID']) ? esc_attr($options['AccountID']) : '';
 ?>
     <input type='text' name='mmp_custom_form_settings[AccountID]' value='<?php echo $value; ?>' placeholder="e.g., 12345">
-    <?php if (empty($options['AccountID']) && !empty($value)) : ?>
-        <p class="description">Using District ID from DACdb Plus. Enter a different value to override.</p>
-    <?php endif; ?>
 <?php
 }
 
