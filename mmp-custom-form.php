@@ -3,9 +3,28 @@
 /**
  * Plugin Name: MMP Custom Form
  * Description: A custom HTML form with multi-vendor captcha integration support
- * Version: 1.2.13.2
+ * Version: 1.2.14.beta1
  * Author: Member Minder Pro, LLC
+ * Text Domain: mmp-custom-form
+ * Domain Path: /languages
  */
+
+// Prevent WordPress from attempting to load translations for this plugin
+add_filter('load_textdomain_mofile', function($mofile, $domain) {
+    if ($domain === 'mmp-custom-form') {
+        return false;
+    }
+    return $mofile;
+}, 10, 2);
+
+// Also prevent just-in-time loading of translations
+add_filter('plugin_locale', function($locale, $domain) {
+    if ($domain === 'mmp-custom-form') {
+        return 'en_US';
+    }
+    return $locale;
+}, 10, 2);
+
 
 function set_mmpcf_plugin_version()
 {
@@ -30,7 +49,12 @@ if (!defined('MMPCF_PLUGIN_DIR')) {
     define('MMPCF_PLUGIN_DIR', plugin_dir_path(__FILE__));
 }
 
-wp_enqueue_script("jquery");
+function mmpcf_enqueue_scripts() {
+    wp_enqueue_script("jquery");
+}
+add_action('wp_enqueue_scripts', 'mmpcf_enqueue_scripts');
+
+
 
 // Create a settings page for the plugin
 require_once MMPCF_PLUGIN_DIR . 'inc/admin-page.php';
