@@ -33,18 +33,30 @@ $(document).ready(function () {
     // Handle changes to club type and update relevant fields
     $("#fkclubtype").change(function () {
       var mt = $(this).val();
+      var urlParams = new URLSearchParams(window.location.search);
+      var $mtid = urlParams.get('mtid');
+
       switch (mt) {
         case "Rotary Club":
           $('input[name="MemberCategoryIDs"][value="390"]').prop("checked", true);
           $('input[name="MemberCategoryIDs"][value="388"]').prop("checked", false);
+          // Only set default membership if no mtid in URL
+          if (!$mtid) {
+            $("#mcy_938").prop("checked", true);
+          }
           break;
         case "Rotaract Club":
           $('input[name="MemberCategoryIDs"][value="388"]').prop("checked", true);
           $('input[name="MemberCategoryIDs"][value="390"]').prop("checked", false);
+          $("#mcy_935").prop("checked", true); // Always force Rotaract membership option
           break;
         case "Non-Rotarian":
           $('input[name="MemberCategoryIDs"][value="388"]').prop("checked", false);
           $('input[name="MemberCategoryIDs"][value="390"]').prop("checked", false);
+          // Only set default membership if no mtid in URL
+          if (!$mtid) {
+            $("#mcy_938").prop("checked", true);
+          }
           break;
       }
     });
