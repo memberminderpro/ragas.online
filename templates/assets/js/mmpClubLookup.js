@@ -24,6 +24,7 @@ $(document).ready(function () {
     $('.CountryLookup').on('select2:select', function (e) {
       var data = e.params.data;
       $("#CountryCode").val(data.id);
+      $("#fkcountry").val(data.id);
       if (data.cnt === 0) {
         $("#staterow").hide();
         $("#clubrow").show();
@@ -131,9 +132,14 @@ $(document).ready(function () {
           dataType: 'json',
           quietMillis: 100,
           data: function (params) {
-            var countrycode = $("#CountryCode").val();
+            var countrycode = $("#fkcountry").val() || $("#CountryCode").val();
             var statecode = $("#stateprov").val();
             var orgtype = $("#fkclubtype").val();
+            
+            console.log("Country Code:", countrycode);
+            console.log("State Code:", statecode);
+            console.log("Org Type:", orgtype);
+
             var query = {
               CountryCode: countrycode,
               StateCode: statecode,
