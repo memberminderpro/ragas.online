@@ -15,7 +15,7 @@ $(document).ready(function () {
           $('input[name="MemberCategoryIDs"][value="390"]').prop('checked', false);
           break;
         case 'Non-Rotarian':
-          $("#countryrow").hide();
+          $("#countryrow").show();
           $("#fkmembertype").val("Non-Rotarian");
           break;
       }
@@ -23,13 +23,20 @@ $(document).ready(function () {
   
     $('.CountryLookup').on('select2:select', function (e) {
       var data = e.params.data;
+      var selectedClubType = $('#fkclubtype').val();
+      
       $("#CountryCode").val(data.id);
       $("#fkcountry").val(data.id);
-      if (data.cnt === 0) {
+      
+      if (data.cnt === 0 && selectedClubType !== "Non-Rotarian") {
         $("#staterow").hide();
         $("#clubrow").show();
-      } else {
+      } else if (data.cnt > 0) {
         $("#staterow").show();
+        $("#clubrow").hide();
+      } else {
+        $("#staterow").hide();
+        $("#clubrow").hide();
       }
     });
   
@@ -72,7 +79,9 @@ $(document).ready(function () {
       var data = e.params.data;
       $("#StateCode").val(data.id);
       $("#fkstateprov").val(data.text);
-      if (data.selected === true) {
+      var selectedClubType = $('#fkclubtype').val();
+      
+      if (data.selected === true && selectedClubType !== "Non-Rotarian") {
         $("#clubrow").show();
         initializeClubLookup();
       } else {
